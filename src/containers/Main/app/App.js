@@ -18,72 +18,13 @@ import MainRoutes             from '../../../routes/MainRoutes';
 
 class App extends Component {
     static propTypes = {
-        // react-router 4:
-        match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired,
 
-        actions: PropTypes.shape({
-            disconnectUser: PropTypes.func.isRequired,
-            errorBadRequest: PropTypes.func.isRequired,
-            fetchUserInfoDataIfNeeded: PropTypes.func.isRequired,
-            resetAuctionStates: PropTypes.func.isRequired,
-            searchAuctionByKeyword: PropTypes.func.isRequired,
-            updateKeyword: PropTypes.func.isRequired,
-        }),
-
-        isAuthenticated: PropTypes.bool.isRequired,
-        nickname: PropTypes.string,
-        avatar: PropTypes.string,
-        errorStatus: PropTypes.number,
-        // uid:  PropTypes.number,
-        // coin: PropTypes.number,
-        // point: PropTypes.number,
     };
 
-    // #region lifecycle methods
-    componentDidMount() {
-        const {
-            actions: {
-                fetchUserInfoDataIfNeeded,
-            }
-        } = this.props;
-
-        fetchUserInfoDataIfNeeded();
-    }
-
     render() {
-        const {
-            actions: {
-                disconnectUser,
-                resetAuctionStates,
-                searchAuctionByKeyword,
-                updateKeyword,
-            },
-            act,
-            filterTypeAuction,
-            filterName,
-            pageNumberAuction,
-            keyword,
-            history,
-            nickname,
-            avatar,
-            isAuthenticated,
-            uid,
-            coin,
-            point,
-        } = this.props;
-
-        const filter = {
-          type: filterTypeAuction,
-          name: filterName,
-        };
-
         return (
             <div>
-                <Header isAuthenticated={isAuthenticated} onClick={disconnectUser} image={avatar} username={nickname} updateKeyword={updateKeyword} searchAuctionByKeyword={searchAuctionByKeyword} resetAuctionStates={resetAuctionStates} keyword={keyword} pageNumberAuction={pageNumberAuction} history={history} filter={filter} act={act}
-                        uid={uid} coin={coin} point={point}
-                />
+                <Header />
                 <MainRoutes/>
                 <Footer copyright="© Copyright 2018 Tokubuy, Inc. All Rights Reserved">
                     <InforFooter title={'Get to Know Us'}>
