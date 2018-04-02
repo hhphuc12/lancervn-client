@@ -12,7 +12,7 @@ import {
     ScrollTop,
     // PrivateRoute
 }                               from './components';
-import { DashBoard }            from './containers/dashBoard';
+import { Main }            from './containers/main';
 
 const store = configureStore();
 
@@ -31,7 +31,7 @@ class App extends Component<Props, State> {
                     <ConnectedRouter history={history}>
                         <ScrollTop>
                             <Switch>
-                                <DashBoard />
+                                <Main />
                             </Switch>
                         </ScrollTop>
                     </ConnectedRouter>
