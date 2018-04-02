@@ -82,3 +82,7 @@
   color: #1ba849;
   text-align: center;
 }
+
+.my-text-inline {
+  display: inline-block;
+}
