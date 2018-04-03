@@ -8,10 +8,10 @@ import RootRoutes             from '../../../routes/RootRoutes';
 // #endregion
 
 
-class App extends Component {
+class Main extends Component {
     render() {
         return (<RootRoutes />);
     }
 }
 
-export default App;
+export default Main;
