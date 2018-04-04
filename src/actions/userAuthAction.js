@@ -3,7 +3,7 @@ import auth                   from '../services/auth';
 import { postLogin }          from "../services/api";
 
 import {
-    DISCONNECT_USER,
+    LOG_OUT_USER,
     REQUEST_LOG_USER,
     RECEIVED_LOG_USER,
     ERROR_LOG_USER,
@@ -17,10 +17,10 @@ import moment from "moment";
  * @export
  * @returns {action} action
  */
-export function disconnectUser() {
+export function onLogout() {
     auth.clearAllAppStorage();
     return {
-        type: DISCONNECT_USER
+        type: LOG_OUT_USER
     };
 }
 
@@ -187,55 +187,9 @@ function shouldLogUser(
 //     };
 // };
 //
-// // get user info
-// function getUserInfoData(accessToken) {
-//     return dispatch => {
-//         dispatch(requestUserInfo());
-//         getUserInfo(accessToken)
-//             .then(
-//                 res => {
-//                     if (res.status !== 200)
-//                         return dispatch(errorUserInfo());
-//                     return dispatch(receivedUserInfo(res.data));
-//                 }
-//             )
-//             .catch(
-//                 error => dispatch(errorUserInfo())
-//             );
-//     };
-// };
-//
-// export function fetchUserInfoDataIfNeeded(): (...any) => Promise<any> {
-//     return (
-//         dispatch: (any) => any,
-//         getState: () => boolean
-//     ): any => {
-//         if (shouldGetUserInfo(getState())) {
-//             const accessToken = auth.getToken();
-//             if (accessToken) {
-//                 const isTokenExpired =  auth.isExpiredToken(auth.getToken());
-//                 if (!isTokenExpired)
-//                     return dispatch(getUserInfoData(accessToken));
-//             }
-//             return dispatch(errorUserInfo());
-//         }
-//         return Promise.resolve('already logged in...');
-//     };
-// }
-//
 // export function resetUserStates(time = moment().format()) {
 //     return {
 //         type: RESET_USER_STATES,
 //         time
 //     };
-// }
-//
-// function shouldGetUserInfo(
-//     state: any
-// ): boolean {
-//     const isLogging = state.userAuth.isFetching;
-//     if (isLogging) {
-//         return false;
-//     }
-//     return true;
 // }

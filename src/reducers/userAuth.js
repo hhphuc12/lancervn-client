@@ -3,7 +3,7 @@ import moment                 from 'moment';
 import auth                   from '../services/auth';
 
 import {
-    DISCONNECT_USER,
+    LOG_OUT_USER,
     START_EDIT_PROFILE,
     STOP_EDIT_PROFILE,
     CHECK_IF_USER_IS_AUTHENTICATED,
@@ -32,12 +32,16 @@ const initialState = {
 
     // userInfos
     /* eslint-disable no-mixed-operators */
+    id: user && user.id || '',
+    name: user && user.name || '',
+    phoneNumber: user && user.phoneNumber || '',
     email: user && user.email || '',
+    occupation: user && user.occupation || '',
 
     token: auth.getToken(),
     isAuthenticated: auth.isAuthenticated(),   // authentication status (token based auth)
     isError: false,
-    errorMessage: ''
+    errorMessage: '',
 };
 
 export default function (
@@ -60,22 +64,18 @@ switch (action.type) {
             lastname:        action.user && action.user.lastname   ? action.user.lastname:  initialState.firstname
         };
 
-    case DISCONNECT_USER:
+    case LOG_OUT_USER:
         return {
             ...state,
             actionTime:      currentTime,
             isAuthenticated: false,
             isError:         false,
             token:           initialState.token,
-            id:              initialState.id,
-            uid:             initialState.uid,
-            coin:            initialState.coin,
-            point:           initialState.point,
-            email:           initialState.email,
-            isCheckin:       initialState.isCheckin,
-            nickname:        initialState.nickname,
-            valueCheckin:    initialState.valueCheckin,
-            avatar:          initialState.avatar
+            id: initialState.id,
+            name: initialState.name,
+            phoneNumber: initialState.phoneNumber,
+            email: initialState.email,
+            occupation: initialState.occupation,
         };
 
     // user login (get token and userInfo)

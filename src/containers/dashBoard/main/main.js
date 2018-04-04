@@ -6,6 +6,12 @@ import React, {
 import DashRoutes             from '../../../routes/DashRoutes';
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+
+        this.onLogout = this.onLogout.bind(this);
+    }
+
     componentDidMount() {
         const {
             actions: {
@@ -21,6 +27,17 @@ class Main extends Component {
 
     componentWillUnmount() {
         this.props.actions.leaveDashBoard();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { history } = this.props;
+        if (!nextProps.isAuthenticated)
+            history.push('/login');
+    }
+
+    onLogout(e) {
+        e.preventDefault();
+        this.props.actions.onLogout();
     }
 
     render() {
@@ -150,10 +167,26 @@ class Main extends Component {
                                     </a>
                                 </div>
                             </li>
-                            <li className="nav-item d-none d-lg-block">
-                                <a className="nav-link" href="#">
+                            <li className="nav-item d-none d-lg-block dropdown">
+                                <a className="nav-link count-indicator dropdown-toggle" id="accountDropdown" href="#"
+                                    data-toggle="dropdown" aria-expanded="false">
                                     <img className="img-xs rounded-circle" src="images/faces/face4.jpg" alt=""/>
                                 </a>
+                                <div
+                                    className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                                    aria-labelledby="accountDropdown"
+                                    style={{ marginTop: 8, borderRadius: 4 }}
+                                >
+                                    <a href="#" className="dropdown-item">
+                                        <img className="profile-dropdown-icon" src="images/icons/profile.png" />
+                                        <p className="mb-0 font-weight-normal float-left">Xem hồ sơ cá nhân</p>
+                                    </a>
+                                    <div className="dropdown-divider"/>
+                                    <a href="#" onClick={this.onLogout} className="dropdown-item">
+                                        <img className="profile-dropdown-icon" src="images/icons/log_out.png" />
+                                        <p className="mb-0 font-weight-normal float-left">Đăng xuất</p>
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                         <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
