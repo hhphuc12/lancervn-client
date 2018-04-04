@@ -1,12 +1,18 @@
 // @flow
 import auth                   from '../services/auth';
-import { postLogin }          from "../services/api";
+import {
+    postLogin,
+    postRegister,
+}                             from "../services/api";
 
 import {
     LOG_OUT_USER,
     REQUEST_LOG_USER,
     RECEIVED_LOG_USER,
     ERROR_LOG_USER,
+    REQUEST_REG_USER,
+    RECEIVED_REG_USER,
+    ERROR_REG_USER,
 } from '../constants/userAuthType'
 import moment from "moment";
 
@@ -110,83 +116,82 @@ function shouldLogUser(
     return true;
 }
 
-// function requestRegisterUser(time = moment().format()) {
-//     return {
-//         type:       REQUEST_REG_USER,
-//         isFetching: true,
-//         time
-//     };
-// }
-// function receivedRegisterUser(data, time = moment().format()) {
-//     return {
-//         type:       RECEIVED_REG_USER,
-//         isFetching: false,
-//         data,
-//         time
-//     };
-// }
-// function errorRegisterUser(time = moment().format()) {
-//     return {
-//         type:       ERROR_REG_USER,
-//         isFetching: false,
-//         time
-//     };
-// }
-//
-// export function registerUser(
-//     username: string,
-//     email: string,
-//     password: string,
-//     confirm_password: string,
-// ): (...any) => Promise<any> {
-//     return (
-//         dispatch: (any) => any,
-//         getState: () => boolean,
-//     ): any => {
-//         if(shouldRegUser(getState())) {
-//             return dispatch(regUser(
-//                 username,
-//                 email,
-//                 password,
-//                 confirm_password,
-//             ));
-//         }
-//         return Promise.resolve('already logged in...');
-//     }
-// }
-//
-// function shouldRegUser(
-//     state: any
-// ): boolean {
-//     const isRegistering = state.userAuth.isRegistering;
-//     if (isRegistering) {
-//         return false;
-//     }
-//     return true;
-// }
-//
-// function regUser(
-//     username,
-//     email,
-//     password,
-//     confirm_password,
-// ) {
-//     return dispatch => {
-//         dispatch(requestRegisterUser());
-//         postRegister(
-//             username,
-//             email,
-//             password,
-//             confirm_password,
-//         )
-//             .then(
-//                 data => dispatch(receivedRegisterUser(data)))
-//             .catch(
-//                 error => dispatch(errorRegisterUser(error))
-//             );
-//     };
-// };
-//
+function requestRegisterUser(time = moment().format()) {
+    return {
+        type:       REQUEST_REG_USER,
+        isFetching: true,
+        time
+    };
+}
+function receivedRegisterUser(time = moment().format()) {
+    return {
+        type:       RECEIVED_REG_USER,
+        isFetching: false,
+        time
+    };
+}
+function errorRegisterUser(msg, time = moment().format()) {
+    return {
+        type:       ERROR_REG_USER,
+        isFetching: false,
+        msg,
+        time
+    }
+}
+
+/**
+ *
+ *  user register
+ *
+ * @param {string} name user full name
+ * @param {string} email email
+ * @param {string} password password
+ * @returns {Promise<any>} promised action
+ */
+function regUser(name, email, password) {
+    return dispatch => {
+        dispatch(requestRegisterUser());
+        postRegister(name, email, password)
+            .then(
+                res => {
+                    if(res.status !== 201)
+                        throw res;
+
+                    dispatch(receivedRegisterUser())
+                }
+            )
+            .catch(
+                res => dispatch(errorRegisterUser(res.error.message))
+            );
+    };
+};
+
+export function regUserIfNeed(
+    name: string,
+    email: string,
+    password: string
+): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean
+    ): any => {
+        if (shouldRegUser(getState())) {
+            return dispatch(regUser(name, email, password));
+        }
+        return Promise.resolve('Already registered!');
+    };
+}
+
+function shouldRegUser(
+    state: any
+): boolean {
+    const isRegistering = state.userAuth.isRegistering;
+    if (isRegistering) {
+        return false;
+    }
+    return true;
+}
+
 // export function resetUserStates(time = moment().format()) {
 //     return {
 //         type: RESET_USER_STATES,

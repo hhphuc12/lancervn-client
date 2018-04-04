@@ -8,3 +8,8 @@ export const postLogin = (email, password) => {
     const url = `${API_URI}login`;
     return request.post(url, { email, password });
 };
+
+export const postRegister = (name, email, password) => {
+    const url = `${API_URI}register`;
+    return request.post(url, { name, email, password });
+};

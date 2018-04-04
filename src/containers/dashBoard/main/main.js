@@ -125,7 +125,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="images/faces/face4.jpg" alt="image" className="profile-pic"/>
+                                            <img src="images/faces/face4.jpg" alt="" className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium">David Grey
@@ -140,7 +140,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="images/faces/face2.jpg" alt="image" className="profile-pic"/>
+                                            <img src="images/faces/face2.jpg" alt="" className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium">Tim Cook
@@ -154,7 +154,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="images/faces/face3.jpg" alt="image" className="profile-pic"/>
+                                            <img src="images/faces/face3.jpg" alt="" className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium"> Johnson
@@ -183,7 +183,7 @@ class Main extends Component {
                                     </a>
                                     <div className="dropdown-divider"/>
                                     <a href="#" onClick={this.onLogout} className="dropdown-item">
-                                        <img className="profile-dropdown-icon" src="images/icons/log_out.png" />
+                                        <img className="profile-dropdown-icon" src="images/icons/log_out.png" alt=""/>
                                         <p className="mb-0 font-weight-normal float-left">Đăng xuất</p>
                                     </a>
                                 </div>
@@ -201,7 +201,7 @@ class Main extends Component {
                             <li className="nav-item nav-profile">
                                 <div className="nav-link">
                                     <div className="profile-image">
-                                        <img src="images/faces/face4.jpg" alt="image"/>
+                                        <img src="images/faces/face4.jpg" alt=""/>
                                         <span className="online-status online"/>
                                     </div>
                                     <div className="profile-name">
@@ -293,7 +293,7 @@ class Main extends Component {
                         <footer className="footer">
                             <div className="container-fluid clearfix">
                                 <span className="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 <a
-                                    href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+                                    href="http://www.bootstrapdash.com/" target="_blank" rel="noopener noreferrer">Bootstrapdash</a>. All rights reserved.</span>
                                 <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
                                     className="mdi mdi-heart text-danger"/></span>
                             </div>

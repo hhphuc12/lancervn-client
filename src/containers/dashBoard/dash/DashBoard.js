@@ -1,9 +1,7 @@
 // @flow strong
 
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {Field, reduxForm} from 'redux-form';
+import { reduxForm} from 'redux-form';
 
 class DashBoard extends PureComponent<Props, State> {
     render() {

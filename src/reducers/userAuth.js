@@ -4,19 +4,13 @@ import auth                   from '../services/auth';
 
 import {
     LOG_OUT_USER,
-    START_EDIT_PROFILE,
-    STOP_EDIT_PROFILE,
     CHECK_IF_USER_IS_AUTHENTICATED,
     ERROR_LOG_USER,
     RECEIVED_LOG_USER,
     REQUEST_LOG_USER,
     RECEIVED_REG_USER,
     REQUEST_REG_USER,
-    ERROR_LOG_PLATFORM,
-    RECEIVED_USER_INFO,
-    REQUEST_USER_INFO,
-    ERROR_USER_INFO,
-    RESET_USER_STATES,
+    ERROR_REG_USER,
 } from '../constants/userAuthType'
 import { userDataKey } from "../constants/common";
 
@@ -28,6 +22,8 @@ const initialState = {
     // actions details
     isFetching:      false,
     isLogging:       false,
+    isRegistering:   false,
+    isRegistered:    false,
     time:            '',
 
     // userInfos
@@ -111,6 +107,35 @@ switch (action.type) {
             actionTime:         currentTime,
             isAuthenticated:    false,
             isLogging:          false,
+            isError:            true,
+            errorMessage:       action && action.msg,
+        };
+
+    // user login (get token and userInfo)
+    case REQUEST_REG_USER:
+        return {
+            ...state,
+            actionTime: currentTime,
+            isRegistering:  true
+        };
+
+    case RECEIVED_REG_USER:
+        return {
+            ...state,
+            actionTime:      currentTime,
+            isRegistered:    true,
+            isRegistering:   false,
+            isLogging:       false,
+            isError:         false,
+            errorMessage: '',
+        };
+
+    case ERROR_REG_USER:
+        return {
+            ...state,
+            actionTime:         currentTime,
+            isRegistered:       false,
+            isRegistering:      false,
             isError:            true,
             errorMessage:       action && action.msg,
         };
