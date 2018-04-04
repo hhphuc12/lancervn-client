@@ -86,3 +86,9 @@
 .my-text-inline {
   display: inline-block;
 }
+
+.profile-dropdown-icon {
+  width: 18px;
+  height: auto;
+  margin-right: 5px;
+}

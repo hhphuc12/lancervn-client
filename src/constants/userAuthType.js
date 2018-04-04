@@ -4,7 +4,7 @@
  * User Auth Constants
  *=================================================================================================
  */
-export const DISCONNECT_USER:                string = 'DISCONNECT_USER';
+export const LOG_OUT_USER:                   string = 'LOG_OUT_USER';
 export const START_EDIT_PROFILE:             string = 'START_EDIT_PROFILE';
 export const STOP_EDIT_PROFILE:              string = 'STOP_EDIT_PROFILE';
 export const REQUEST_LOG_USER:               string = 'REQUEST_LOG_USER';

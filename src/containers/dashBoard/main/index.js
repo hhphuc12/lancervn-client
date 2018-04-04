@@ -8,6 +8,7 @@ import {
 import { withRouter }           from 'react-router';
 import * as viewsActions        from '../../../actions/viewAction';
 import * as errorActions        from '../../../actions/errorActions';
+import * as userAuthActions     from '../../../actions/userAuthAction';
 import Main                     from './main';
 
 const mapStateToProps = (state) => {
@@ -23,10 +24,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         actions : bindActionCreators(
             {
-                // views:
                 ...viewsActions,
-                // error:
-                ...errorActions
+                ...userAuthActions,
+                ...errorActions,
             },
             dispatch
         )

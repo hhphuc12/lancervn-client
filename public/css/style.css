@@ -9637,7 +9637,7 @@ tbody.collapse.show {
   .dropdown-item:hover, .dropdown-item:focus {
     color: #16181b;
     text-decoration: none;
-    background-color: #f8f9fa; }
+    background-color: #f1f6ff; }
   .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
@@ -15537,6 +15537,7 @@ select.form-control {
 
 .auth .auth-form-light {
   background: #ffffff;
+  border-radius: 0.1875rem;
   color: #000; }
   .auth .auth-form-light .form-control {
     border-color: rgba(0, 0, 0, 0.2);
