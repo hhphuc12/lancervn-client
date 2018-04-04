@@ -16,7 +16,6 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.userAuth.isAuthenticated,
         isError:         state.userAuth.isError,
         errorMessage:    state.userAuth.errorMessage,
-        isFetching:      state.userAuth.isFetching,
         isLogging:       state.userAuth.isLogging,
 
         // redux form
@@ -25,17 +24,16 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(
-        {
-            // containers:
-            ...viewsActions,
-            // userAuth:
-            ...userAuthActions,
-            // error:
-            ...errorActions
-        },
-        dispatch
-    );
+    return {
+        actions : bindActionCreators(
+            {
+                ...viewsActions,
+                ...userAuthActions,
+                ...errorActions,
+            },
+            dispatch
+        )
+    };
 };
 
 export default connect(

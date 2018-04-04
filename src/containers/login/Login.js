@@ -2,16 +2,9 @@
 
 // #region imports
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
 import {validate} from './validation';
-
-type State = {
-    username: string,
-    password: string,
-    isOK: boolean
-};
 
 class Login extends PureComponent<Props, State> {
     constructor(props) {
@@ -19,39 +12,22 @@ class Login extends PureComponent<Props, State> {
         this.renderField = this.renderField.bind(this);
     }
 
-    static propTypes = {
-        history: PropTypes.object.isRequired,
-
-        currentView: PropTypes.string.isRequired,
-        enterLogin: PropTypes.func.isRequired,
-        leaveLogin: PropTypes.func.isRequired,
-        errorBadRequest: PropTypes.func.isRequired,
-
-        isAuthenticated: PropTypes.bool,
-        isError: PropTypes.bool,
-        errorMessage: PropTypes.string,
-        isLogging: PropTypes.bool,
-        logUserIfNeed: PropTypes.func.isRequired,
-    };
-
     static defaultProps = {
-        isLogging: true
+        isLogging: false
     };
 
     state = {
-        username: '',
+        email: '',
         password: '',
         isOK: true
     };
 
     componentDidMount() {
-        const {enterLogin} = this.props;
-        enterLogin();
+        this.props.actions.enterLogin();
     }
 
     componentWillUnmount() {
-        const {leaveLogin} = this.props;
-        leaveLogin();
+        this.props.actions.leaveLogin();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,9 +35,9 @@ class Login extends PureComponent<Props, State> {
         if (nextProps.isAuthenticated)
             history.push('/dashboard');
         if (nextProps.syncValidation && !nextProps.syncValidation.syncErrors) {
-            this.setState({isOK: false});
+            this.setState({ isOK: false });
         } else {
-            this.setState({isOK: true});
+            this.setState({ isOK: true });
         }
     }
 
@@ -90,7 +66,7 @@ class Login extends PureComponent<Props, State> {
         if (event) {
             event.preventDefault();
         }
-        const {logUserIfNeed, errorBadRequest} = this.props;
+        const {logUserIfNeed, errorBadRequest} = this.props.actions;
         const {email, password} = this.state;
         try {
             logUserIfNeed(email, password);
@@ -110,7 +86,7 @@ class Login extends PureComponent<Props, State> {
         }
         const {history} = this.props;
         history.push({pathname: '/'});
-    }
+    };
 
     render() {
         const {email, password, isOK} = this.state;
@@ -128,21 +104,19 @@ class Login extends PureComponent<Props, State> {
                                     }
                                     <form className="pt-5">
                                         <Field
-                                            name="email"
                                             id="email"
                                             type="email"
                                             name="email"
                                             label="Email"
                                             component={this.renderField}
-                                            icon="mdi-account"
+                                            icon="mdi-email"
                                             fieldValue={email}
                                         />
                                         <Field
-                                            name="password"
                                             id="password"
                                             type="password"
                                             name="password"
-                                            label="Password"
+                                            label="Mật khẩu"
                                             component={this.renderField}
                                             icon="mdi-eye"
                                             fieldValue={password}

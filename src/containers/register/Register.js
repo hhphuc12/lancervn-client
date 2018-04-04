@@ -1,48 +1,10 @@
 // @flow strong
 
 // #region imports
-import React, { PureComponent } from 'react';
-import PropTypes                from 'prop-types';
-import { Field, reduxForm }     from 'redux-form';
-import {Link}                   from 'react-router-dom';
-import { validate }             from './validation';
-// import auth                  from '../../services/auth';
-// #endregion
-
-// #region flow types
-type Props = {
-    // react-router 4:
-    match: any,
-    location: any,
-    history: any,
-
-    // containers props:
-    currentView: string,
-    errorMessage: string,
-    enterRegister: () => void,
-    leaveRegister: () => void,
-
-    // userAuth:
-    isAuthenticated: boolean,
-    isError: boolean,
-    isFetching: boolean,
-    isRegistering: boolean,
-    registerUser: (
-        username: string,
-        email: string,
-        password: string,
-        confirm_password: string,
-    ) => any,
-};
-
-type State = {
-    username: string,
-    email: string,
-    password: string,
-    confirmPassword: string,
-    isOK: boolean
-};
-// #endregion
+import React, {PureComponent} from 'react';
+import {Link} from 'react-router-dom';
+import {Field, reduxForm} from 'redux-form';
+import {validate} from './validation';
 
 class Register extends PureComponent<Props, State> {
     constructor(props) {
@@ -50,65 +12,30 @@ class Register extends PureComponent<Props, State> {
         this.renderField = this.renderField.bind(this);
     }
 
-    // #region propTypes
-    static propTypes = {
-        // react-router 4:
-        match:            PropTypes.object.isRequired,
-        location:         PropTypes.object.isRequired,
-        history:          PropTypes.object.isRequired,
-
-        // containers props:
-        currentView:      PropTypes.string.isRequired,
-        enterRegister:    PropTypes.func.isRequired,
-        leaveRegister:    PropTypes.func.isRequired,
-        errorBadRequest:  PropTypes.func.isRequired,
-
-        // userAuth:
-        isAuthenticated:  PropTypes.bool,
-        isAccountCreated: PropTypes.bool,
-        isError:          PropTypes.bool,
-        errorMessage:     PropTypes.string,
-        isFetching:       PropTypes.bool,
-        isRegistering:    PropTypes.bool,
-        registerUser:     PropTypes.func.isRequired,
-
-    };
-    // #endregion
-
     static defaultProps = {
-        isFetching:      false,
-        isRegistering:   true
+        isRegistering: false,
     };
 
     state = {
-        username:         '',
-        email:            '',
-        password:         '',
-        confirmPassword:  '',
-        isSuccess:        false,
-        isOK:             true
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        isOK: true
     };
 
-
-    // #region lifecycle methods
     componentDidMount() {
-        const { enterRegister, history, isAuthenticated} = this.props;
-        if(isAuthenticated) {
-            history.push('/');
-        }
-        else {
-            enterRegister();
-        }
+        this.props.actions.enterRegister();
     }
 
     componentWillUnmount() {
-        const { leaveRegister } = this.props;
-        leaveRegister();
+        this.props.actions.leaveRegister();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isAccountCreated)
-            this.setState({ isSuccess: true });
+        const {history} = this.props;
+        if (nextProps.isRegistered)
+            history.push('/login');
         if (nextProps.syncValidation && !nextProps.syncValidation.syncErrors) {
             this.setState({ isOK: false });
         } else {
@@ -116,26 +43,55 @@ class Register extends PureComponent<Props, State> {
         }
     }
 
-    renderField = ({ input, placeholder, type, fieldValue, trans, icon, meta: { touched, error, warning } }) => {
+    renderField = ({input, label, id, type, fieldValue, icon, meta: {touched, error, warning}}) => {
         return (
             <div className="form-group">
+                <label htmlFor={id}>{label}</label>
                 <input
                     {...input}
-                    placeholder={placeholder}
                     type={type}
-                    className={`form-control has-icon ${icon}`}
-                    id={trans(placeholder)}
+                    className={'form-control'}
+                    id={id}
                     value={fieldValue}
-                    onChange={e => this.setState({ [input.name]: e.target.value.trim() })}
+                    onChange={e => this.setState({[input.name]: e.target.value.trim()})}
                 />
-                {touched && ((error && <span className="text-danger">{trans(error)}</span>) ||
-                    (warning && <span className="text-danger">{trans(warning)}</span>))}
+                <i className={`mdi ${icon}`}/>
+                {touched && ((error && <label className="text-danger">{`* ${error}`}</label>) ||
+                    (warning && <label className="text-danger">{`* ${warning}`}</label>))}
             </div>
         )
     };
 
+    onRegister = async (
+        event: SyntheticEvent<>
+    ) => {
+        if (event) {
+            event.preventDefault();
+        }
+        const { regUserIfNeed, errorBadRequest } = this.props.actions;
+        const { name, email, password } = this.state;
+        try {
+            regUserIfNeed(name, email, password);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('register went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+    };
+
+    goHome = (
+        event: SyntheticEvent<>
+    ) => {
+        if (event) {
+            event.preventDefault();
+        }
+        const {history} = this.props;
+        history.push({pathname: '/'});
+    };
+
     render() {
-        const { username, email, password, confirmPassword, isOK, isSuccess } = this.state;
+        const { name, email, password, confirmPassword, isOK } = this.state;
         const { isRegistering, isError, errorMessage } = this.props;
         return (
             <div className="container-scroller">
@@ -145,41 +101,68 @@ class Register extends PureComponent<Props, State> {
                             <div className="col-lg-4 mx-auto">
                                 <div className="auth-form-light text-left p-5">
                                     <h2>Đăng ký</h2>
-                                    <form className="pt-4">
-                                        <form>
-                                            <div className="form-group">
-                                                <label htmlFor="exampleInputEmail1">Email</label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                                       aria-describedby="emailHelp"/>
-                                                <i className="mdi mdi-account" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="exampleInputPassword1">Mật khẩu</label>
-                                                <input type="password" className="form-control" id="exampleInputPassword1" />
-                                                <i className="mdi mdi-eye" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="exampleInputPassword2">Nhập lại mật khẩu</label>
-                                                <input type="password" className="form-control" id="exampleInputPassword2" />
-                                                <i className="mdi mdi-eye" />
-                                            </div>
-                                            <div className="mt-2 w-75 mx-auto">
-                                                <div className="form-check form-check-flat">
-                                                    <label className="form-check-label">
-                                                        <input type="checkbox" className="form-check-input" />
-                                                        Tôi đã đọc kỹ và đồng ý với điều khoản sử dụng của LancerVN
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div className="mt-5">
-                                                <a className="btn btn-block btn-primary btn-lg font-weight-medium"
-                                                   href="../../index.html">Register</a>
-                                            </div>
-                                            <div className="mt-3 text-center">
-                                                {'Bạn đã có tài khoản? '}
-                                                <Link to='/login' className="auth-link text-black">Đăng nhập</Link>
-                                            </div>
-                                        </form>
+                                    {
+                                        isError ? <label className="text-danger">{`* ${errorMessage}`}</label> : null
+                                    }
+                                    <form className="pt-5">
+                                        <Field
+                                            id="name"
+                                            type="text"
+                                            name="name"
+                                            label="Họ tên"
+                                            component={this.renderField}
+                                            icon="mdi-account"
+                                            fieldValue={name}
+                                        />
+                                        <Field
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            label="Email"
+                                            component={this.renderField}
+                                            icon="mdi-email"
+                                            fieldValue={email}
+                                        />
+                                        <Field
+                                            id="password"
+                                            type="password"
+                                            name="password"
+                                            label="Mật khẩu"
+                                            component={this.renderField}
+                                            icon="mdi-eye"
+                                            fieldValue={password}
+                                        />
+                                        <Field
+                                            id="confirm-password"
+                                            type="password"
+                                            name="confirmPassword"
+                                            label="Nhập lại mật khẩu"
+                                            component={this.renderField}
+                                            icon="mdi-eye"
+                                            fieldValue={confirmPassword}
+                                        />
+                                        <div className="mt-5">
+                                            <button
+                                                className="btn btn-block btn-primary btn-lg font-weight-medium"
+                                                onClick={this.onRegister}
+                                                disabled={isOK || isRegistering}
+                                            >
+                                                {
+                                                    isRegistering ?
+                                                        <span>
+                                                            <i className="fa fa-spinner fa-pulse fa-fw"/>
+                                                        </span>
+                                                        :
+                                                        <span>
+                                                            Đăng ký
+                                                        </span>
+                                                }
+                                            </button>
+                                        </div>
+                                        <div className="mt-3 text-center">
+                                            {'Bạn đã có tài khoản? '}
+                                            <Link to='/login' className="auth-link text-black">Đăng nhập</Link>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -188,49 +171,6 @@ class Register extends PureComponent<Props, State> {
                 </div>
             </div>
         );
-    }
-    // #endregion
-
-    // #region on login button click callback
-    handlesOnRegister = async (
-        event: SyntheticEvent<>
-    ) => {
-        if (event) {
-            event.preventDefault();
-        }
-        const { registerUser, errorBadRequest } = this.props;
-        const { username, email, password, confirmPassword } = this.state;
-        try {
-            registerUser(username, email, password, confirmPassword);
-        } catch (error) {
-            errorBadRequest();
-            /* eslint-disable no-console */
-            console.log('register went wrong..., error: ', error);
-            /* eslint-enable no-console */
-        }
-    };
-    // #endregion
-
-    // #region on go back home button click callback
-    goHome = (
-        event: SyntheticEvent<>
-    ) => {
-        if (event) {
-            event.preventDefault();
-        }
-        const { history } = this.props;
-        history.push({ pathname: '/' });
-    };
-    // #endregion
-
-    goToLogin = (
-        event: SyntheticEvent<>
-    ) => {
-        if (event) {
-            event.preventDefault();
-        }
-        const { history } = this.props;
-        history.push({ pathname: '/login' });
     }
 }
 

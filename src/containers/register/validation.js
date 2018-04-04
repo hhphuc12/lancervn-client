@@ -1,25 +1,34 @@
 // @flow weak
 export const validate = values => {
     const errors = {};
-    if (!values.username) {
-        errors.username = 'Username is required';
-    } else if (values.username.length < 6) {
-        errors.username = 'Username is at least 6 character';
+    const { name, email, password, confirmPassword } = values;
+
+    if (!name) {
+        errors.name = 'Họ tên là bắt buộc';
     }
-    if (!values.email) {
-        errors.email = 'Email is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
+    else if (name.length < 6) {
+        errors.name = 'Họ tên phải chứa ít nhất 6 ký tự';
     }
-    if (!values.password) {
-        errors.password = 'Password is required';
-    } else if (values.password.length < 6) {
-        errors.password = 'Password is at least 6 characters';
+
+    if (!email) {
+        errors.email = 'Địa chỉ email là bắt buộc';
     }
-    if (!values.confirmPassword) {
-        errors.confirmPassword = 'Confirm password is required';
-    } else if (values.password !== values.confirmPassword) {
-        errors.confirmPassword = 'Password and confirm password does not match';
+    else {
+        const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const isEmail = reg.test(email.toLowerCase());
+        if (!isEmail) errors.email = 'Địa chỉ email không hợp lệ';
     }
+
+    if (!password) {
+        errors.password = 'Mật khẩu là bắt buộc';
+    }
+    else if (password.length < 6) {
+        errors.password = 'Mật khẩu phải chứa ít nhất 6 ký tự';
+    }
+
+    if (!confirmPassword || password !== confirmPassword) {
+        errors.confirmPassword = 'Xác nhận mật khẩu không đúng';
+    }
+
     return errors;
 };
