@@ -1,3 +1,3 @@
 // @flow weak
 
-export { default as Main } from './app';
+export { default as Main } from './main';
