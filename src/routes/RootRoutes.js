@@ -9,7 +9,7 @@ import Login                    from '../containers/login';
 import Register                 from '../containers/register';
 import DashBoard                from '../containers/dashBoard';
 
-export const MainRoutes = () => (
+const MainRoutes = () => (
     <Switch>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
