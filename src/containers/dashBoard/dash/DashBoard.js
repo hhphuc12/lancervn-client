@@ -1,7 +1,6 @@
 // @flow strong
 
 import React, {PureComponent} from 'react';
-import { reduxForm} from 'redux-form';
 
 class DashBoard extends PureComponent<Props, State> {
     render() {
@@ -186,6 +185,4 @@ class DashBoard extends PureComponent<Props, State> {
     }
 }
 
-export default reduxForm({
-    form: 'syncValidation',
-})(DashBoard);
+export default DashBoard;

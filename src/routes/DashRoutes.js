@@ -6,11 +6,15 @@ import {
     Switch
 }                               from 'react-router-dom';
 import DashBoard                from '../containers/dashBoard/dash';
+import Test                     from '../containers/dashBoard/test';
+import PageNotFound             from '../containers/pageNotFound';
 
-export const MainRoutes = () => (
+const DashRoutes = () => (
     <Switch>
-        <Route path='/' component={DashBoard} />
+        <Route exact path='/dashboard' component={DashBoard} />
+        <Route path='/dashboard/test' component={Test} />
+        <Route component={PageNotFound} />
     </Switch>
 );
 
-export default MainRoutes;
+export default DashRoutes;

@@ -46,7 +46,7 @@ class Main extends Component {
                 <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style={{ border: 0, borderRadius: 0 }}>
                     <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
                         <a className="navbar-brand brand-logo" href="index.html">
-                            <img src="images/logo.svg" alt="logo" style={{ marginTop: 10 }} />
+                            <img src="/images/logo.svg" alt="logo" style={{ marginTop: 10 }} />
                         </a>
                     </div>
                     <div className="navbar-menu-wrapper d-flex align-items-center">
@@ -125,7 +125,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="images/faces/face4.jpg" alt="" className="profile-pic"/>
+                                            <img src="/images/faces/face4.jpg" alt="" className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium">David Grey
@@ -140,7 +140,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="images/faces/face2.jpg" alt="" className="profile-pic"/>
+                                            <img src="/images/faces/face2.jpg" alt="" className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium">Tim Cook
@@ -154,7 +154,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="images/faces/face3.jpg" alt="" className="profile-pic"/>
+                                            <img src="/images/faces/face3.jpg" alt="" className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium"> Johnson
@@ -170,7 +170,7 @@ class Main extends Component {
                             <li className="nav-item d-none d-lg-block dropdown">
                                 <a className="nav-link count-indicator dropdown-toggle" id="accountDropdown" href="#"
                                     data-toggle="dropdown" aria-expanded="false">
-                                    <img className="img-xs rounded-circle" src="images/faces/face4.jpg" alt=""/>
+                                    <img className="img-xs rounded-circle" src="/images/faces/face4.jpg" alt=""/>
                                 </a>
                                 <div
                                     className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
@@ -178,12 +178,12 @@ class Main extends Component {
                                     style={{ marginTop: 8, borderRadius: 4 }}
                                 >
                                     <a href="#" className="dropdown-item">
-                                        <img className="profile-dropdown-icon" src="images/icons/profile.png" />
+                                        <img className="profile-dropdown-icon" src="/images/icons/profile.png" />
                                         <p className="mb-0 font-weight-normal float-left">Xem hồ sơ cá nhân</p>
                                     </a>
                                     <div className="dropdown-divider"/>
                                     <a href="#" onClick={this.onLogout} className="dropdown-item">
-                                        <img className="profile-dropdown-icon" src="images/icons/log_out.png" alt=""/>
+                                        <img className="profile-dropdown-icon" src="/images/icons/log_out.png" alt=""/>
                                         <p className="mb-0 font-weight-normal float-left">Đăng xuất</p>
                                     </a>
                                 </div>
@@ -201,7 +201,7 @@ class Main extends Component {
                             <li className="nav-item nav-profile">
                                 <div className="nav-link">
                                     <div className="profile-image">
-                                        <img src="images/faces/face4.jpg" alt=""/>
+                                        <img src="/images/faces/face4.jpg" alt=""/>
                                         <span className="online-status online"/>
                                     </div>
                                     <div className="profile-name">
@@ -213,50 +213,50 @@ class Main extends Component {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="index.html">
-                                    <img className="menu-icon" src="images/menu_icons/01.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/01.png" alt="menu icon"/>
                                     <span className="menu-title">Dashboard</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/widgets.html">
-                                    <img className="menu-icon" src="images/menu_icons/02.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/02.png" alt="menu icon"/>
                                     <span className="menu-title">Widgets</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/ui-features/buttons.html">
-                                    <img className="menu-icon" src="images/menu_icons/03.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/03.png" alt="menu icon"/>
                                     <span className="menu-title">Buttons</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/forms/basic_elements.html">
-                                    <img className="menu-icon" src="images/menu_icons/04.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/04.png" alt="menu icon"/>
                                     <span className="menu-title">Form</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/charts/chartjs.html">
-                                    <img className="menu-icon" src="images/menu_icons/05.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/05.png" alt="menu icon"/>
                                     <span className="menu-title">Charts</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/tables/basic-table.html">
-                                    <img className="menu-icon" src="images/menu_icons/06.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/06.png" alt="menu icon"/>
                                     <span className="menu-title">Table</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/icons/font-awesome.html">
-                                    <img className="menu-icon" src="images/menu_icons/07.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
                                     <span className="menu-title">Icons</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" data-toggle="collapse" href="#general-pages"
                                    aria-expanded="false" aria-controls="general-pages">
-                                    <img className="menu-icon" src="images/menu_icons/08.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/08.png" alt="menu icon"/>
                                     <span className="menu-title">General Pages</span>
                                     <i className="menu-arrow"/>
                                 </a>
@@ -282,7 +282,7 @@ class Main extends Component {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/ui-features/typography.html">
-                                    <img className="menu-icon" src="images/menu_icons/09.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/09.png" alt="menu icon"/>
                                     <span className="menu-title">Typography</span>
                                 </a>
                             </li>
