@@ -3,6 +3,7 @@
 import React, {
     Component
 }                             from 'react';
+import { Link }               from 'react-router-dom';
 import DashRoutes             from '../../../routes/DashRoutes';
 
 class Main extends Component {
@@ -14,19 +15,11 @@ class Main extends Component {
 
     componentDidMount() {
         const {
-            actions: {
-                enterDashBoard,
-            },
             history,
             isAuthenticated,
         } = this.props;
-        enterDashBoard();
         if (!isAuthenticated)
             history.push('/login');
-    }
-
-    componentWillUnmount() {
-        this.props.actions.leaveDashBoard();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -149,7 +142,9 @@ class Main extends Component {
                                             <p className="font-weight-light small-text">
                                                 New product launch
                                             </p>
-                                        </div>
+                                        </div>AddCategory.js
+                                        index.js
+                                        validation.js
                                     </a>
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
@@ -177,12 +172,12 @@ class Main extends Component {
                                     aria-labelledby="accountDropdown"
                                     style={{ marginTop: 8, borderRadius: 4 }}
                                 >
-                                    <a href="#" className="dropdown-item">
+                                    <Link to="/dashboard/profile" className="dropdown-item profile-dropdown-item">
                                         <img className="profile-dropdown-icon" src="/images/icons/profile.png" />
                                         <p className="mb-0 font-weight-normal float-left">Xem hồ sơ cá nhân</p>
-                                    </a>
+                                    </Link>
                                     <div className="dropdown-divider"/>
-                                    <a href="#" onClick={this.onLogout} className="dropdown-item">
+                                    <a href="#" onClick={this.onLogout} className="dropdown-item profile-dropdown-item">
                                         <img className="profile-dropdown-icon" src="/images/icons/log_out.png" alt=""/>
                                         <p className="mb-0 font-weight-normal float-left">Đăng xuất</p>
                                     </a>
@@ -212,7 +207,7 @@ class Main extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="index.html">
+                                <a className="nav-link" href="/dashboard">
                                     <img className="menu-icon" src="/images/menu_icons/01.png" alt="menu icon"/>
                                     <span className="menu-title">Dashboard</span>
                                 </a>
@@ -220,70 +215,48 @@ class Main extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/widgets.html">
                                     <img className="menu-icon" src="/images/menu_icons/02.png" alt="menu icon"/>
-                                    <span className="menu-title">Widgets</span>
+                                    <span className="menu-title">Việc đã đăng</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/ui-features/buttons.html">
                                     <img className="menu-icon" src="/images/menu_icons/03.png" alt="menu icon"/>
-                                    <span className="menu-title">Buttons</span>
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="pages/forms/basic_elements.html">
-                                    <img className="menu-icon" src="/images/menu_icons/04.png" alt="menu icon"/>
-                                    <span className="menu-title">Form</span>
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="pages/charts/chartjs.html">
-                                    <img className="menu-icon" src="/images/menu_icons/05.png" alt="menu icon"/>
-                                    <span className="menu-title">Charts</span>
+                                    <span className="menu-title">Việc đã gửi báo giá</span>
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/tables/basic-table.html">
                                     <img className="menu-icon" src="/images/menu_icons/06.png" alt="menu icon"/>
-                                    <span className="menu-title">Table</span>
+                                    <span className="menu-title">Việc đã nhận</span>
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="pages/icons/font-awesome.html">
+                                <a className="nav-link" href="pages/forms/basic_elements.html">
+                                    <img className="menu-icon" src="/images/menu_icons/04.png" alt="menu icon"/>
+                                    <span className="menu-title">Gói công việc</span>
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/dashboard/profile">
+                                    <img className="menu-icon" src="/images/menu_icons/05.png" alt="menu icon"/>
+                                    <span className="menu-title">Thông tin cá nhân</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/dashboard/profile">
+                                    <img className="menu-icon" src="/images/menu_icons/06.png" alt="menu icon"/>
+                                    <span className="menu-title">Hồ sơ công việc</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/dashboard/profile">
                                     <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
-                                    <span className="menu-title">Icons</span>
-                                </a>
+                                    <span className="menu-title">Bảo mật tài khoản</span>
+                                </Link>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" data-toggle="collapse" href="#general-pages"
-                                   aria-expanded="false" aria-controls="general-pages">
-                                    <img className="menu-icon" src="/images/menu_icons/08.png" alt="menu icon"/>
-                                    <span className="menu-title">General Pages</span>
-                                    <i className="menu-arrow"/>
-                                </a>
-                                <div className="collapse" id="general-pages">
-                                    <ul className="nav flex-column sub-menu">
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="pages/samples/blank-page.html">Blank Page</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="pages/samples/login.html">Login</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="pages/samples/register.html">Register</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="pages/samples/error-404.html">404</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="pages/samples/error-500.html">500</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="pages/ui-features/typography.html">
-                                    <img className="menu-icon" src="/images/menu_icons/09.png" alt="menu icon"/>
-                                    <span className="menu-title">Typography</span>
+                            <li className="nav-item purchase-button">
+                                <a className="nav-link" href="https://www.bootstrapdash.com/product/star-admin-pro/" target="_blank">
+                                    Nâng cấp VIP
                                 </a>
                             </li>
                         </ul>

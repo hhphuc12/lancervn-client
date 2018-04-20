@@ -107,3 +107,20 @@ input[type="file"] {
   width: 200px;
   height: 200px;
 }
+
+.profile-dropdown-item {
+  border-bottom: none !important;
+}
+
+.avatar-profile {
+  border-radius: 50% !important;
+  width: 12rem;
+}
+
+.avatar-wrapper {
+  text-align: center;
+}
+
+.form-control:disabled {
+  background-color: #f6f8fa !important;
+}
