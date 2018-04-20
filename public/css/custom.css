@@ -92,3 +92,35 @@
   height: auto;
   margin-right: 5px;
 }
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.avatar-preview {
+  width: 200px;
+  height: 200px;
+}
+
+.profile-dropdown-item {
+  border-bottom: none !important;
+}
+
+.avatar-profile {
+  border-radius: 50% !important;
+  width: 12rem;
+}
+
+.avatar-wrapper {
+  text-align: center;
+}
+
+.form-control:disabled {
+  background-color: #f6f8fa !important;
+}
