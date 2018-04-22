@@ -124,3 +124,12 @@ input[type="file"] {
 .form-control:disabled {
   background-color: #f6f8fa !important;
 }
+
+.card-list-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.job-profile-header-text {
+  margin-top: 0.35rem;
+}
