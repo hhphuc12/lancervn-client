@@ -237,13 +237,13 @@ class Main extends Component {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/dashboard/profile">
+                                <Link className="nav-link" to="/dashboard/info-profile">
                                     <img className="menu-icon" src="/images/menu_icons/05.png" alt="menu icon"/>
                                     <span className="menu-title">Thông tin cá nhân</span>
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/dashboard/profile">
+                                <Link className="nav-link" to="/dashboard/job-profile">
                                     <img className="menu-icon" src="/images/menu_icons/06.png" alt="menu icon"/>
                                     <span className="menu-title">Hồ sơ công việc</span>
                                 </Link>

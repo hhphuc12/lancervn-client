@@ -43,7 +43,7 @@ export function getInfoProfileIfNeed(): (...any) => Promise<any> {
         if(shouldGetInfoProfile(getState())) {
             return dispatch(getInfoProfile());
         }
-        return Promise.resolve('already fetching info profile...');
+        return Promise.resolve('already fetching info infoProfile...');
     }
 }
 
