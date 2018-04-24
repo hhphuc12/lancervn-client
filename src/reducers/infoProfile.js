@@ -3,16 +3,16 @@ import {
     REQUEST_INFO_PROFILE,
     RECEIVED_INFO_PROFILE,
     ERROR_INFO_PROFILE,
-    REQUEST_EDIT_PROFILE,
-    RECEIVED_EDIT_PROFILE,
-    ERROR_EDIT_PROFILE
-} from "../constants/profileType";
+    REQUEST_EDIT_INFO_PROFILE,
+    RECEIVED_EDIT_INFO_PROFILE,
+    ERROR_EDIT_INFO_PROFILE,
+} from "../constants/infoProfileType";
 import moment from "moment/moment";
 
 const initialState = {
     info: {},
     isFetching: false,
-    isSkillAdded: false,
+    isInfoProfileEdited: false,
     isError: false,
     errorMessage: '',
 };
@@ -46,32 +46,32 @@ export default function (
                 isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
             };
 
-        // case REQUEST_ADD_SKILL:
-        //     return {
-        //         ...state,
-        //         actionTime: action && action.time ?  action && action.time : currentTime,
-        //         isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
-        //     };
-        //
-        // case RECEIVED_ADD_SKILL:
-        //     return {
-        //         ...state,
-        //         actionTime: action && action.time ?  action && action.time : currentTime,
-        //         isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
-        //         isSkillAdded: true,
-        //         isError: false,
-        //         errorMessage: '',
-        //     };
-        //
-        // case ERROR_ADD_SKILL:
-        //     return {
-        //         ...state,
-        //         actionTime: action && action.time ?  action && action.time : currentTime,
-        //         isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
-        //         isSkillAdded: false,
-        //         isError: true,
-        //         errorMessage: action && action.msg,
-        //     };
+        case REQUEST_EDIT_INFO_PROFILE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_EDIT_INFO_PROFILE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isInfoProfileEdited: true,
+                isError: false,
+                errorMessage: '',
+            };
+
+        case ERROR_EDIT_INFO_PROFILE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isInfoProfileEdited: false,
+                isError: true,
+                errorMessage: action && action.msg,
+            };
 
         default:
             return { ...state };

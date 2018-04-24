@@ -7,6 +7,8 @@ import ProjectDone from './projectDone';
 import Category from './category';
 import Literacy from './literacy';
 import Language from './language';
+import {postImg} from "../../../services/api";
+import {changePreview} from "../../../helpers";
 
 class Profile extends PureComponent<Props, State> {
     constructor(props) {
@@ -30,16 +32,16 @@ class Profile extends PureComponent<Props, State> {
     componentDidMount() {
         const {
             actions: {
-                enterProfile,
+                enterJobProfile,
                 getInfoProfileIfNeed,
             }
         } = this.props;
-        enterProfile();
+        enterJobProfile();
         getInfoProfileIfNeed();
     }
 
     componentWillUnmount() {
-        this.props.actions.leaveProfile();
+        this.props.actions.leaveJobProfile();
     }
 
     componentWillReceiveProps(nextProps) {

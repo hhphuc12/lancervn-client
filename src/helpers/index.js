@@ -73,7 +73,7 @@ export const changePreview = (image, placeToInsertImagePreview) => {
         let reader = new FileReader();
 
         reader.onload = function(event) {
-            $($.parseHTML('<img class="img-responsive img-thumbnail avatar-preview" alt="">'))
+            $($.parseHTML('<img class="img-responsive img-thumbnail avatar-preview avatar-profile" alt="">'))
                 .attr('src', event.target.result)
                 .prependTo(placeToInsertImagePreview);
         }

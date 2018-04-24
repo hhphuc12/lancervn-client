@@ -7,8 +7,10 @@ import {
     LEAVE_REGISTER_VIEW,
     ENTER_DASHBOARD_VIEW,
     LEAVE_DASHBOARD_VIEW,
-    ENTER_PROFILE_VIEW,
-    LEAVE_PROFILE_VIEW,
+    ENTER_INFO_PROFILE_VIEW,
+    LEAVE_INFO_PROFILE_VIEW,
+    ENTER_JOB_PROFILE_VIEW,
+    LEAVE_JOB_PROFILE_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
@@ -87,19 +89,37 @@ export function leaveRegister(time: string = moment().format()) {
     };
 }
 
-export function enterProfile(time: string = moment().format()) {
+export function enterInfoProfile(time: string = moment().format()) {
     return {
-        type:         ENTER_PROFILE_VIEW,
-        currentView:  'Profile',
+        type:         ENTER_INFO_PROFILE_VIEW,
+        currentView:  'InfoProfile',
         enterTime:    time,
         leaveTime:    null
     };
 }
 
-export function leaveProfile(time: string = moment().format()) {
+export function leaveInfoProfile(time: string = moment().format()) {
     return {
-        type:         LEAVE_PROFILE_VIEW,
-        currentView:  'Profile',
+        type:         LEAVE_INFO_PROFILE_VIEW,
+        currentView:  'InfoProfile',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterJobProfile(time: string = moment().format()) {
+    return {
+        type:         ENTER_JOB_PROFILE_VIEW,
+        currentView:  'JobProfile',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveJobProfile(time: string = moment().format()) {
+    return {
+        type:         LEAVE_JOB_PROFILE_VIEW,
+        currentView:  'JobProfile',
         enterTime:    null,
         leaveTime:    time
     };

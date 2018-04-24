@@ -6,6 +6,10 @@ import {
     LEAVE_REGISTER_VIEW,
     ENTER_DASHBOARD_VIEW,
     LEAVE_DASHBOARD_VIEW,
+    ENTER_INFO_PROFILE_VIEW,
+    LEAVE_INFO_PROFILE_VIEW,
+    ENTER_JOB_PROFILE_VIEW,
+    LEAVE_JOB_PROFILE_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
@@ -25,6 +29,8 @@ export default function views(state: Object = initialState, action: Object) {
         case ENTER_LOGIN_VIEW:
         case ENTER_REGISTER_VIEW:
         case ENTER_DASHBOARD_VIEW:
+        case ENTER_INFO_PROFILE_VIEW:
+        case ENTER_JOB_PROFILE_VIEW:
             // can't enter if you are already inside
             if (state.currentView !== action.currentView) {
                 return {
@@ -40,6 +46,8 @@ export default function views(state: Object = initialState, action: Object) {
         case LEAVE_DASHBOARD_VIEW:
         case LEAVE_REGISTER_VIEW:
         case LEAVE_LOGIN_VIEW:
+        case LEAVE_INFO_PROFILE_VIEW:
+        case LEAVE_JOB_PROFILE_VIEW:
             // can't leave if you aren't already inside
             if (state.currentView === action.currentView) {
                 return {

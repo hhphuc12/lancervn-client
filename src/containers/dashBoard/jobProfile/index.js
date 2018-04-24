@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../actions/viewAction';
 import * as userAuthActions   from '../../../actions/userAuthAction';
-import * as profileActions    from '../../../actions/profileActions';
+import * as profileActions    from '../../../actions/infoProfileActions';
 import Profile                from './Profile';
 import * as errorActions      from "../../../actions/errorActions";
 

@@ -1,7 +1,11 @@
 // @flow weak
 
-import request                         from '../promisedHttpRequest';
-import { userProfile }                 from './profile';
+import request                          from '../promisedHttpRequest';
+import {
+    userProfile,
+    postEditInfoProfile
+}                                       from './infoProfile';
+import { selectProvince }                 from './province';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -22,4 +26,6 @@ export const postImg = (img) => {
 
 export {
     userProfile,
+    postEditInfoProfile,
+    selectProvince,
 }
