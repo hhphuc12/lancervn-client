@@ -3,7 +3,7 @@
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../../actions/viewAction';
-import * as profileActions    from '../../../../actions/profileActions';
+import * as profileActions    from '../../../../actions/infoProfileActions';
 import Experience             from './Experience';
 import * as errorActions      from "../../../../actions/errorActions";
 

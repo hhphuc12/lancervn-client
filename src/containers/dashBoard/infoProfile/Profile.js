@@ -3,14 +3,20 @@
 // #region imports
 import React, {PureComponent} from 'react';
 import {Field, reduxForm} from 'redux-form';
+import 'react-select/dist/react-select.css';
+import Select from 'react-select';
 import {validate} from './validation';
+import { postImg } from "../../../services/api";
+import { changePreview } from "../../../helpers";
 
 class Profile extends PureComponent<Props, State> {
     constructor(props) {
         super(props);
         this.renderField = this.renderField.bind(this);
         this.renderTextArea = this.renderTextArea.bind(this);
-        this.onEnableEdit = this.onEnableEdit.bind(this);
+        this.onEditStatusChange = this.onEditStatusChange.bind(this);
+        this.onSelectAvatar = this.onSelectAvatar.bind(this);
+        this.mapUserInfoToState = this.mapUserInfoToState.bind(this);
     }
 
     static defaultProps = {
@@ -18,35 +24,56 @@ class Profile extends PureComponent<Props, State> {
     };
 
     state = {
-        name: '',
+        avatarUri: '',
+        firstName: '',
+        lastName: '',
+        occupation: '',
+        email: '',
+        address: '',
+        province: '',
+        zipCode: '',
+        phoneNumber: '',
+        skype: '',
         description: '',
         disableEdit: true,
-        isOK: true
     };
 
     componentDidMount() {
         const {
-            actions: {
-                enterProfile,
-                getInfoProfileIfNeed,
-            }
-        } = this.props;
-        enterProfile();
+            enterInfoProfile,
+            getInfoProfileIfNeed,
+            getSelectProvinceIfNeed,
+        } = this.props.actions;
+        enterInfoProfile();
         getInfoProfileIfNeed();
+        getSelectProvinceIfNeed();
+    }
+
+    mapUserInfoToState(info) {
+        this.setState({
+            avatarUri: info.avatarUri,
+            firstName: info.firstName,
+            lastName: info.lastName,
+            occupation: info.occupation,
+            description: info.description,
+            phoneNumber: info.phoneNumber,
+            email: info.email,
+            address: info.address,
+            province: info.province,
+            zipCode: info.zipCode,
+            skype: info.skype,
+        });
     }
 
     componentWillUnmount() {
-        this.props.actions.leaveProfile();
+        this.props.actions.leaveInfoProfile();
     }
 
     componentWillReceiveProps(nextProps) {
-        const {history} = this.props;
-        if (nextProps.isCategoryAdded)
-            history.push('/dashboard/categories');
-        if (nextProps.syncValidation && !nextProps.syncValidation.syncErrors) {
-            this.setState({isOK: false});
-        } else {
-            this.setState({isOK: true});
+        const newInfo = nextProps.info;
+        const oldInfo = this.props.info;
+        if (newInfo !== {} && newInfo !== oldInfo) {
+            this.mapUserInfoToState(newInfo);
         }
     }
 
@@ -88,36 +115,74 @@ class Profile extends PureComponent<Props, State> {
         )
     };
 
-    onAdd = async (
+    onUpdate = async (
         event: SyntheticEvent<>
     ) => {
         if (event) {
             event.preventDefault();
         }
-        const {addCategoryIfNeed, errorBadRequest} = this.props.actions;
-        const {name, description} = this.state;
+        const {editInfoProfileIfNeed, errorBadRequest} = this.props.actions;
+        const {
+            avatarUri,
+            firstName,
+            lastName,
+            occupation,
+            email,
+            address,
+            province,
+            zipCode,
+            phoneNumber,
+            skype,
+            description,
+        } = this.state;
         try {
-            addCategoryIfNeed({
-                name,
+            editInfoProfileIfNeed({
+                avatarUri,
+                firstName,
+                lastName,
+                occupation,
+                email,
+                address,
+                province: province.value,
+                zipCode,
+                phoneNumber,
+                skype,
                 description,
-                isParent: true,
             });
         } catch (error) {
             errorBadRequest();
             /* eslint-disable no-console */
-            console.log('login went wrong..., error: ', error);
+            console.log('update profile went wrong..., error: ', error);
             /* eslint-enable no-console */
         }
+        this.setState({ disableEdit: !this.state.disableEdit });
     };
 
-    onEnableEdit = e => {
+    onEditStatusChange = e => {
         e.preventDefault();
         this.setState({ disableEdit: !this.state.disableEdit });
     };
 
+    async onSelectAvatar(e) {
+        const avatar = e.target.files[0];
+        if (avatar) {
+            changePreview(e.target.files[0], '.image-preview');
+            let formData = new FormData();
+            formData.append("avatar", avatar);
+            try {
+                await postImg(formData)
+                    .then(async res => await this.setState({avatarUri: res.data.imgUri}))
+                    .catch(err => console.log({err}));
+            } catch (error) {
+                console.log('send contact went wrong..., error: ', error);
+            }
+        }
+    }
+
     render() {
-        const {info, isFetching, isError, errorMessage} = this.props;
-        const {
+        const { isFetching, provinces } = this.props;
+        let {
+            avatarUri,
             firstName,
             lastName,
             occupation,
@@ -129,8 +194,29 @@ class Profile extends PureComponent<Props, State> {
             skype,
             description,
             disableEdit,
-            isOK
         } = this.state;
+        const buttonJSX = (
+            <div>
+                <button
+                    className="btn btn-success mr-2"
+                    type="button"
+                    onClick={this.onUpdate}
+                    disabled={isFetching}
+                >
+                    {
+                        isFetching ?
+                            <span>
+                                <i className="fa fa-spinner fa-pulse fa-fw"/>
+                            </span>
+                            :
+                            <span>
+                                Cập nhật
+                            </span>
+                    }
+                </button>
+                <button className="btn btn-light" onClick={this.onEditStatusChange}>Hủy bỏ</button>
+            </div>
+        );
         return (
             <div className="content-wrapper">
                 <div className="row">
@@ -138,16 +224,16 @@ class Profile extends PureComponent<Props, State> {
                         <div className="card">
                             <div className="card-body">
                                 <div className="text-right">
-                                    <a href="#" onClick={this.onEnableEdit}>
+                                    <a href="#" onClick={this.onEditStatusChange}>
                                         <i className="mdi mdi-pen icon-md text-primary"/>
                                     </a>
                                 </div>
                                 <form>
                                     <div className="form-group">
-                                        <div className="image_preview avatar-wrapper">
+                                        <div className="image-preview avatar-wrapper">
                                             <img
                                                 className="img-thumbnail avatar-profile"
-                                                src="https://freelancerviet.vn/tmp2/image/thumbnail/thumb_600x600_BaoCaoLan1_vCNQOb6mcY.jpg"
+                                                src={avatarUri}
                                             />
                                         </div>
                                     </div>
@@ -158,7 +244,7 @@ class Profile extends PureComponent<Props, State> {
                                                 className="form-control file-upload-info"
                                                 disabled
                                                 placeholder="Upload Image"
-                                                value={this.state.imgUri}
+                                                value={avatarUri}
                                             />
                                             <span className="input-group-append">
                                                 <label
@@ -166,11 +252,11 @@ class Profile extends PureComponent<Props, State> {
                                                     className="btn btn-info mr-2"
                                                     style={{paddingTop: 12}}
                                                 >
-                                                    Choose file
+                                                    Chọn hình ảnh
                                                 </label>
                                             </span>
                                         </div>
-                                        <input id="avatar-preview" type="file"/>
+                                        <input id="avatar-preview" type="file" onChange={this.onSelectAvatar} disabled={disableEdit}/>
                                     </div>
                                     <br/>
                                     <h4>Thông tin hồ sơ</h4>
@@ -243,15 +329,17 @@ class Profile extends PureComponent<Props, State> {
                                     />
                                     <br/>
                                     <div className="row">
-                                        <div className="col-md-6">
-                                            <Field
+                                        <div className="col-md-6 form-group">
+                                            <label htmlFor="province">Tỉnh/Thành phố</label>
+                                            <Select
                                                 id="province"
-                                                type="text"
+                                                placeholder=""
+                                                closeOnSelect={true}
                                                 name="province"
-                                                label="Tỉnh/Thành phố"
-                                                component={this.renderField}
-                                                fieldValue={province}
+                                                value={province}
+                                                options={provinces}
                                                 disabled={disableEdit}
+                                                onChange={item => { this.setState({ province: item})}}
                                             />
                                         </div>
                                         <div className="col-md-6">
@@ -292,6 +380,7 @@ class Profile extends PureComponent<Props, State> {
                                         </div>
                                     </div>
                                     <br/>
+                                    { disableEdit ? null : buttonJSX }
                                 </form>
                             </div>
                         </div>
