@@ -67,6 +67,12 @@ export const dateFormatter = (date: string) => {
     return date.substring(0, 10);
 };
 
+export const monthFormater = (date: string) => {
+    if (date === null || date === undefined) return '---';
+    const d = new Date(date);
+    return d.toLocaleString('vi', { month: 'numeric', year: 'numeric' });
+};
+
 export const changePreview = (image, placeToInsertImagePreview) => {
     $(placeToInsertImagePreview + ' img').remove();
     if (image) {

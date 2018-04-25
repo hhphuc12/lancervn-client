@@ -8,6 +8,7 @@ import {
     REQUEST_LIST_EXPERIENCE,
     RECEIVED_LIST_EXPERIENCE,
     ERROR_LIST_EXPERIENCE,
+    RESET_DATA_CHANGE_STATE,
 } from "../constants/experienceType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -134,3 +135,11 @@ function getListExperience() {
             });
     };
 };
+
+export function resetDataChangeState(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+    ): any => {
+        return dispatch({ type: RESET_DATA_CHANGE_STATE });
+    }
+}

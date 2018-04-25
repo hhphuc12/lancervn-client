@@ -137,3 +137,12 @@ input[type="file"] {
 .form-control[readonly] {
   background-color: #ffffff !important;
 }
+
+.card-job-profile {
+  border: 1px solid #5bd3ff !important;
+  border-radius: 0.2rem !important;
+}
+
+.card-body-job-profile {
+  padding: 1.5rem !important;
+}

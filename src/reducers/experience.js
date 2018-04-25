@@ -6,6 +6,7 @@ import {
     REQUEST_LIST_EXPERIENCE,
     RECEIVED_LIST_EXPERIENCE,
     ERROR_LIST_EXPERIENCE,
+    RESET_DATA_CHANGE_STATE,
 } from "../constants/experienceType";
 import moment from "moment/moment";
 
@@ -67,6 +68,12 @@ export default function (
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
                 isError: true,
+            };
+
+        case RESET_DATA_CHANGE_STATE:
+            return {
+                ...state,
+                isExperienceAdded: false,
             };
 
         default:

@@ -10,11 +10,12 @@ import * as errorActions      from "../../../../actions/errorActions";
 const mapStateToProps = (state) => {
     return {
         // containers:
-        currentView:    state.views.currentView,
+        currentView:        state.views.currentView,
 
-        isFetching:     state.experience.isFetching,
-        isError:        state.experience.isError,
-        experiences:    state.experience.experiences,
+        isFetching:         state.experience.isFetching,
+        isError:            state.experience.isError,
+        experiences:        state.experience.experiences,
+        isExperienceAdded:  state.experience.isExperienceAdded,
     };
 };
 

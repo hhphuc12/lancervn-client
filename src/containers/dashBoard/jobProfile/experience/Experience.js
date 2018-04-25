@@ -4,17 +4,24 @@ import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
+import { monthFormater } from '../../../../helpers';
 
 class Experience extends PureComponent<Props, State> {
     componentDidMount() {
         this.props.actions.getListExperienceIfNeed();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isExperienceAdded)
+        nextProps.actions.getListExperienceIfNeed();
+        nextProps.actions.resetDataChangeState();
+    }
+
     state = {
         jobPosition: '',
         company: '',
-        startMonth: '',
-        endMonth: '',
+        startMonth: new Date(),
+        endMonth: new Date(),
         description: '',
         disableAdd: true,
         isOK: true
@@ -26,7 +33,7 @@ class Experience extends PureComponent<Props, State> {
     };
 
     onAdd = () => {
-        const {addExperienceIfNeed, errorBadRequest} = this.props.actions;
+        const { addExperienceIfNeed, errorBadRequest } = this.props.actions;
         const {
             jobPosition,
             company,
@@ -48,7 +55,19 @@ class Experience extends PureComponent<Props, State> {
             console.log('add experience went wrong..., error: ', error);
             /* eslint-enable no-console */
         }
-        this.setState({ disableEdit: !this.state.disableEdit });
+        this.setState({ disableAdd: !this.state.disableAdd });
+    };
+
+    onDelete = id => {
+        const { deleteExperienceIfNeed, errorBadRequest } = this.props.actions;
+        try {
+            deleteExperienceIfNeed(id);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add experience went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
     };
 
     renderField = ({input, label, id, type, fieldValue, meta: {touched, error, warning}}) => {
@@ -90,7 +109,6 @@ class Experience extends PureComponent<Props, State> {
     render() {
         const { jobPosition, company, startMonth, endMonth, description, disableAdd } = this.state;
         const { isFetching, experiences } = this.props;
-        console.log({ experiences });
         const formJSX = (
             <form>
                 <div className="row">
@@ -121,7 +139,7 @@ class Experience extends PureComponent<Props, State> {
                         <Datetime
                             dateFormat="MM/YYYY"
                             timeFormat={false}
-                            defaultValue={new Date()}
+                            defaultValue={startMonth}
                             inputProps={{ readOnly: true }}
                             isValidDate={selected => selected.isBefore(new Date())}
                             onChange={m => this.setState({ startMonth: new Date(m) })}
@@ -132,7 +150,7 @@ class Experience extends PureComponent<Props, State> {
                         <Datetime
                             dateFormat="MM/YYYY"
                             timeFormat={false}
-                            defaultValue={new Date()}
+                            defaultValue={endMonth}
                             inputProps={{ readOnly: true }}
                             isValidDate={selected => selected.isBefore(new Date())}
                             onChange={m => this.setState({ endMonth: new Date(m) })}
@@ -168,6 +186,26 @@ class Experience extends PureComponent<Props, State> {
             </form>
         );
 
+        const experiencesJSX = experiences.map((e, index) => (
+            <div className="col-4 grid-margin" key={index}>
+                <div className="card card-job-profile">
+                    <div className="card-body card-body-job-profile row">
+                        <div className="col-md-10">
+                            <p>Vị trí: <b>{e.jobPosition}</b></p>
+                            <p>Công ty: <b>{e.company}</b></p>
+                            <p>{`${monthFormater(e.startMonth)} ~ ${monthFormater(e.endMonth)}`}</p>
+                            <p style={{ marginBottom: 0 }}>{e.description}</p>
+                        </div>
+                        <div className="col-md-2">
+                            <a href="#" onClick={this.onDelete(e._id)}>
+                            <i className="mdi mdi-bookmark-remove icon-md text-danger"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ));
+
         return (
             <div className="row">
                 <div className="col-12 grid-margin">
@@ -180,6 +218,9 @@ class Experience extends PureComponent<Props, State> {
                                         <i className="mdi mdi-plus-circle-outline icon-md"/>
                                     </a>
                                 </div>
+                            </div>
+                            <div className="row">
+                                {experiencesJSX}
                             </div>
                             {
                                 disableAdd ? null : formJSX
