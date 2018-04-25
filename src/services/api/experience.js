@@ -13,3 +13,8 @@ export const listExperience = token => {
     const url = `${API_URI}list-experience`;
     return request.get(url, token);
 };
+
+export const deleteExperience = (id, token) => {
+    const url = `${API_URI}delete-experience`;
+    return request.post(url, { id }, token);
+};

@@ -7,12 +7,15 @@ import {
     RECEIVED_LIST_EXPERIENCE,
     ERROR_LIST_EXPERIENCE,
     RESET_DATA_CHANGE_STATE,
+    REQUEST_DELETE_EXPERIENCE,
+    RECEIVED_DELETE_EXPERIENCE,
+    ERROR_DELETE_EXPERIENCE,
 } from "../constants/experienceType";
 import moment from "moment/moment";
 
 const initialState = {
     experiences: [],
-    isExperienceAdded: false,
+    isDataChanged: false,
     isFetching: false,
 };
 
@@ -35,7 +38,7 @@ export default function (
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
-                isExperienceAdded: true,
+                isDataChanged: true,
             };
 
         case ERROR_ADD_EXPERIENCE:
@@ -43,7 +46,7 @@ export default function (
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
-                isExperienceAdded: false,
+                isDataChanged: false,
             };
 
         case REQUEST_LIST_EXPERIENCE:
@@ -73,7 +76,30 @@ export default function (
         case RESET_DATA_CHANGE_STATE:
             return {
                 ...state,
-                isExperienceAdded: false,
+                isDataChanged: false,
+            };
+
+        case REQUEST_DELETE_EXPERIENCE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_DELETE_EXPERIENCE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isDataChanged: true,
+            };
+
+        case ERROR_DELETE_EXPERIENCE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isDataChanged: false,
             };
 
         default:

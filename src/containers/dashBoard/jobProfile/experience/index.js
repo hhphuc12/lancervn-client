@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
         isFetching:         state.experience.isFetching,
         isError:            state.experience.isError,
         experiences:        state.experience.experiences,
-        isExperienceAdded:  state.experience.isExperienceAdded,
+        isDataChanged:      state.experience.isDataChanged,
     };
 };
 

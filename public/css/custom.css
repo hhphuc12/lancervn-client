@@ -145,4 +145,10 @@ input[type="file"] {
 
 .card-body-job-profile {
   padding: 1.5rem !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+}
+
+.card-data-job-profile {
+  padding-top: 1.5rem;
 }

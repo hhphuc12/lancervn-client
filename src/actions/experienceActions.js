@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { postExperience, listExperience } from '../services/api';
+import { postExperience, listExperience, deleteExperience } from '../services/api';
 import {
     REQUEST_ADD_EXPERIENCE,
     RECEIVED_ADD_EXPERIENCE,
@@ -9,6 +9,9 @@ import {
     RECEIVED_LIST_EXPERIENCE,
     ERROR_LIST_EXPERIENCE,
     RESET_DATA_CHANGE_STATE,
+    REQUEST_DELETE_EXPERIENCE,
+    RECEIVED_DELETE_EXPERIENCE,
+    ERROR_DELETE_EXPERIENCE,
 } from "../constants/experienceType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -143,3 +146,64 @@ export function resetDataChangeState(): (...any) => Promise<any> {
         return dispatch({ type: RESET_DATA_CHANGE_STATE });
     }
 }
+
+function requestDeleteExperience(time = moment().format()) {
+    return {
+        type:       REQUEST_DELETE_EXPERIENCE,
+        isFetching: true,
+        time
+    };
+}
+function receivedDeleteExperience(time = moment().format()) {
+    return {
+        type:       RECEIVED_DELETE_EXPERIENCE,
+        isFetching: false,
+        time
+    };
+}
+function errorDeleteExperience(time = moment().format()) {
+    return {
+        type:       ERROR_DELETE_EXPERIENCE,
+        isFetching: false,
+        time
+    };
+}
+
+export function deleteExperienceIfNeed(id): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldDeleteExperience(getState())) {
+            return dispatch(delExperience(id));
+        }
+        return Promise.resolve('already adding experience...');
+    }
+}
+
+function shouldDeleteExperience(
+    state: any
+): boolean {
+    const isFetching = state.experience.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function delExperience(id) {
+    return dispatch => {
+        dispatch(requestDeleteExperience());
+        let userToken = auth.getToken();
+        deleteExperience(id, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                dispatch(receivedDeleteExperience());
+            })
+            .catch(res => {
+                dispatch(errorDeleteExperience(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+};

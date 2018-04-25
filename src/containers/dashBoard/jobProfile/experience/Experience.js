@@ -12,12 +12,14 @@ class Experience extends PureComponent<Props, State> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isExperienceAdded)
-        nextProps.actions.getListExperienceIfNeed();
-        nextProps.actions.resetDataChangeState();
+        if (nextProps.isDataChanged) {
+            nextProps.actions.getListExperienceIfNeed();
+            nextProps.actions.resetDataChangeState();
+        }
     }
 
     state = {
+        _id: '',
         jobPosition: '',
         company: '',
         startMonth: new Date(),
@@ -58,7 +60,8 @@ class Experience extends PureComponent<Props, State> {
         this.setState({ disableAdd: !this.state.disableAdd });
     };
 
-    onDelete = id => {
+    onDelete = (id, e) => {
+        e.preventDefault();
         const { deleteExperienceIfNeed, errorBadRequest } = this.props.actions;
         try {
             deleteExperienceIfNeed(id);
@@ -189,18 +192,20 @@ class Experience extends PureComponent<Props, State> {
         const experiencesJSX = experiences.map((e, index) => (
             <div className="col-4 grid-margin" key={index}>
                 <div className="card card-job-profile">
-                    <div className="card-body card-body-job-profile row">
-                        <div className="col-md-10">
-                            <p>Vị trí: <b>{e.jobPosition}</b></p>
-                            <p>Công ty: <b>{e.company}</b></p>
-                            <p>{`${monthFormater(e.startMonth)} ~ ${monthFormater(e.endMonth)}`}</p>
-                            <p style={{ marginBottom: 0 }}>{e.description}</p>
+                    <div className="card-body card-body-job-profile">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div className="card-data-job-profile">
+                                <p>Vị trí: <b>{e.jobPosition}</b></p>
+                                <p>Công ty: <b>{e.company}</b></p>
+                                <p>{`${monthFormater(e.startMonth)} ~ ${monthFormater(e.endMonth)}`}</p>
+                            </div>
+                            <div style={{ marginRight: 5 }}>
+                                <a href="#" onClick={this.onDelete.bind(this, e._id)} title="Xóa">
+                                    <i className="mdi mdi-bookmark-remove icon-md text-danger"/>
+                                </a>
+                            </div>
                         </div>
-                        <div className="col-md-2">
-                            <a href="#" onClick={this.onDelete(e._id)}>
-                            <i className="mdi mdi-bookmark-remove icon-md text-danger"/>
-                            </a>
-                        </div>
+                        <p style={{ marginBottom: 0 }}>{e.description}</p>
                     </div>
                 </div>
             </div>

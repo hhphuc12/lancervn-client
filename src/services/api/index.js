@@ -8,7 +8,8 @@ import {
 import { selectProvince }               from './province';
 import {
     postExperience,
-    listExperience
+    listExperience,
+    deleteExperience,
 }                                       from "./experience";
 
 let API_URI = process.env.REACT_APP_API_URI;
@@ -34,4 +35,5 @@ export {
     selectProvince,
     postExperience,
     listExperience,
+    deleteExperience,
 }
