@@ -3,14 +3,19 @@
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../../actions/viewAction';
-import * as profileActions    from '../../../../actions/infoProfileActions';
+import * as experienceActions from '../../../../actions/experienceActions';
 import Experience             from './Experience';
 import * as errorActions      from "../../../../actions/errorActions";
 
 const mapStateToProps = (state) => {
     return {
         // containers:
-        currentView:  state.views.currentView,
+        currentView:        state.views.currentView,
+
+        isFetching:         state.experience.isFetching,
+        isError:            state.experience.isError,
+        experiences:        state.experience.experiences,
+        isDataChanged:      state.experience.isDataChanged,
     };
 };
 
@@ -19,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
         actions : bindActionCreators(
             {
                 ...viewsActions,
-                ...profileActions,
+                ...experienceActions,
                 ...errorActions,
             },
             dispatch
