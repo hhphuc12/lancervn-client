@@ -6,12 +6,8 @@ import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
 
 class Experience extends PureComponent<Props, State> {
-    constructor(props) {
-        super(props);
-
-        this.renderField = this.renderField.bind(this);
-        this.renderTextArea = this.renderTextArea.bind(this);
-        this.changeAddState = this.changeAddState.bind(this);
+    componentDidMount() {
+        this.props.actions.getListExperienceIfNeed();
     }
 
     state = {
@@ -27,6 +23,32 @@ class Experience extends PureComponent<Props, State> {
     changeAddState = e => {
         e.preventDefault();
         this.setState({ disableAdd: !this.state.disableAdd });
+    };
+
+    onAdd = () => {
+        const {addExperienceIfNeed, errorBadRequest} = this.props.actions;
+        const {
+            jobPosition,
+            company,
+            startMonth,
+            endMonth,
+            description,
+        } = this.state;
+        try {
+            addExperienceIfNeed({
+                jobPosition,
+                company,
+                startMonth,
+                endMonth,
+                description,
+            });
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add experience went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+        this.setState({ disableEdit: !this.state.disableEdit });
     };
 
     renderField = ({input, label, id, type, fieldValue, meta: {touched, error, warning}}) => {
@@ -67,7 +89,8 @@ class Experience extends PureComponent<Props, State> {
 
     render() {
         const { jobPosition, company, startMonth, endMonth, description, disableAdd } = this.state;
-        const { isOK, isFetching } = this.props;
+        const { isFetching, experiences } = this.props;
+        console.log({ experiences });
         const formJSX = (
             <form>
                 <div className="row">
@@ -99,6 +122,9 @@ class Experience extends PureComponent<Props, State> {
                             dateFormat="MM/YYYY"
                             timeFormat={false}
                             defaultValue={new Date()}
+                            inputProps={{ readOnly: true }}
+                            isValidDate={selected => selected.isBefore(new Date())}
+                            onChange={m => this.setState({ startMonth: new Date(m) })}
                         />
                     </div>
                     <div className="col-md-6 form-group">
@@ -107,6 +133,9 @@ class Experience extends PureComponent<Props, State> {
                             dateFormat="MM/YYYY"
                             timeFormat={false}
                             defaultValue={new Date()}
+                            inputProps={{ readOnly: true }}
+                            isValidDate={selected => selected.isBefore(new Date())}
+                            onChange={m => this.setState({ endMonth: new Date(m) })}
                         />
                     </div>
                 </div>
@@ -122,7 +151,7 @@ class Experience extends PureComponent<Props, State> {
                     className="btn btn-success mr-2"
                     type="button"
                     onClick={this.onAdd}
-                    disabled={isOK || isFetching}
+                    disabled={isFetching}
                 >
                     {
                         isFetching ?

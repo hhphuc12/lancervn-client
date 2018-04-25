@@ -5,7 +5,11 @@ import {
     userProfile,
     postEditInfoProfile
 }                                       from './infoProfile';
-import { selectProvince }                 from './province';
+import { selectProvince }               from './province';
+import {
+    postExperience,
+    listExperience
+}                                       from "./experience";
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -28,4 +32,6 @@ export {
     userProfile,
     postEditInfoProfile,
     selectProvince,
+    postExperience,
+    listExperience,
 }

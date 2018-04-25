@@ -133,3 +133,7 @@ input[type="file"] {
 .job-profile-header-text {
   margin-top: 0.35rem;
 }
+
+.form-control[readonly] {
+  background-color: #ffffff !important;
+}

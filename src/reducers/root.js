@@ -5,7 +5,8 @@ import { reducer as reduxFormReducer }   from 'redux-form';
 import views                             from './views';
 import userAuth                          from './userAuth';
 import infoProfile                       from './infoProfile';
-import province                          from './province';
+import province                          from './province'
+import experience                        from './experience';
 import error                             from './error';
 
 export const reducers = {
@@ -13,6 +14,7 @@ export const reducers = {
     userAuth,
     infoProfile,
     province,
+    experience,
     error,
 };
 
