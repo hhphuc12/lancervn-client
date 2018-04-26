@@ -142,6 +142,7 @@ class Experience extends PureComponent<Props, State> {
                         <Datetime
                             dateFormat="MM/YYYY"
                             timeFormat={false}
+                            closeOnSelect={true}
                             defaultValue={startMonth}
                             inputProps={{ readOnly: true }}
                             isValidDate={selected => selected.isBefore(new Date())}
@@ -153,6 +154,7 @@ class Experience extends PureComponent<Props, State> {
                         <Datetime
                             dateFormat="MM/YYYY"
                             timeFormat={false}
+                            closeOnSelect={true}
                             defaultValue={endMonth}
                             inputProps={{ readOnly: true }}
                             isValidDate={selected => selected.isBefore(new Date())}
