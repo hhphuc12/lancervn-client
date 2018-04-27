@@ -4,21 +4,66 @@ import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
+import { monthFormater } from "../../../../helpers";
 
 class Literacy extends PureComponent<Props, State> {
-    constructor(props) {
-        super(props);
-
-        this.renderField = this.renderField.bind(this);
-        this.renderTextArea = this.renderTextArea.bind(this);
-        this.changeAddState = this.changeAddState.bind(this);
+    componentDidMount() {
+        this.props.actions.getListLiteracyIfNeed();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isDataChanged) {
+            nextProps.actions.getListLiteracyIfNeed();
+            nextProps.actions.resetDataChangeState();
+        }
+    }
+
+    onAdd = () => {
+        const { addLiteracyIfNeed, errorBadRequest } = this.props.actions;
+        const {
+            university,
+            specialized,
+            startMonth,
+            endMonth,
+            description,
+        } = this.state;
+        try {
+            addLiteracyIfNeed({
+                university,
+                specialized,
+                startMonth,
+                endMonth,
+                description,
+            });
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add experience went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+        this.setState({ disableAdd: !this.state.disableAdd });
+    };
+
+    onDelete = (id, e) => {
+        e.preventDefault();
+        const { deleteLiteracyIfNeed, errorBadRequest } = this.props.actions;
+        try {
+            deleteLiteracyIfNeed(id);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add experience went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+    };
+
+
     state = {
+        _id: '',
         university: '',
         specialized: '',
-        startMonth: '',
-        endMonth: '',
+        startMonth: new Date(),
+        endMonth: new Date(),
         description: '',
         disableAdd: true,
         isOK: true
@@ -67,7 +112,7 @@ class Literacy extends PureComponent<Props, State> {
 
     render() {
         const { university, specialized, startMonth, endMonth, description, disableAdd } = this.state;
-        const { isOK, isFetching } = this.props;
+        const { isFetching, literacies } = this.props;
         const formJSX = (
             <form>
                 <div className="row">
@@ -98,7 +143,11 @@ class Literacy extends PureComponent<Props, State> {
                         <Datetime
                             dateFormat="MM/YYYY"
                             timeFormat={false}
-                            defaultValue={new Date()}
+                            closeOnSelect={true}
+                            defaultValue={startMonth}
+                            inputProps={{ readOnly: true }}
+                            isValidDate={selected => selected.isBefore(new Date())}
+                            onChange={m => this.setState({ startMonth: new Date(m) })}
                         />
                     </div>
                     <div className="col-md-6 form-group">
@@ -106,7 +155,11 @@ class Literacy extends PureComponent<Props, State> {
                         <Datetime
                             dateFormat="MM/YYYY"
                             timeFormat={false}
-                            defaultValue={new Date()}
+                            closeOnSelect={true}
+                            defaultValue={endMonth}
+                            inputProps={{ readOnly: true }}
+                            isValidDate={selected => selected.isBefore(new Date())}
+                            onChange={m => this.setState({ endMonth: new Date(m) })}
                         />
                     </div>
                 </div>
@@ -122,7 +175,7 @@ class Literacy extends PureComponent<Props, State> {
                     className="btn btn-success mr-2"
                     type="button"
                     onClick={this.onAdd}
-                    disabled={isOK || isFetching}
+                    disabled={isFetching}
                 >
                     {
                         isFetching ?
@@ -139,6 +192,28 @@ class Literacy extends PureComponent<Props, State> {
             </form>
         );
 
+        const literaciesJSX = literacies.map((l, index) => (
+            <div className="col-4 grid-margin" key={index}>
+                <div className="card card-job-profile">
+                    <div className="card-body card-body-job-profile">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div className="card-data-job-profile">
+                                <p>Trường: <b>{l.university}</b></p>
+                                <p>Chuyên ngành: <b>{l.specialized}</b></p>
+                                <p>{`${monthFormater(l.startMonth)} ~ ${monthFormater(l.endMonth)}`}</p>
+                            </div>
+                            <div style={{ marginRight: 5 }}>
+                                <a href="#" onClick={this.onDelete.bind(this, l._id)} title="Xóa">
+                                    <i className="mdi mdi-bookmark-remove icon-md text-danger"/>
+                                </a>
+                            </div>
+                        </div>
+                        <p style={{ marginBottom: 0 }}>{l.description}</p>
+                    </div>
+                </div>
+            </div>
+        ));
+
         return (
             <div className="row">
                 <div className="col-12 grid-margin">
@@ -151,6 +226,9 @@ class Literacy extends PureComponent<Props, State> {
                                         <i className="mdi mdi-plus-circle-outline icon-md"/>
                                     </a>
                                 </div>
+                            </div>
+                            <div className="row">
+                                {literaciesJSX}
                             </div>
                             {
                                 disableAdd ? null : formJSX
