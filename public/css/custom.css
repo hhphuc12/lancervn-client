@@ -152,3 +152,16 @@ input[type="file"] {
 .card-data-job-profile {
   padding-top: 1.5rem;
 }
+
+.category-project-wrapper {
+  padding-top: 0.2rem;
+}
+
+.category-project {
+  background-color: #5bd3ff;
+  padding: 0.3rem;
+  margin-right: 0.2rem;
+  margin-bottom: 0.2rem;
+  border-radius: 5%;
+  display: inline-block;
+}

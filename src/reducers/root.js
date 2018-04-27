@@ -7,6 +7,8 @@ import userAuth                          from './userAuth';
 import infoProfile                       from './infoProfile';
 import province                          from './province'
 import experience                        from './experience';
+import project                           from './projectDone';
+import category                          from './category';
 import error                             from './error';
 
 export const reducers = {
@@ -15,6 +17,8 @@ export const reducers = {
     infoProfile,
     province,
     experience,
+    project,
+    category,
     error,
 };
 

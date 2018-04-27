@@ -20,9 +20,9 @@ class Profile extends PureComponent<Props, State> {
     render() {
         return (
             <div className="content-wrapper">
+                <ProjectDone/>
                 <Category/>
                 <Experience/>
-                <ProjectDone/>
                 <Literacy/>
                 <Language/>
             </div>
