@@ -6,11 +6,17 @@ import {
     postEditInfoProfile
 }                                       from './infoProfile';
 import { selectProvince }               from './province';
+import { selectCategory }               from './category';
 import {
     postExperience,
     listExperience,
     deleteExperience,
 }                                       from "./experience";
+import {
+    postProject,
+    listProject,
+    deleteProject,
+}                                       from "./projectDone";
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -36,4 +42,8 @@ export {
     postExperience,
     listExperience,
     deleteExperience,
+    postProject,
+    listProject,
+    deleteProject,
+    selectCategory,
 }

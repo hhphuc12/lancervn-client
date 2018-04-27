@@ -4,14 +4,12 @@ import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import 'react-select/dist/react-select.css';
 import Select from 'react-select';
+import {monthFormater} from "../../../../helpers";
 
 class Project extends PureComponent<Props, State> {
-    constructor(props) {
-        super(props);
-
-        this.renderField = this.renderField.bind(this);
-        this.renderTextArea = this.renderTextArea.bind(this);
-        this.changeAddState = this.changeAddState.bind(this);
+    componentDidMount() {
+        this.props.actions.getSelectCategoryIfNeed();
+        this.props.actions.getListProjectIfNeed();
     }
 
     state = {
@@ -65,14 +63,59 @@ class Project extends PureComponent<Props, State> {
         )
     };
 
+    onAdd = () => {
+        const { addProjectIfNeed, errorBadRequest } = this.props.actions;
+        const {
+            projectName,
+            category,
+            role,
+            customer,
+            description,
+        } = this.state;
+        let categoryText = [];
+        category.forEach(c => {
+            categoryText.push(c.label);
+        });
+        try {
+            addProjectIfNeed({
+                projectName,
+                category: categoryText,
+                role,
+                customer,
+                description,
+            });
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add project went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+        this.setState({ disableAdd: !this.state.disableAdd });
+    };
+
+    onDelete = (id, e) => {
+        e.preventDefault();
+        const { deleteProjectIfNeed, errorBadRequest } = this.props.actions;
+        try {
+            deleteProjectIfNeed(id);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('delete project went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+    };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isDataChanged) {
+            nextProps.actions.getListProjectIfNeed();
+            nextProps.actions.resetDataChangeState();
+        }
+    }
+
     render() {
         const { projectName, category, role, customer, description, disableAdd } = this.state;
-        const { isOK, isFetching } = this.props;
-        const selectOptions = [
-            { value: 'test1', label: 'Test 1' },
-            { value: 'test2', label: 'Test 2' },
-            { value: 'test3', label: 'Test 3' },
-        ];
+        const { projects, categories, isFetching } = this.props;
         const formJSX = (
             <form>
                 <Field
@@ -92,7 +135,7 @@ class Project extends PureComponent<Props, State> {
                         multi={true}
                         name="category"
                         value={category}
-                        options={selectOptions}
+                        options={categories}
                         onChange={value => { this.setState({ category: value})}}
                     />
                 </div>
@@ -102,7 +145,7 @@ class Project extends PureComponent<Props, State> {
                             id="role"
                             type="text"
                             name="role"
-                            label="Vị trí"
+                            label="Vai trò"
                             component={this.renderField}
                             fieldValue={role}
                         />
@@ -130,7 +173,7 @@ class Project extends PureComponent<Props, State> {
                     className="btn btn-success mr-2"
                     type="button"
                     onClick={this.onAdd}
-                    disabled={isOK || isFetching}
+                    disabled={isFetching}
                 >
                     {
                         isFetching ?
@@ -147,6 +190,37 @@ class Project extends PureComponent<Props, State> {
             </form>
         );
 
+        const projectsJSX = projects.map((p, index) => (
+            <div className="col-4 grid-margin" key={index}>
+                <div className="card card-job-profile">
+                    <div className="card-body card-body-job-profile">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div className="card-data-job-profile">
+                                <p>Dự án: <b>{p.projectName}</b></p>
+                                <p>Khách hàng: <b>{p.customer}</b></p>
+                                <p>Vai trò: <b>{p.role}</b></p>
+                                <p>
+                                    Dịch vụ: <div className="category-project-wrapper">
+                                        {
+                                            p.category.map(c => (
+                                                <div className="category-project">{c}</div>
+                                            ))
+                                        }
+                                    </div>
+                                </p>
+                            </div>
+                            <div style={{ marginRight: 5 }}>
+                                <a href="#" onClick={this.onDelete.bind(this, p._id)} title="Xóa">
+                                    <i className="mdi mdi-bookmark-remove icon-md text-danger"/>
+                                </a>
+                            </div>
+                        </div>
+                        <p style={{ marginBottom: 0 }}>{p.description}</p>
+                    </div>
+                </div>
+            </div>
+        ));
+
         return (
             <div className="row">
                 <div className="col-12 grid-margin">
@@ -159,6 +233,9 @@ class Project extends PureComponent<Props, State> {
                                         <i className="mdi mdi-plus-circle-outline icon-md"/>
                                     </a>
                                 </div>
+                            </div>
+                            <div className="row">
+                                {projectsJSX}
                             </div>
                             {
                                 disableAdd ? null : formJSX
