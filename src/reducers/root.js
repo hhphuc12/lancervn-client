@@ -9,6 +9,7 @@ import province                          from './province'
 import experience                        from './experience';
 import project                           from './projectDone';
 import category                          from './category';
+import literacy                          from './literacy';
 import error                             from './error';
 
 export const reducers = {
@@ -19,6 +20,7 @@ export const reducers = {
     experience,
     project,
     category,
+    literacy,
     error,
 };
 

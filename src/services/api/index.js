@@ -17,6 +17,11 @@ import {
     listProject,
     deleteProject,
 }                                       from "./projectDone";
+import {
+    postLiteracy,
+    listLiteracy,
+    deleteLiteracy,
+}                                       from './literacy';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -46,4 +51,7 @@ export {
     listProject,
     deleteProject,
     selectCategory,
+    postLiteracy,
+    listLiteracy,
+    deleteLiteracy,
 }
