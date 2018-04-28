@@ -99,11 +99,11 @@ class Experience extends PureComponent<Props, State> {
 
         return (
             <div className="row">
-                <div className="col-12 grid-margin">
+                <div className="col-12 grid-margin" style={{ marginBottom: 20 }}>
                     <div className="card">
                         <div className="card-body">
                             <div className="card-list-header">
-                                <h5 className="card-title mb-4 job-profile-header-text" style={{ padding: 7 }}>Kinh nghiệm làm việc</h5>
+                                <h5 className="card-title mb-4 job-profile-header-text" style={{ padding: 7 }}>Trình độ ngoại ngữ</h5>
                                 <div>
                                     <a href="#" onClick={this.changeAddState}>
                                         <i className="mdi mdi-plus-circle-outline icon-md"/>

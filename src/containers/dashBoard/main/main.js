@@ -39,7 +39,7 @@ class Main extends Component {
                 <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style={{ border: 0, borderRadius: 0 }}>
                     <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
                         <a className="navbar-brand brand-logo" href="index.html">
-                            <img src="/images/logo.svg" alt="logo" style={{ marginTop: 10 }} />
+                            <img src="/images/icons/logo.png" alt="logo" style={{ marginTop: 10, height: 24 }} />
                         </a>
                     </div>
                     <div className="navbar-menu-wrapper d-flex align-items-center">
@@ -213,10 +213,16 @@ class Main extends Component {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="pages/widgets.html">
+                                <Link className="nav-link" to="/dashboard/post-job">
+                                    <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
+                                    <span className="menu-title">Đăng việc</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/dashboard/job-posted">
                                     <img className="menu-icon" src="/images/menu_icons/02.png" alt="menu icon"/>
                                     <span className="menu-title">Việc đã đăng</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="pages/ui-features/buttons.html">

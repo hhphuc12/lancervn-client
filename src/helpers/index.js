@@ -67,6 +67,11 @@ export const dateFormatter = (date: string) => {
     return date.substring(0, 10);
 };
 
+export const formatDescription = (des: string) => {
+    if (!des) return '';
+    return `<p>${des.split('\n').join('</p><p>')}</p>`;
+}
+
 export const monthFormater = (date: string) => {
     if (date === null || date === undefined) return '---';
     const d = new Date(date);

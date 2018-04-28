@@ -10,6 +10,8 @@ import experience                        from './experience';
 import project                           from './projectDone';
 import category                          from './category';
 import literacy                          from './literacy';
+import skill                             from './skill';
+import job                               from './job';
 import error                             from './error';
 
 export const reducers = {
@@ -21,6 +23,8 @@ export const reducers = {
     project,
     category,
     literacy,
+    skill,
+    job,
     error,
 };
 
