@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import 'react-select/dist/react-select.css';
 import Select from 'react-select';
-import {monthFormater} from "../../../../helpers";
+import { formatDescription } from "../../../../helpers";
 
 class Project extends PureComponent<Props, State> {
     componentDidMount() {
@@ -215,7 +215,10 @@ class Project extends PureComponent<Props, State> {
                                 </a>
                             </div>
                         </div>
-                        <p style={{ marginBottom: 0 }}>{p.description}</p>
+                        <div
+                            style={{ marginBottom: 0 }}
+                            dangerouslySetInnerHTML={{__html: formatDescription(p.description)}}
+                        />
                     </div>
                 </div>
             </div>

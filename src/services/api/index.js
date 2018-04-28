@@ -7,6 +7,7 @@ import {
 }                                       from './infoProfile';
 import { selectProvince }               from './province';
 import { selectCategory }               from './category';
+import { selectSkill }                  from './skill';
 import {
     postExperience,
     listExperience,
@@ -22,6 +23,9 @@ import {
     listLiteracy,
     deleteLiteracy,
 }                                       from './literacy';
+import {
+    postJobApi,
+}                                       from './job';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -54,4 +58,6 @@ export {
     postLiteracy,
     listLiteracy,
     deleteLiteracy,
+    selectSkill,
+    postJobApi,
 }

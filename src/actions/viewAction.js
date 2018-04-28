@@ -11,6 +11,10 @@ import {
     LEAVE_INFO_PROFILE_VIEW,
     ENTER_JOB_PROFILE_VIEW,
     LEAVE_JOB_PROFILE_VIEW,
+    ENTER_JOB_POSTED_VIEW,
+    LEAVE_JOB_POSTED_VIEW,
+    ENTER_ADD_JOB_VIEW,
+    LEAVE_ADD_JOB_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
@@ -120,6 +124,42 @@ export function leaveJobProfile(time: string = moment().format()) {
     return {
         type:         LEAVE_JOB_PROFILE_VIEW,
         currentView:  'JobProfile',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterJobPosted(time: string = moment().format()) {
+    return {
+        type:         ENTER_JOB_POSTED_VIEW,
+        currentView:  'JobPosted',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveJobPosted(time: string = moment().format()) {
+    return {
+        type:         LEAVE_JOB_POSTED_VIEW,
+        currentView:  'JobPosted',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterPostJob(time: string = moment().format()) {
+    return {
+        type:         ENTER_ADD_JOB_VIEW,
+        currentView:  'AddJob',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leavePostJob(time: string = moment().format()) {
+    return {
+        type:         LEAVE_ADD_JOB_VIEW,
+        currentView:  'AddJob',
         enterTime:    null,
         leaveTime:    time
     };

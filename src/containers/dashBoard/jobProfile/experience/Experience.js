@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
-import { monthFormater } from '../../../../helpers';
+import { monthFormater, formatDescription } from '../../../../helpers';
 
 class Experience extends PureComponent<Props, State> {
     componentDidMount() {
@@ -207,7 +207,10 @@ class Experience extends PureComponent<Props, State> {
                                 </a>
                             </div>
                         </div>
-                        <p style={{ marginBottom: 0 }}>{e.description}</p>
+                        <div
+                            style={{ marginBottom: 0 }}
+                            dangerouslySetInnerHTML={{__html: formatDescription(e.description)}}
+                        />
                     </div>
                 </div>
             </div>
