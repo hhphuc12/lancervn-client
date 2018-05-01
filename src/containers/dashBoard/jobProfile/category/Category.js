@@ -55,7 +55,6 @@ class Experience extends PureComponent<Props, State> {
     render() {
         const { disableAdd, category } = this.state;
         const { categories, isFetching } = this.props;
-        console.log({category});
         const buttonJSX = (
             <div>
                 <button
