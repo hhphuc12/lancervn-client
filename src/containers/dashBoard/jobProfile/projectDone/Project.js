@@ -199,15 +199,15 @@ class Project extends PureComponent<Props, State> {
                                 <p>Dự án: <b>{p.projectName}</b></p>
                                 <p>Khách hàng: <b>{p.customer}</b></p>
                                 <p>Vai trò: <b>{p.role}</b></p>
-                                <p>
+                                <div>
                                     Dịch vụ: <div className="category-project-wrapper">
                                         {
-                                            p.category.map(c => (
-                                                <div className="category-project">{c}</div>
+                                            p.category.map((c, index) => (
+                                                <div className="category-project" key={index}>{c}</div>
                                             ))
                                         }
                                     </div>
-                                </p>
+                                </div>
                             </div>
                             <div style={{ marginRight: 5 }}>
                                 <a href="#" onClick={this.onDelete.bind(this, p._id)} title="Xóa">

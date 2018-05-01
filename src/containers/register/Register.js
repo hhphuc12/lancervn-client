@@ -17,7 +17,8 @@ class Register extends PureComponent<Props, State> {
     };
 
     state = {
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -53,7 +54,7 @@ class Register extends PureComponent<Props, State> {
                     className={'form-control'}
                     id={id}
                     value={fieldValue}
-                    onChange={e => this.setState({[input.name]: e.target.value.trim()})}
+                    onChange={e => this.setState({[input.name]: e.target.value})}
                 />
                 <i className={`mdi ${icon}`}/>
                 {touched && ((error && <label className="text-danger">{`* ${error}`}</label>) ||
@@ -69,9 +70,9 @@ class Register extends PureComponent<Props, State> {
             event.preventDefault();
         }
         const { regUserIfNeed, errorBadRequest } = this.props.actions;
-        const { name, email, password } = this.state;
+        const { firstName, lastName, email, password } = this.state;
         try {
-            regUserIfNeed(name, email, password);
+            regUserIfNeed(firstName.trim(), lastName.trim(), email.trim(), password.trim());
         } catch (error) {
             errorBadRequest();
             /* eslint-disable no-console */
@@ -91,7 +92,7 @@ class Register extends PureComponent<Props, State> {
     };
 
     render() {
-        const { name, email, password, confirmPassword, isOK } = this.state;
+        const { firstName, lastName, email, password, confirmPassword, isOK } = this.state;
         const { isRegistering, isError, errorMessage } = this.props;
         return (
             <div className="container-scroller">
@@ -106,13 +107,22 @@ class Register extends PureComponent<Props, State> {
                                     }
                                     <form className="pt-5">
                                         <Field
-                                            id="name"
+                                            id="firstName"
                                             type="text"
-                                            name="name"
-                                            label="Họ tên"
+                                            name="firstName"
+                                            label="Họ"
                                             component={this.renderField}
                                             icon="mdi-account"
-                                            fieldValue={name}
+                                            fieldValue={firstName}
+                                        />
+                                        <Field
+                                            id="lastName"
+                                            type="text"
+                                            name="lastName"
+                                            label="Chữ lót và tên"
+                                            component={this.renderField}
+                                            icon="mdi-account"
+                                            fieldValue={lastName}
                                         />
                                         <Field
                                             id="email"

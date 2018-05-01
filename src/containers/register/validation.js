@@ -1,13 +1,13 @@
 // @flow weak
 export const validate = values => {
     const errors = {};
-    const { name, email, password, confirmPassword } = values;
+    const { firstName, lastName, email, password, confirmPassword } = values;
 
-    if (!name) {
-        errors.name = 'Họ tên là bắt buộc';
+    if (!firstName) {
+        errors.name = 'Họ là bắt buộc';
     }
-    else if (name.length < 6) {
-        errors.name = 'Họ tên phải chứa ít nhất 6 ký tự';
+    if (!lastName) {
+        errors.name = 'Chữ lót và tên là bắt buộc';
     }
 
     if (!email) {

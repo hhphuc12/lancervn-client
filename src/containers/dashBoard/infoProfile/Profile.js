@@ -195,6 +195,7 @@ class Profile extends PureComponent<Props, State> {
             description,
             disableEdit,
         } = this.state;
+        avatarUri = avatarUri || '/images/faces/male-avatar.png';
         const buttonJSX = (
             <div>
                 <button
@@ -315,7 +316,7 @@ class Profile extends PureComponent<Props, State> {
                                         label="Email"
                                         component={this.renderField}
                                         fieldValue={email}
-                                        disabled={disableEdit}
+                                        disabled={true}
                                     />
                                     <br/>
                                     <Field

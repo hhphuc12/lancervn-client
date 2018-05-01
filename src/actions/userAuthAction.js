@@ -16,29 +16,12 @@ import {
 } from '../constants/userAuthType'
 import moment from "moment";
 
-/**
- *
- * set user isAuthenticated to false and clear all app localstorage:
- *
- * @export
- * @returns {action} action
- */
 export function onLogout() {
     auth.clearAllAppStorage();
     return {
         type: LOG_OUT_USER
     };
 }
-
-/**
- *
- * check if user is connected by looking at locally stored
- * - token
- * - user fonrmation
- *
- * @export
- * @returns {action} action
- */
 
 function requestLoginUser(time = moment().format()) {
     return {
@@ -65,14 +48,6 @@ function errorLoginUser(msg, time = moment().format()) {
     }
 }
 
-/**
- *
- *  user login
- *
- * @param {string} login user login
- * @param {string} password password
- * @returns {Promise<any>} promised action
- */
 function logUser(email, password) {
     return dispatch => {
         dispatch(requestLoginUser());
@@ -139,19 +114,10 @@ function errorRegisterUser(msg, time = moment().format()) {
     }
 }
 
-/**
- *
- *  user register
- *
- * @param {string} name user full name
- * @param {string} email email
- * @param {string} password password
- * @returns {Promise<any>} promised action
- */
-function regUser(name, email, password) {
+function regUser(firstName, lastName, email, password) {
     return dispatch => {
         dispatch(requestRegisterUser());
-        postRegister(name, email, password)
+        postRegister(firstName, lastName, email, password)
             .then(
                 res => {
                     if(res.status !== 201)
@@ -167,7 +133,8 @@ function regUser(name, email, password) {
 };
 
 export function regUserIfNeed(
-    name: string,
+    firstName: string,
+    lastName: string,
     email: string,
     password: string
 ): (...any) => Promise<any> {
@@ -176,7 +143,7 @@ export function regUserIfNeed(
         getState: () => boolean
     ): any => {
         if (shouldRegUser(getState())) {
-            return dispatch(regUser(name, email, password));
+            return dispatch(regUser(firstName, lastName, email, password));
         }
         return Promise.resolve('Already registered!');
     };
