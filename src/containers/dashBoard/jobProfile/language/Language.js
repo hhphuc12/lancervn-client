@@ -6,17 +6,20 @@ import 'react-select/dist/react-select.css';
 import Select from 'react-select';
 
 class Experience extends PureComponent<Props, State> {
-    constructor(props) {
-        super(props);
-        this.changeAddState = this.changeAddState.bind(this);
+    componentDidMount() {
+        this.props.actions.getListLanguageIfNeed();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isDataChanged) {
+            nextProps.actions.getListLanguageIfNeed();
+            nextProps.actions.resetDataChangeState();
+        }
     }
 
     state = {
-        jobPosition: '',
-        company: '',
-        startMonth: '',
-        endMonth: '',
-        description: '',
+        language: '',
+        level: '',
         disableAdd: true,
         isOK: true
     };
@@ -24,6 +27,39 @@ class Experience extends PureComponent<Props, State> {
     changeAddState = e => {
         e.preventDefault();
         this.setState({ disableAdd: !this.state.disableAdd });
+    };
+
+    onAdd = () => {
+        const { addLanguageIfNeed, errorBadRequest } = this.props.actions;
+        const {
+            language,
+            level,
+        } = this.state;
+        try {
+            addLanguageIfNeed({
+                name: language.label,
+                level: level.label,
+            });
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add language went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+        this.setState({ disableAdd: !this.state.disableAdd });
+    };
+
+    onDelete = (id, e) => {
+        e.preventDefault();
+        const { deleteLanguageIfNeed, errorBadRequest } = this.props.actions;
+        try {
+            deleteLanguageIfNeed(id);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('add language went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
     };
 
     render() {
@@ -45,7 +81,26 @@ class Experience extends PureComponent<Props, State> {
             { value: 'cao-cap', label: 'Cao cấp' },
             { value: 'ban-ngu', label: 'Bản ngữ' },
         ];
-        const { isOK, isFetching } = this.props;
+        const { languages, isFetching } = this.props;
+        const languagesJSX = languages.map((l, index) => (
+            <div className="col-4 grid-margin" key={index}>
+                <div className="card card-job-profile">
+                    <div className="card-body card-body-job-profile">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div className="card-data-job-profile">
+                                <p>Ngoại ngữ: <b>{l.name}</b></p>
+                                <p>Trình độ: <b>{l.level}</b></p>
+                            </div>
+                            <div style={{ marginRight: 5 }}>
+                                <a href="#" onClick={this.onDelete.bind(this, l._id)} title="Xóa">
+                                    <i className="mdi mdi-bookmark-remove icon-md text-danger"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ));
         const formJSX = (
             <form>
                 <div className="row">
@@ -53,9 +108,9 @@ class Experience extends PureComponent<Props, State> {
                         <label htmlFor="language">Ngoại ngữ</label>
                         <Select
                             id="language"
-                            placeholder="Vui lòng chọn..."
-                            closeOnSelect={false}
-                            multi={true}
+                            placeholder=""
+                            closeOnSelect={true}
+                            multi={false}
                             name="language"
                             value={language}
                             options={languageOptions}
@@ -66,9 +121,9 @@ class Experience extends PureComponent<Props, State> {
                         <label htmlFor="language">Trình độ</label>
                         <Select
                             id="level"
-                            placeholder="Vui lòng chọn..."
-                            closeOnSelect={false}
-                            multi={true}
+                            placeholder=""
+                            closeOnSelect={true}
+                            multi={false}
                             name="level"
                             value={level}
                             options={levelOptions}
@@ -80,7 +135,7 @@ class Experience extends PureComponent<Props, State> {
                     className="btn btn-success mr-2"
                     type="button"
                     onClick={this.onAdd}
-                    disabled={isOK || isFetching}
+                    disabled={isFetching}
                 >
                     {
                         isFetching ?
@@ -109,6 +164,9 @@ class Experience extends PureComponent<Props, State> {
                                         <i className="mdi mdi-plus-circle-outline icon-md"/>
                                     </a>
                                 </div>
+                            </div>
+                            <div className="row">
+                                { languagesJSX }
                             </div>
                             {
                                 disableAdd ? null : formJSX

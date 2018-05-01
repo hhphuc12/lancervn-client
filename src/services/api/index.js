@@ -18,6 +18,11 @@ import {
     deleteExperience,
 }                                       from "./experience";
 import {
+    postLanguage,
+    listLanguage,
+    deleteLanguage,
+}                                       from "./language";
+import {
     postProject,
     listProject,
     deleteProject,
@@ -66,4 +71,7 @@ export {
     postJobApi,
     postCategory,
     userCategory,
+    postLanguage,
+    listLanguage,
+    deleteLanguage,
 }

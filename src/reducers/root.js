@@ -13,6 +13,7 @@ import literacy                          from './literacy';
 import skill                             from './skill';
 import job                               from './job';
 import user                              from './user';
+import language                          from './language';
 import error                             from './error';
 
 export const reducers = {
@@ -27,6 +28,7 @@ export const reducers = {
     skill,
     job,
     user,
+    language,
     error,
 };
 
