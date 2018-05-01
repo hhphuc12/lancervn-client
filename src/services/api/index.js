@@ -6,7 +6,11 @@ import {
     postEditInfoProfile
 }                                       from './infoProfile';
 import { selectProvince }               from './province';
-import { selectCategory }               from './category';
+import {
+    selectCategory,
+    postCategory,
+    userCategory,
+}                                       from './category';
 import { selectSkill }                  from './skill';
 import {
     postExperience,
@@ -34,9 +38,9 @@ export const postLogin = (email, password) => {
     return request.post(url, { email, password });
 };
 
-export const postRegister = (name, email, password) => {
+export const postRegister = (firstName, lastName, email, password) => {
     const url = `${API_URI}register`;
-    return request.post(url, { name, email, password });
+    return request.post(url, { firstName, lastName, email, password });
 };
 
 export const postImg = (img) => {
@@ -60,4 +64,6 @@ export {
     deleteLiteracy,
     selectSkill,
     postJobApi,
+    postCategory,
+    userCategory,
 }
