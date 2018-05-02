@@ -4,6 +4,8 @@
  * View Constants
  *=================================================================================================
  */
+export const ENTER_HOME_PAGE:                          string = 'ENTER_HOME_PAGE';
+export const LEAVE_HOME_PAGE:                          string = 'LEAVE_HOME_PAGE';
 export const ENTER_LOGIN_VIEW:                         string = 'ENTER_LOGIN_VIEW';
 export const LEAVE_LOGIN_VIEW:                         string = 'LEAVE_LOGIN_VIEW';
 export const ENTER_REGISTER_VIEW:                      string = 'ENTER_REGISTER_VIEW';

@@ -1,5 +1,7 @@
 // @flow weak
 import {
+    ENTER_HOME_PAGE,
+    LEAVE_HOME_PAGE,
     ENTER_LOGIN_VIEW,
     LEAVE_LOGIN_VIEW,
     ENTER_REGISTER_VIEW,
@@ -37,6 +39,7 @@ export default function views(state: Object = initialState, action: Object) {
         case ENTER_JOB_PROFILE_VIEW:
         case ENTER_JOB_POSTED_VIEW:
         case ENTER_ADD_JOB_VIEW:
+        case ENTER_HOME_PAGE:
             // can't enter if you are already inside
             if (state.currentView !== action.currentView) {
                 return {
@@ -56,6 +59,7 @@ export default function views(state: Object = initialState, action: Object) {
         case LEAVE_JOB_PROFILE_VIEW:
         case LEAVE_JOB_POSTED_VIEW:
         case LEAVE_ADD_JOB_VIEW:
+        case LEAVE_HOME_PAGE:
             // can't leave if you aren't already inside
             if (state.currentView === action.currentView) {
                 return {

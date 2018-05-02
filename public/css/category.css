@@ -1,0 +1,74 @@
+.test1 {
+  position: relative;
+  overflow: hidden;
+  height: 480px;
+}
+
+.test2 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+
+.test3 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(337px, 0px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+
+.test4 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(674px, 0px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+
+.test5 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(1011px, 0px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+
+.test6 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(0px, 240px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+.test7 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(337px, 240px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+.test8 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(674px, 240px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
+.test9 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate3d(1011px, 240px, 0px) scale3d(1, 1, 1);
+  width: 337px;
+  opacity: 1;
+}
