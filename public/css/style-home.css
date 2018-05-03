@@ -77,7 +77,16 @@ a, a:hover, a:active{ outline:0px !important}
          url('../fonts/dosis-bold.woff2') format('woff2'),
          url('../fonts/dosis-bold.woff') format('woff'),
          url('../fonts/dosis-bold.ttf') format('truetype'),
-         url('../fonts/dosis-bold.svg#DosisBold') format('svg');
+         url('../fonts/dosis-bold.svg#NunitoBold') format('svg');
+         url('../fonts/dosis-bold.svg#NunitoBold') format('svg');
+}
+@font-face {
+		font-family: 'Nunito';
+		src: url('../fonts/Nunito/Nunito-Bold.ttf');
+}
+@font-face {
+	font-family: 'NunitoItalic';
+	src: url('../fonts/Nunito/Nunito-Italic.ttf');
 }
 
 /* Primary Styles
@@ -93,14 +102,14 @@ body {
 h2{
 	font-size:38px;
 	color:#222222;
-	font-family:'Dosis';
+	font-family:'Nunito';
 	font-weight:700;
 	margin:35px 0 25px 0;
 	text-align:center;
 	text-transform:uppercase;
 }
 h3{
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Nunito', sans-serif;
 	font-weight: 600;
 	color:#222222;
 	font-size:16px;
@@ -110,7 +119,7 @@ h3{
 h6{
 	font-size:16px;
 	color:#888888;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Nunito', sans-serif;
 	font-weight:400;
 	text-align:center;
 	margin:0 0 60px 0;
@@ -175,7 +184,7 @@ p{
 	display:block;
 	font-size:14px;
 	color:#222222;
-	font-family:'Dosis';
+	font-family:'Nunito';
 	text-decoration:none;
 	text-transform:uppercase;
 	font-weight: 600;
@@ -194,7 +203,7 @@ p{
 ---------------------------------*/
 
 .top_cont_outer{
-	background: url(../images/auth/home_bg.jpg) no-repeat;
+	background: url(../images/auth/home_bg3.jpg) no-repeat;
 	position:relative;
 	background-size: cover;
 	}
@@ -239,7 +248,7 @@ p{
 	color:#111111;
 	line-height: 52px;
 	margin:0 0 26px 0;
-	font-family:'Dosis';
+	font-family:'Nunito';
 	text-align:left;
 	font-weight:700;
 	}
@@ -253,7 +262,7 @@ p{
 	}
 
 a.learn_more2{
-	font-family: 'Dosis';
+	font-family: 'Nunito';
 	display:block;
 	font-size:16px;
 	color:#ffffff;
@@ -263,7 +272,7 @@ a.learn_more2{
 	line-height:46px;
 	border-radius:3px;
 	text-align:center;
-	font-family:''Dosis'';
+	font-family:'Nunito';
 	text-transform:uppercase;
 	font-weight: 600;
 	transition:all 0.2s ease-in-out;
@@ -342,7 +351,7 @@ a.learn_more2:hover{
 	}
 
 .service_block h3{
-	font-family: 'Dosis';
+	font-family: 'Nunito';
 	font-weight: 600;
 	font-size:18px;
 	color:#111111;
@@ -432,7 +441,7 @@ a.contact_btn{
 	font-size:16px;
 	color:#ffffff;
 	border-radius:3px;
-	font-family:'Dosis';
+	font-family:'Nunito';
 	font-weight: 600;
 	transition:all 0.2s ease-in-out;
 	-moz-transition:all 0.2s ease-in-out;
@@ -638,7 +647,7 @@ img {
 	}
 
 .quote_section p{
-	font-family: 'Lato',sans-serif;
+	font-family: 'NunitoItalic',sans-serif;
 	font-style: italic;
 	font-size:18px;
 	font-weight: 300;
@@ -1074,7 +1083,7 @@ img {
 	font-family: 'Lato', sans-serif;
 }
 .input-btn{
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Nunito', sans-serif;
 	width:175px;
 	height:50px;
 	letter-spacing: 0px;
@@ -1234,7 +1243,7 @@ img {
 
 .section-title h2{
 	color: #222222;
-    font-family: DosisBold;
+    font-family: Nunito;
     font-size: 34px;
     font-weight: normal;
     letter-spacing: -1px;
@@ -1334,7 +1343,7 @@ img {
 		color:#222222;
 		text-transform:uppercase;
 		margin-top:25px;
-		font-family:DosisBold;
+		font-family:NunitoBold;
 		opacity:0;
 		font-size:18px;
 		transition:all 0.2s ease 0s;
@@ -1728,7 +1737,7 @@ img {
 .test1 {
 	position: relative !important;
 	overflow: hidden;
-	height: 480px !important;
+	height: 720px !important;
 }
 
 .test2 {
@@ -1796,6 +1805,39 @@ img {
 	left: 0px;
 	top: 0px;
 	transform: translate3d(1011px, 240px, 0px) scale3d(1, 1, 1);
+	width: 337px !important;
+	opacity: 1;
+}
+
+.test10 {
+	position: absolute !important;
+	left: 0px;
+	top: 0px;
+	transform: translate3d(0px, 480px, 0px) scale3d(1, 1, 1);
+	width: 337px !important;
+	opacity: 1;
+}
+.test11 {
+	position: absolute !important;
+	left: 0px;
+	top: 0px;
+	transform: translate3d(337px, 480px, 0px) scale3d(1, 1, 1);
+	width: 337px !important;
+	opacity: 1;
+}
+.test12 {
+	position: absolute !important;
+	left: 0px;
+	top: 0px;
+	transform: translate3d(674px, 480px, 0px) scale3d(1, 1, 1);
+	width: 337px;
+	opacity: 1;
+}
+.test13 {
+	position: absolute !important;
+	left: 0px;
+	top: 0px;
+	transform: translate3d(1011px, 480px, 0px) scale3d(1, 1, 1);
 	width: 337px !important;
 	opacity: 1;
 }
