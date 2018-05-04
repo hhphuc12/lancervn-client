@@ -24,7 +24,7 @@ class Home extends PureComponent<Props, State> {
                 <link href='https://fonts.googleapis.com/css?family=Lato:400,900,700,700italic,400italic,300italic,300,100italic,100,900italic' rel='stylesheet' type='text/css'/>
                 <link href='https://fonts.googleapis.com/css?family=Dosis:400,500,700,800,600,300,200' rel='stylesheet' type='text/css'/>
                 <header id="header_outer">
-                    <div className="container">
+                    <div className="container" style={{ maxWidth: '100%' }}>
                         <div className="header_section">
                             <div className="logo">
                                 <a href="javascript:void(0)">
@@ -32,23 +32,14 @@ class Home extends PureComponent<Props, State> {
                                 </a>
                             </div>
                             <nav className="nav" id="nav">
-                                <ul className="toggle">
-                                    <li><a href="#top_content">Home</a></li>
-                                    <li><a href="#service">Services</a></li>
-                                    <li><a href="#work_outer">Work</a></li>
-                                    <li><a href="#Portfolio">Portfolio</a></li>
-                                    <li><a href="#client_outer">Clients</a></li>
-                                    <li><a href="#team">Team</a></li>
-                                    <li><a href="#contact">Contact</a></li>
-                                </ul>
                                 <ul style={{ marginTop: 3, marginBottom:0 }}>
-                                    <li><a href="#top_content">Home</a></li>
-                                    <li><a href="#service">Services</a></li>
-                                    <li><a href="#work_outer">Work</a></li>
-                                    <li><a href="#Portfolio">Portfolio</a></li>
-                                    <li><a href="#client_outer">Clients</a></li>
-                                    <li><a href="#team">Team</a></li>
-                                    <li><a href="#contact">Contact</a></li>
+                                    <li><a href="#top_content">ĐĂNG VIỆC</a></li>
+                                    <li><a href="#service">TÌM FREELANCER</a></li>
+                                    <li><a href="#work_outer">TÌM VIỆC FREELANCE</a></li>
+                                    <li><a href="#Portfolio">GÓI CÔNG VIỆC</a></li>
+                                    <li style={{ marginRight: 0 }}><a href="#client_outer">Đăng nhập</a></li>
+                                    <span> | </span>
+                                    <li style={{ marginLeft: 0 }}><a href="#team">Đăng ký</a></li>
                                 </ul>
                             </nav>
                             <a className="res-nav_click animated wobble wow" href="javascript:void(0)">
@@ -402,7 +393,7 @@ class Home extends PureComponent<Props, State> {
                                 <span>Đồng sáng lập ezPark</span></div>
                             <div className="quote_section">
                                 <div className="quote_arrow"/>
-                                <p><b><img src="/img/quote_sign_left.png" alt=""/></b> Tôi đã nhận được rất những hỗ trợ tận tình
+                                <p><b><img src="/img/quote_sign_left.png" alt=""/></b> Tôi đã nhận được những hỗ trợ rất tận tình
                                     từ đội ngũ freelancer trên lancerVN, các bạn là những con người tuyệt vời. Chúc lancerVN
                                     ngày càng lớn mạnh và phổ cập mô hình freelancer đến tất cả mọi người. <small><img
                                         src="/img/quote_sign_right.png" alt=""/></small></p>
@@ -443,10 +434,10 @@ class Home extends PureComponent<Props, State> {
                 <div className="c-logo-part">
                     <div className="container">
                         <ul className="delay-06s animated  bounce wow">
-                            <li><a href="javascript:void(0)"><img src="/img/c-liogo1.png" alt=""/></a></li>
-                            <li><a href="javascript:void(0)"><img src="/img/c-liogo2.png" alt=""/></a></li>
-                            <li><a href="javascript:void(0)"><img src="/img/c-liogo3.png" alt=""/></a></li>
-                            <li><a href="javascript:void(0)"><img src="/img/c-liogo5.png" alt=""/></a></li>
+                            <li><a href="javascript:void(0)"><img src="/images/home/sctv4.jpeg" alt=""/></a></li>
+                            <li><a href="javascript:void(0)"><img src="/images/home/htv9.png" alt=""/></a></li>
+                            <li><a href="javascript:void(0)"><img src="/images/home/vn-news.jpg" alt=""/></a></li>
+                            <li><a href="javascript:void(0)"><img src="/images/home/tuoi-tre.png" alt=""/></a></li>
                         </ul>
                     </div>
                 </div>
@@ -509,14 +500,6 @@ class Home extends PureComponent<Props, State> {
                         </div>
                     </div>
                 </section>
-
-                <section className="twitter-feed">
-                    <div className="container  animated fadeInDown delay-07s wow">
-                        <div className="twitter_bird"><span><i className="fa-twitter"/></span></div>
-                        <p> When you're the underdog, your only option is to make #waves if you want to succeed. How
-                            much <br/> and how often should you be drinking coffee?</p>
-                        <span>About 28 mins ago</span></div>
-                </section>
                 <footer className="footer_section" id="contact">
                     <div className="container">
                         <section className="main-section contact" id="contact">
@@ -530,7 +513,7 @@ class Home extends PureComponent<Props, State> {
                                                     <i className="fa-home"/>
                                                 </span>
                                             </div>
-                                            <span> 308 Negra Arroyo Lane, <br/>Albuquerque, NM, 87104 </span>
+                                            <span> 54 Nguyễn Lương Bằng, <br/>Hoà Khánh Bắc, Liên Chiểu, Đà Nẵng </span>
                                         </div>
                                     </div>
                                     <div className="col-lg-4">
@@ -540,7 +523,7 @@ class Home extends PureComponent<Props, State> {
                                                     <i className="fa-phone"/>
                                                 </span>
                                             </div>
-                                            <span> 1-800-BOO-YAHH </span>
+                                            <span> 0985756430 </span>
                                         </div>
                                     </div>
                                     <div className="col-lg-4">
@@ -550,19 +533,18 @@ class Home extends PureComponent<Props, State> {
                                                     <i className="fa-pencil"/>
                                                 </span>
                                             </div>
-                                            <span> <a href="mailto:hello@butterfly.com"> hello@butterfly.com</a> </span></div>
+                                            <span> <a href="mailto:hello@butterfly.com"> support@lancervn.com</a> </span></div>
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-lg-6 wow fadeInLeft">
                                     <div className="contact-info-box address clearfix">
-                                        <h3>Don’t be shy. Say hello!</h3>
-                                        <p>Accusantium quam, aliquam ultricies eget tempor id, aliquam eget nibh et. Maecen
-                                            aliquam, risus at semper. Accusantium quam, aliquam ultricies eget tempor id,
-                                            aliquam eget nibh et. Maecen aliquam, risus at semper.</p>
-                                        <p>Accusantium quam, aliquam ultricies eget tempor id, aliquam eget nibh et. Maecen
-                                            aliquampor id.</p>
+                                        <h3>Liên hệ ngay với chúng tôi. Đừng ngần ngại!</h3>
+                                        <p>Dù bạn là thành viên của lancerVN hay khách vãng lai, nếu bạn có bất kỳ góp ý hay
+                                            thắc mắc nào, vui lòng cho chúng tôi biết. Đừng ngần ngại! <br/>
+                                            Mọi ý kiến đóng góp của bạn sẽ được phản hồi trong 24h. </p>
+                                        <p>Chúc một ngày tốt lành!</p>
                                     </div>
                                     <ul className="social-link">
                                         <li className="twitter animated bounceIn wow delay-02s"><a href="javascript:void(0)"><i
@@ -616,9 +598,8 @@ class Home extends PureComponent<Props, State> {
                     </div>
                     <div className="container">
                         <div className="footer_bottom">
-                            <span>© Butterfly Theme</span>
                             <div className="credits">
-                                <a href="https://bootstrapmade.com/">Free Bootstrap Templates</a> by BootstrapMade
+                                @2018 - Powered by LancerVN. All Right Reserved.
                             </div>
                         </div>
                     </div>
