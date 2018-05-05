@@ -3,6 +3,8 @@ import moment from 'moment';
 import {
     ENTER_HOME_PAGE,
     LEAVE_HOME_PAGE,
+    ENTER_HOME_USER,
+    LEAVE_HOME_USER,
     ENTER_LOGIN_VIEW,
     LEAVE_LOGIN_VIEW,
     ENTER_REGISTER_VIEW,
@@ -36,6 +38,24 @@ export function leaveHomePage(time: string = moment().format()) {
     return {
         type:         LEAVE_HOME_PAGE,
         currentView:  'HomePage',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterHomeUser(time: string = moment().format()) {
+    return {
+        type:         ENTER_HOME_USER,
+        currentView:  'HomeUser',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveHomeUser(time: string = moment().format()) {
+    return {
+        type:         LEAVE_HOME_USER,
+        currentView:  'HomeUser',
         enterTime:    null,
         leaveTime:    time
     };

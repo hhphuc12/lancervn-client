@@ -10,3 +10,6 @@ export const ERROR_SELECT_CATEGORY:               string = 'ERROR_SELECT_CATEGOR
 export const REQUEST_ADD_CATEGORY:                string = 'REQUEST_ADD_CATEGORY';
 export const RECEIVED_ADD_CATEGORY:               string = 'RECEIVED_ADD_CATEGORY';
 export const ERROR_ADD_CATEGORY:                  string = 'ERROR_ADD_CATEGORY';
+export const REQUEST_FULL_CATEGORY:               string = 'REQUEST_FULL_CATEGORY';
+export const RECEIVED_FULL_CATEGORY:              string = 'RECEIVED_FULL_CATEGORY';
+export const ERROR_FULL_CATEGORY:                 string = 'ERROR_FULL_CATEGORY';

@@ -6,12 +6,16 @@ import {
     REQUEST_ADD_CATEGORY,
     RECEIVED_ADD_CATEGORY,
     ERROR_ADD_CATEGORY,
+    REQUEST_FULL_CATEGORY,
+    RECEIVED_FULL_CATEGORY,
+    ERROR_FULL_CATEGORY,
 } from "../constants/categoryType";
 import moment from "moment/moment";
 
 const initialState = {
     userCategories: [],
     categories: [],
+    fullCategories: [],
     isFetching: false,
     isCategoryAdded: false,
 };
@@ -66,6 +70,28 @@ export default function (
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
                 isCategoryAdded: false,
+            };
+
+        case REQUEST_FULL_CATEGORY:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_FULL_CATEGORY:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                fullCategories: action && action.fullCategories ? action && action.fullCategories : initialState.fullCategories,
+            };
+
+        case ERROR_FULL_CATEGORY:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
             };
 
         default:

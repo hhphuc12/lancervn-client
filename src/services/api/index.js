@@ -10,6 +10,7 @@ import {
     selectCategory,
     postCategory,
     userCategory,
+    fullCategory,
 }                                       from './category';
 import { selectSkill }                  from './skill';
 import {
@@ -74,4 +75,5 @@ export {
     postLanguage,
     listLanguage,
     deleteLanguage,
+    fullCategory,
 }
