@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { postCategory, selectCategory, userCategory } from '../services/api';
+import { postCategory, selectCategory, fullCategory } from '../services/api';
 import {
     REQUEST_SELECT_CATEGORY,
     RECEIVED_SELECT_CATEGORY,
@@ -8,6 +8,9 @@ import {
     REQUEST_ADD_CATEGORY,
     RECEIVED_ADD_CATEGORY,
     ERROR_ADD_CATEGORY,
+    REQUEST_FULL_CATEGORY,
+    RECEIVED_FULL_CATEGORY,
+    ERROR_FULL_CATEGORY,
 } from "../constants/categoryType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -129,6 +132,67 @@ function addCategory(category) {
             })
             .catch(res => {
                 dispatch(errorAddCategory(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+};
+
+function requestFullCategory(time = moment().format()) {
+    return {
+        type:       REQUEST_FULL_CATEGORY,
+        isFetching: true,
+        time
+    };
+}
+function receivedFullCategory(fullCategories, time = moment().format()) {
+    return {
+        type:       RECEIVED_FULL_CATEGORY,
+        isFetching: false,
+        fullCategories,
+        time
+    };
+}
+function errorFullCategory(time = moment().format()) {
+    return {
+        type:       ERROR_FULL_CATEGORY,
+        isFetching: false,
+        time
+    };
+}
+
+export function getFullCategoryIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetFullCategory(getState())) {
+            return dispatch(getFullCategory());
+        }
+        return Promise.resolve('already fetching categories...');
+    }
+}
+
+function shouldGetFullCategory(
+    state: any
+): boolean {
+    const isFetching = state.category.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getFullCategory() {
+    return dispatch => {
+        dispatch(requestFullCategory());
+        fullCategory()
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedFullCategory(res.data));
+            })
+            .catch(error => {
+                dispatch(errorFullCategory(error));
                 dispatch(errorBadRequest(400));
             });
     };

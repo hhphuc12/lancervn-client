@@ -18,3 +18,8 @@ export const userCategory = token => {
     const url = `${API_URI}user-category`;
     return request.get(url, token);
 };
+
+export const fullCategory = () => {
+    const url = `${API_URI}full-list-category`;
+    return request.get(url);
+};
