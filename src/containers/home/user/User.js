@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
+import Rating from 'react-rating';
 
 class User extends PureComponent<Props, State> {
     state = {
@@ -67,13 +68,21 @@ class User extends PureComponent<Props, State> {
         });
 
         return (
-            <div className="home-wrapper">
-                <div className="container">
+            <div>
+                <section className="section-main section-top-banner no-overlay home-banner">
+                    <div className="container banner-wrapper">
+                        <div className="my-banner">
+                            <h1 className="page-title" style={{ color: 'white' }}>Đội ngũ freelancer</h1>
+                            <p className="caption" style={{ color: 'white' }}>Tips: Những freelancer tận tâm & chuyên nghiệp nhất luôn được đánh giá rất cao</p>
+                        </div>
+                    </div>
+                </section>
+                <div className="container home-wrapper">
                     <div className="row">
                         <div className="col-lg-3 col-md-4 d-xl-block d-md-block col-job-filter">
                             <div className="sidebar">
                                 <div className="box">
-                                    <h3>Chọn lĩnh vực công việc</h3>
+                                    <h3 className="home-content-title">Chọn lĩnh vực công việc</h3>
                                     <div className="content">
                                         <div className="card-filter" id="jobs-filter" role="tablist" aria-multiselectable="true">
                                             <Collapse
@@ -89,34 +98,58 @@ class User extends PureComponent<Props, State> {
                             </div>
                         </div>
                         <div className="col-md-8 col-lg-9">
-                            <h3>Tất cả freelancer</h3>
+                            <h3 className="home-content-title">Tất cả freelancer</h3>
                             <div className="media-list-wrap style-2">
                                 <ul className="media-list ">
                                     <li className="media">
                                         <div className="media-left">
-                                            <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html"><img className="avatar" src="https://fvstaticws.freelancerviet.vn/fv3uploads/uploads/datas/users2/165/727/thumb_15110154856526615638521967075852n_WvADchqZ3C.jpg" alt="Nguyễn Thị Loan"/></a>
+                                            <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html">
+                                                <img className="avatar" src="https://fvstaticws.freelancerviet.vn/fv3uploads/uploads/datas/users2/165/727/thumb_15110154856526615638521967075852n_WvADchqZ3C.jpg" alt="Nguyễn Thị Loan"/>
+                                            </a>
                                         </div>
                                         <div className="media-body">
-                                            <ul className="media-stats list-unstyled horizontal mobile-text-center">
-                                                <li>
-                                                    <h4 className="media-heading item-title"><a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html">Nguyễn Thị Loan</a></h4></li>
-                                                <li><i className="ion-ios-location-outline"/> Hà Nội, VN</li>
-                                                <li><i className="small-icon icon-verify"/></li>
-                                            </ul>
-                                            <h5 className="media-subheading text-primary mobile-text-center">Marketer</h5>
-                                            <div className="media-text ">Vui vẻ, hòa đồng và trách nhiệm Mục tiêu tham gia: freelancerviet.vn để kiếm thật nhiều việc làm, gia tăng thu nhập. Tâm đắc câu &amp;quot;You Are What You Think&amp;quot;</div>
-                                            <div className="media-cloud"><span>Top kỹ năng:</span><span className="cloud-tag">Thiết kế logo</span><span className="cloud-tag">Thiết kế website</span><span className="cloud-tag">Thiết kế banner,poster</span></div>
-                                            <ul className="media-stats list-unstyled horizontal style-2">
-                                                <li>
-                                                    <div className="rating-wrap"><span>Đánh giá:</span>
-                                                        <div className="rating-container rating-xs rating-animate rating-disabled">
-                                                            <div className="rating"><span className="empty-stars"><span className="star"><i className="ion-android-star-outline"/></span><span className="star"><i className="ion-android-star-outline"/></span><span className="star"><i className="ion-android-star-outline"/></span><span className="star"><i className="ion-android-star-outline"/></span><span className="star"><i className="ion-android-star-outline"/></span></span><span className="filled-stars" style={{ width: '100%' }}><span className="star"><i className="ion-android-star"/></span><span className="star"><i className="ion-android-star"/></span><span className="star"><i className="ion-android-star"/></span><span className="star"><i className="ion-android-star"/></span><span className="star"><i className="ion-android-star"/></span></span>
-                                                            </div>
-                                                            <input type="hidden" className="input-rating hide" data-size="xs" disabled="disabled" data-show-clear="false" data-show-caption="false" value="5"/>
-                                                        </div><a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html">(1 nhận xét)</a></div>
-                                                </li>
-                                                <li><a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" className="text-warning">XEM HỒ SƠ <i className="ion-android-arrow-forward"/></a></li>
-                                            </ul>
+                                            <div className="media-heading form-inline">
+                                                <h4 style={{ float: 'left' }}>
+                                                    <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" style={{ textDecoration: 'none' }}>
+                                                        Nguyễn Thị Loan
+                                                    </a>
+                                                </h4>
+                                                <div className="location-wrapper">
+                                                    <i className="mdi mdi-map-marker-radius"/>
+                                                    <span>Hà Nội, VN</span>
+                                                </div>
+                                            </div>
+                                            <h5 className="text-primary">Marketer</h5>
+                                            <div className="media-text">
+                                                Vui vẻ, hòa đồng và trách nhiệm Mục tiêu tham gia: freelancerviet.vn để kiếm thật nhiều việc làm, gia tăng thu nhập. Tâm đắc câu &amp;quot;You Are What You Think&amp;quot;
+                                            </div>
+                                            <div className="media-cloud">
+                                                <span className="media-cloud-title">Dịch vụ cung cấp:</span>
+                                                <span className="cloud-tag">Thiết kế logo</span>
+                                                <span className="cloud-tag">Thiết kế website</span>
+                                                <span className="cloud-tag">Thiết kế banner,poster</span>
+                                            </div>
+                                            <div className="rating-wrap">
+                                                <span className="rating-title">Đánh giá:</span>
+                                                <div className="rating-container">
+                                                    <Rating
+                                                        readonly={true}
+                                                        initialRating={5}
+                                                        emptySymbol={<i className="mdi mdi-star-outline rating-item text-success"/>}
+                                                        fullSymbol={<i className="mdi mdi-star rating-item text-success"/>}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div style={{ marginTop: '0.3rem' }}>
+                                                <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" style={{ textDecoration: 'none' }}>
+                                                    (1 nhận xét)
+                                                </a>
+                                                <span style={{ margin: '1rem' }}>|</span>
+                                                <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" className="text-warning"  style={{ textDecoration: 'none' }}>
+                                                    <span>XEM HỒ SƠ</span>
+                                                    <i className="mdi mdi-arrow-right text-warning"/>
+                                                </a>
+                                            </div>
                                         </div>
                                     </li>
                                     <li className="media">

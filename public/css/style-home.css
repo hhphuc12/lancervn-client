@@ -133,7 +133,7 @@ p{
 ---------------------------------*/
 
 #header_outer{
-	background:#d3f4ff;
+	background: #fff;
 	padding:20px 0px;
 	}
 
@@ -1872,4 +1872,93 @@ img {
 
 .rc-collapse-header {
 	background-color: #fff;
+}
+
+.home-banner {
+	background-image: url("/images/home/banner-bg.png");
+	background-size: cover;
+}
+
+.banner-wrapper {
+	background: rgba(46, 138, 225, 0.85);
+	max-width: 100%;
+}
+
+.my-banner {
+	padding: 5rem;
+}
+
+.home-content-title {
+	padding: 1rem 0;
+}
+
+.avatar {
+	width: 6rem;
+	height: auto;
+	border-radius: 100%;
+}
+
+.media {
+	border: solid 1px #5bd3ff;
+	padding: 1.5rem;
+	border-radius: 0.3rem;
+}
+
+.media-body {
+	padding-left: 1.5rem;
+}
+
+.item-title {
+	text-decoration: none;
+	font-size: 1.2rem;
+}
+
+.media-subheading {
+	font-weight: unset;
+	font-size: 0.9rem;
+}
+
+.location-wrapper {
+	padding: 0 0 0.6rem 0.5rem;
+}
+
+.media-text {
+	margin-bottom: 0.5rem;
+	color: #000;
+}
+
+.media-cloud-title {
+	font-size: 1rem;
+}
+
+.cloud-tag {
+	background-color: #5bd3ff;
+	padding: 0.3rem;
+	margin-left: 0.4rem;
+	margin-bottom: 0.4rem;
+	border-radius: 0.2rem;
+	display: inline-block;
+	color: #000;
+}
+
+.rating-item {
+  font-size: 1.3rem;
+}
+
+.rating-title {
+  float: left;
+  padding: 0.4rem 0.5rem 0 0;
+}
+
+.rating-container {
+  float: left;
+}
+
+.rating-wrap {
+  float: left;
+  margin-right: 0.5rem;
+}
+
+.media-footer {
+  padding-top: 0.4rem;
 }
