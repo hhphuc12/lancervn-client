@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../actions/viewAction';
 import * as categoryActions   from '../../../actions/categoryActions';
+import * as userActions       from '../../../actions/userActions';
 import User                   from './User';
 import * as errorActions      from "../../../actions/errorActions";
 
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => {
         currentView:  state.views.currentView,
 
         fullCategories: state.category.fullCategories,
+        listFreelancer: state.user.listFreelancer,
     };
 };
 
@@ -22,6 +24,7 @@ const mapDispatchToProps = (dispatch) => {
             {
                 ...viewsActions,
                 ...categoryActions,
+                ...userActions,
                 ...errorActions,
             },
             dispatch

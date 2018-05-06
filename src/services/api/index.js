@@ -36,6 +36,9 @@ import {
 import {
     postJobApi,
 }                                       from './job';
+import {
+    listFreelancer,
+}                                       from './user';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -76,4 +79,5 @@ export {
     listLanguage,
     deleteLanguage,
     fullCategory,
+    listFreelancer,
 }
