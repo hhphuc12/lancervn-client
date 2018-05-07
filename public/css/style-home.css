@@ -134,7 +134,7 @@ p{
 
 #header_outer{
 	background: #fff;
-	padding:20px 0px;
+	padding:20px 0px 10px 0px;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
 	}
 
@@ -1962,4 +1962,12 @@ img {
 
 .media-footer {
   padding-top: 0.4rem;
+}
+
+.profile-dropdown-item {
+  border-bottom: none !important;
+}
+
+.profile-dropdown-icon {
+  margin: 0.2rem 0.2rem 0.2rem 1rem !important;
 }

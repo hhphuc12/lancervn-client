@@ -5,9 +5,23 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 import HomeRoutes from '../../routes/HomeRoutes';
+import auth from '../../services/auth';
 
 class Home extends PureComponent<Props, State> {
+    onLogout = e => {
+        e.preventDefault();
+        this.props.actions.onLogout();
+    };
+
     render() {
+        let avatarUri, lastName;
+        const info = auth.getUserInfo();
+        if (info) {
+            avatarUri = info.avatarUri;
+            lastName = info.lastName;
+        }
+        const { isAuthenticated } = this.props;
+
         return (
             <div>
                 <link href="/css/style-home.css" rel="stylesheet" type="text/css"/>
@@ -18,24 +32,50 @@ class Home extends PureComponent<Props, State> {
 
                 <link href='https://fonts.googleapis.com/css?family=Lato:400,900,700,700italic,400italic,300italic,300,100italic,100,900italic' rel='stylesheet' type='text/css'/>
                 <link href='https://fonts.googleapis.com/css?family=Dosis:400,500,700,800,600,300,200' rel='stylesheet' type='text/css'/>
-                <header id="header_outer">
+                <header id="header_outer" style={{ padding: isAuthenticated ? "20px 0px 10px 0px" : "20px 0px" }}>
                     <div className="container" style={{ maxWidth: '100%' }}>
                         <div className="header_section">
                             <div className="logo">
-                                <a href="javascript:void(0)">
+                                <Link to="/">
                                     <img src="/images/icons/logo.png" alt="" className="logo-home"/>
-                                </a>
+                                </Link>
                             </div>
                             <nav className="nav" id="nav">
-                                <ul style={{ marginTop: 3, marginBottom:0 }}>
+                                <ul style={{ marginTop: '0.3rem', marginBottom:0 }}>
                                     <li><a href="#top_content">ĐĂNG VIỆC</a></li>
                                     <li><Link to="/freelancer">TÌM FREELANCER</Link></li>
                                     <li><a href="#work_outer">TÌM VIỆC FREELANCE</a></li>
                                     <li><a href="#Portfolio">GÓI CÔNG VIỆC</a></li>
-                                    <li style={{ marginRight: 0 }}><a href="#client_outer">Đăng nhập</a></li>
-                                    <span> | </span>
-                                    <li style={{ marginLeft: 0 }}><a href="#team">Đăng ký</a></li>
+                                    { !isAuthenticated ? (<li style={{ marginRight: 0 }}><a href="/login">Đăng nhập</a></li>) : null }
+                                    { !isAuthenticated ? (<span> | </span>) : null }
+                                    { !isAuthenticated ? (<li style={{ marginLeft: 0 }}><a href="/register">Đăng ký</a></li>) : null }
                                 </ul>
+                                { isAuthenticated ? (
+                                    <div className="dropdown">
+                                        <a href="#" style={{ textDecoration: 'none', color: '#2950e4' }} data-toggle="dropdown">
+                                            <div style={{ display: 'flex', marginTop: '-0.4rem' }}>
+                                                <img
+                                                    src={avatarUri}
+                                                    style={{ width: '2.8rem', height: '2.8rem', borderRadius: '100%', margin: '0px 0.8rem' }}
+                                                />
+                                                <div>
+                                                    <p style={{ fontSize: '1rem', fontFamily: 'Nunito', paddingTop: '0.6rem' }}>{lastName}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div className="dropdown-menu">
+                                            <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                                                <img className="profile-dropdown-icon float-left" src="/images/icons/dashboard.png" />
+                                                <p className="mb-0 font-weight-normal">Dashboard</p>
+                                            </Link>
+                                            <div className="dropdown-divider"/>
+                                            <a href="#" onClick={this.onLogout} style={{ textDecoration: 'none' }}>
+                                                <img className="profile-dropdown-icon float-left" src="/images/icons/log_out.png" alt=""/>
+                                                <p className="mb-0 font-weight-normal">Đăng xuất</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                ) : null }
                             </nav>
                             <a className="res-nav_click animated wobble wow" href="javascript:void(0)">
                                 <i className="fa-bars"/>
@@ -88,7 +128,7 @@ class Home extends PureComponent<Props, State> {
                                     <div className="contact-info-box address clearfix">
                                         <h3>Liên hệ ngay với chúng tôi. Đừng ngần ngại!</h3>
                                         <p>Dù bạn là thành viên của lancerVN hay khách vãng lai, nếu bạn có bất kỳ góp ý hay
-                                            thắc mắc nào, vui lòng cho chúng tôi biết. Đừng ngần ngại! <br/>
+                                            thắc mắc nào, vui lòng cho chúng tôi biết. <br/>
                                             Mọi ý kiến đóng góp của bạn sẽ được phản hồi trong 24h. </p>
                                         <p>Chúc một ngày tốt lành!</p>
                                     </div>
