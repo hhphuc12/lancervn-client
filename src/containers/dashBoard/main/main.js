@@ -5,6 +5,7 @@ import React, {
 }                             from 'react';
 import { Link }               from 'react-router-dom';
 import DashRoutes             from '../../../routes/DashRoutes';
+import auth from "../../../services/auth";
 
 class Main extends Component {
     constructor(props) {
@@ -34,20 +35,22 @@ class Main extends Component {
     }
 
     render() {
+        const { avatarUri, firstName, lastName, occupation } = auth.getUserInfo();
+
         return (
             <div className="container-scroller">
-                <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style={{ border: 0, borderRadius: 0 }}>
+                <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style={{ border: 0, borderRadius: 0, boxShadow: "0 1px 3px 0 rgba(0,0,0,0.2)" }}>
                     <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-                        <a className="navbar-brand brand-logo" href="index.html">
+                        <Link className="navbar-brand brand-logo" to="/">
                             <img src="/images/icons/logo.png" alt="logo" style={{ marginTop: 10, height: 24 }} />
-                        </a>
+                        </Link>
                     </div>
-                    <div className="navbar-menu-wrapper d-flex align-items-center">
+                    <div className="navbar-menu-wrapper d-flex align-items-center" style={{ backgroundColor: "#fff" }}>
                         <ul className="navbar-nav navbar-nav-right">
                             <li className="nav-item dropdown">
                                 <a className="nav-link count-indicator dropdown-toggle" id="notificationDropdown"
                                    href="#" data-toggle="dropdown">
-                                    <i className="mdi mdi-bell-ring"/>
+                                    <i className="mdi mdi-bell-ring text-primary"/>
                                     <span className="count">4</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
@@ -105,7 +108,7 @@ class Main extends Component {
                             <li className="nav-item dropdown">
                                 <a className="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
                                    data-toggle="dropdown" aria-expanded="false">
-                                    <i className="mdi mdi-email-variant"/>
+                                    <i className="mdi mdi-email-variant text-primary"/>
                                     <span className="count">7</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
@@ -118,7 +121,7 @@ class Main extends Component {
                                     <div className="dropdown-divider"/>
                                     <a className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
-                                            <img src="/images/faces/face4.jpg" alt="" className="profile-pic"/>
+                                            <img src={avatarUri} alt={lastName} className="profile-pic"/>
                                         </div>
                                         <div className="preview-item-content flex-grow">
                                             <h6 className="preview-subject ellipsis font-weight-medium">David Grey
@@ -165,14 +168,14 @@ class Main extends Component {
                             <li className="nav-item d-none d-lg-block dropdown">
                                 <a className="nav-link count-indicator dropdown-toggle" id="accountDropdown" href="#"
                                     data-toggle="dropdown" aria-expanded="false">
-                                    <img className="img-xs rounded-circle" src="/images/faces/face4.jpg" alt=""/>
+                                    <img className="img-xs rounded-circle" src={avatarUri} alt={lastName} />
                                 </a>
                                 <div
                                     className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                                     aria-labelledby="accountDropdown"
                                     style={{ marginTop: 8, borderRadius: 4 }}
                                 >
-                                    <Link to="/dashboard/profile" className="dropdown-item profile-dropdown-item">
+                                    <Link to="/dashboard/info-profile" className="dropdown-item profile-dropdown-item">
                                         <img className="profile-dropdown-icon" src="/images/icons/profile.png" />
                                         <p className="mb-0 font-weight-normal float-left">Xem hồ sơ cá nhân</p>
                                     </Link>
@@ -196,12 +199,12 @@ class Main extends Component {
                             <li className="nav-item nav-profile">
                                 <div className="nav-link">
                                     <div className="profile-image">
-                                        <img src="/images/faces/face4.jpg" alt=""/>
+                                        <img src={avatarUri} alt={lastName} />
                                         <span className="online-status online"/>
                                     </div>
                                     <div className="profile-name">
-                                        <p className="name">Richard V.Welsh</p>
-                                        <p className="designation">Manager</p>
+                                        <p className="name">{`${firstName} ${lastName}`}</p>
+                                        <p className="designation">{occupation}</p>
                                         <div className="badge badge-teal mx-auto mt-3">Online</div>
                                     </div>
                                 </div>
@@ -271,10 +274,12 @@ class Main extends Component {
                         <DashRoutes />
                         <footer className="footer">
                             <div className="container-fluid clearfix">
-                                <span className="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 <a
-                                    href="http://www.bootstrapdash.com/" target="_blank" rel="noopener noreferrer">Bootstrapdash</a>. All rights reserved.</span>
-                                <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
-                                    className="mdi mdi-heart text-danger"/></span>
+                                <span className="text-muted d-block text-center text-sm-left d-sm-inline-block">
+                                    @2018 - Powered by LancerVN. All Right Reserved.
+                                </span>
+                                <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+                                    <i className="mdi mdi-heart text-danger"/>
+                                </span>
                             </div>
                         </footer>
                     </div>
