@@ -78,6 +78,8 @@ export const monthFormater = (date: string) => {
     return d.toLocaleString('vi', { month: 'numeric', year: 'numeric' });
 };
 
+export const moneyFormater = money => money.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 export const changePreview = (image, placeToInsertImagePreview) => {
     $(placeToInsertImagePreview + ' img').remove();
     if (image) {
