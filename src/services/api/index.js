@@ -35,6 +35,7 @@ import {
 }                                       from './literacy';
 import {
     postJobApi,
+    jobFreelance,
 }                                       from './job';
 import {
     listFreelancer,
@@ -80,4 +81,5 @@ export {
     deleteLanguage,
     fullCategory,
     listFreelancer,
+    jobFreelance,
 }

@@ -1906,7 +1906,7 @@ img {
 }
 
 .media-body {
-	padding-left: 1.5rem;
+	padding-left: 2rem;
 }
 
 .item-title {
@@ -1970,4 +1970,63 @@ img {
 
 .profile-dropdown-icon {
   margin: 0.2rem 0.2rem 0.2rem 1rem !important;
+}
+
+.media-featured {
+	border-color: #da00ff;
+}
+
+.text-featured {
+	font-size: 10px;
+	line-height: 13px;
+	text-align: center;
+	color: #fff;
+	background-color: #da00ff;
+	padding: 1px 0;
+	height: 15.42px;
+	width: 58px;
+	margin-left: -1.5rem;
+	margin-top: -1.5rem;
+	border-top-left-radius: 0.2rem;
+}
+
+.media-featured .media-body {
+	padding-left: unset;
+}
+
+li .offer {
+	border-radius: 0.2rem;
+	font-size: 0.8rem;
+	padding: 0.3rem;
+}
+
+.receiving-offer {
+	border: 1px solid #08d419;
+	color: #08d419;
+}
+
+.expired-offer {
+	border: 1px solid #d4161d;
+	color: #d4161d;
+}
+
+.media-heading {
+	font-size: 0.9rem;
+}
+
+.media-right {
+	padding-left: 5rem;
+}
+
+.media-right ul li {
+	padding: 0.3rem 0;
+}
+
+li .highlight {
+	font-size: 1rem;
+	color: #000;
+}
+
+.media-right ul li i {
+	padding-right: 0.3rem;
 }
