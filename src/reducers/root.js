@@ -14,6 +14,7 @@ import skill                             from './skill';
 import job                               from './job';
 import user                              from './user';
 import language                          from './language';
+import _package                          from './package';
 import error                             from './error';
 
 export const reducers = {
@@ -29,6 +30,7 @@ export const reducers = {
     job,
     user,
     language,
+    _package,
     error,
 };
 

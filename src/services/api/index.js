@@ -40,6 +40,10 @@ import {
 import {
     listFreelancer,
 }                                       from './user';
+import {
+    postPackageApi,
+    listPackage,
+}                                       from './package';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -82,4 +86,6 @@ export {
     fullCategory,
     listFreelancer,
     jobFreelance,
+    postPackageApi,
+    listPackage,
 }

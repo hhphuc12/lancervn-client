@@ -240,7 +240,7 @@ class Main extends Component {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="pages/forms/basic_elements.html">
+                                <a className="nav-link" href="/dashboard/packages">
                                     <img className="menu-icon" src="/images/menu_icons/04.png" alt="menu icon"/>
                                     <span className="menu-title">Gói công việc</span>
                                 </a>
