@@ -19,6 +19,8 @@ import {
     LEAVE_JOB_POSTED_VIEW,
     ENTER_ADD_JOB_VIEW,
     LEAVE_ADD_JOB_VIEW,
+    ENTER_ADD_PACKAGE_VIEW,
+    LEAVE_ADD_PACKAGE_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
@@ -200,6 +202,24 @@ export function leavePostJob(time: string = moment().format()) {
     return {
         type:         LEAVE_ADD_JOB_VIEW,
         currentView:  'AddJob',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterPostPackage(time: string = moment().format()) {
+    return {
+        type:         ENTER_ADD_PACKAGE_VIEW,
+        currentView:  'AddPackage',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leavePostPackage(time: string = moment().format()) {
+    return {
+        type:         LEAVE_ADD_PACKAGE_VIEW,
+        currentView:  'AddPackage',
         enterTime:    null,
         leaveTime:    time
     };
