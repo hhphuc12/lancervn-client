@@ -11,22 +11,22 @@ class User extends PureComponent<Props, State> {
     state = {
         activeKey: ['0'],
         categorySelected: '',
-        jobFreelance: [],
+        packages: [],
     };
 
     componentDidMount() {
         const {
-            enterHomeUser,
+            enterHomePackage,
             getFullCategoryIfNeed,
-            getJobFreelanceIfNeed,
+            getListPackageIfNeed,
         } = this.props.actions;
-        enterHomeUser();
+        enterHomePackage();
         getFullCategoryIfNeed();
-        getJobFreelanceIfNeed();
+        getListPackageIfNeed();
     }
 
     componentWillUnmount() {
-        this.props.actions.leaveHomeUser();
+        this.props.actions.leaveHomePackage();
     }
 
     handleRadio = event => {
@@ -43,26 +43,27 @@ class User extends PureComponent<Props, State> {
     };
 
     onCategoryChange = (id, name) => {
-        const { getJobFreelanceIfNeed } = this.props.actions;
+        const { getListPackageIfNeed } = this.props.actions;
         if (id !== this.state.categorySelected) {
             this.setState({ categorySelected: id });
-            getJobFreelanceIfNeed(1, name);
+            getListPackageIfNeed(1, name);
         }
         else {
             this.setState({ categorySelected: '' });
-            getJobFreelanceIfNeed(1);
+            getListPackageIfNeed(1);
         }
     };
 
     componentWillReceiveProps (nextProps) {
-        if (nextProps.jobFreelance) {
-            this.setState({ jobFreelance: nextProps.jobFreelance });
+        if (nextProps.packages) {
+            this.setState({ packages: nextProps.packages });
         }
     }
 
     render() {
         const { fullCategories } = this.props;
-        const { jobFreelance } = this.state;
+        const { packages } = this.state;
+        console.log({ packages });
         const categoriesJSX = fullCategories.map((cate, index) => {
             const childJSX = cate.child.map((child, i) => (
                 <div className="form-group" key={i}>
@@ -84,33 +85,25 @@ class User extends PureComponent<Props, State> {
                 </Panel>
             );
         });
-        const jobFreelanceJSX = jobFreelance.map((j, index) => {
-            const { avatarUri, name, province } = j.userPost;
+        const packagesJSX = packages.map((p, index) => {
+            const { avatarUri, name, province } = p.userPost;
             return (
                 <li className="media media-featured" key={index}>
                     <div className="text-featured">Được tài trợ</div>
                     <div className="media-body">
                         <h4 className="media-heading item-title">
                             <a href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html">
-                                {j.name}
+                                {p.name}
                             </a>
                         </h4>
                         <div style={{ padding: '0.5rem 0' }}>
                             <ul className="media-stats list-unstyled horizontal item-stats">
-                                <li style={{ float: 'left', marginRight: '0.8rem' }}><i className="mdi mdi-tag-outline"/>{j.category}</li>
-                                <li style={{ float: 'left', marginRight: '0.8rem' }}><i className="mdi mdi-map-marker-radius"/>{j.province}</li>
-                                <li>
-                                    {
-                                        j.isExpiredOffer ?
-                                            (<span className="offer expired-offer">Hết hạn báo giá</span>)
-                                            : (<span className="offer receiving-offer">Đang nhận báo giá</span>)
-                                    }
-
-                                </li>
+                                <li style={{ float: 'left', marginRight: '0.8rem' }}><i className="mdi mdi-tag-outline"/>{p.category}</li>
                             </ul>
                         </div>
-                        <div className="media-text" style={{ clear: 'left' }}>
-                            <p>{j.content}</p>
+                        <p style={{ clear: 'left', color: '#000' }}>{`Đối tượng KH: ${p.target}`}</p>
+                        <div className="media-text">
+                            <p>{`KH nhận được: ${p.expectedResult}`}</p>
                             <a
                                 href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
                                 className="text-warning"
@@ -139,28 +132,20 @@ class User extends PureComponent<Props, State> {
                         <ul>
                             <li className="highlight">
                                 <i className="mdi mdi-cash-multiple"/>
-                                {`₫${moneyFormater(j.priceExpected)}`}
-                            </li>
-                            <li>
-                                <i className="mdi mdi-calendar-clock"/>
-                                {`Hạn nộp: ${j.deadlineOffer}`}
+                                {`₫${moneyFormater(p.priceExpected)}`}
                             </li>
                             <li>
                                 <i className="mdi mdi-bullhorn"/>
-                                Số lượng báo giá: 2/20
+                                Số lượng đặt hàng:
                             </li>
                         </ul>
                         <div className="btn-quote-wrap">
-                            {
-                                j.isExpiredOffer ? null : (
-                                    <a
-                                        href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
-                                        className="btn btn-primary btn-quote"
-                                    >
-                                        GỬI BÁO GIÁ
-                                    </a>
-                                )
-                            }
+                            <a
+                                href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
+                                className="btn btn-primary btn-quote"
+                            >
+                                ĐẶT HÀNG NGAY
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -172,8 +157,8 @@ class User extends PureComponent<Props, State> {
                 <section className="section-main section-top-banner no-overlay home-banner">
                     <div className="container banner-wrapper">
                         <div className="my-banner">
-                            <h1 className="page-title" style={{ color: 'white' }}>Danh sách việc freelance</h1>
-                            <p className="caption" style={{ color: 'white' }}>Tips: Báo giá sát nhất với giá đề xuất luôn được khách hàng ưu tiên xem xét trước</p>
+                            <h1 className="page-title" style={{ color: 'white' }}>Danh sách gói công việc</h1>
+                            <p className="caption" style={{ color: 'white' }}>Tips: Những gói công việc thật sự có chất lượng luôn có số lượng đặt hàng cao</p>
                         </div>
                     </div>
                 </section>
@@ -198,10 +183,10 @@ class User extends PureComponent<Props, State> {
                             </div>
                         </div>
                         <div className="col-md-8 col-lg-9">
-                            <h3 className="home-content-title">Tất cả việc freelance</h3>
+                            <h3 className="home-content-title">Tất cả gói công việc</h3>
                             <div className="media-list-wrap style-2">
                                 <ul className="media-list">
-                                    {jobFreelanceJSX}
+                                    {packagesJSX}
                                 </ul>
                             </div>
                         </div>

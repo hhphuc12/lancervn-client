@@ -5,6 +5,8 @@ import {
     LEAVE_HOME_PAGE,
     ENTER_HOME_USER,
     LEAVE_HOME_USER,
+    ENTER_HOME_PACKAGE,
+    LEAVE_HOME_PACKAGE,
     ENTER_LOGIN_VIEW,
     LEAVE_LOGIN_VIEW,
     ENTER_REGISTER_VIEW,
@@ -58,6 +60,24 @@ export function leaveHomeUser(time: string = moment().format()) {
     return {
         type:         LEAVE_HOME_USER,
         currentView:  'HomeUser',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterHomePackage(time: string = moment().format()) {
+    return {
+        type:         ENTER_HOME_PACKAGE,
+        currentView:  'HomePackage',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveHomePackage(time: string = moment().format()) {
+    return {
+        type:         LEAVE_HOME_PACKAGE,
+        currentView:  'HomePackage',
         enterTime:    null,
         leaveTime:    time
     };

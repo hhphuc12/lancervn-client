@@ -8,6 +8,7 @@ import {
 import Home                     from '../containers/home/homePage';
 import User                     from '../containers/home/user';
 import Job                      from '../containers/home/job';
+import Package                  from '../containers/home/package';
 import PageNotFound             from '../containers/pageNotFound';
 
 const DashRoutes = () => (
@@ -15,6 +16,7 @@ const DashRoutes = () => (
         <Route exact path='/' component={Home} />
         <Route path='/freelancer' component={User} />
         <Route path='/job-freelance' component={Job} />
+        <Route path='/packages' component={Package} />
         <Route component={PageNotFound} />
     </Switch>
 );
