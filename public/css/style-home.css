@@ -2030,3 +2030,72 @@ li .highlight {
 .media-right ul li i {
 	padding-right: 0.3rem;
 }
+
+.avatar-profile {
+	width: 8rem;
+	height: auto;
+	border-radius: 100%;
+}
+
+.profile-box {
+	text-align: center;
+}
+
+.profile-name {
+	color: #000;
+	font-family: "Nunito";
+	padding: 2rem 0px 1rem 0px;
+	font-size: 2rem;
+}
+
+address {
+	font-size: 1rem;
+	font-weight: unset;
+	margin-bottom: 0.5rem;
+}
+
+.detail-title {
+	font-size: 1.6rem;
+	margin: 0.2rem 0;
+}
+
+.title-under-line {
+	height: 2px;
+	background-color: #03A9F4;
+}
+
+.skill {
+	margin-top: 0.5rem;
+}
+
+.skill .media-cloud-title {
+	color: #000;
+}
+
+.category {
+	margin-top: 0.5rem;
+}
+
+.category .media-cloud-title {
+	color: #000;
+}
+
+.skill .cloud-tag {
+	background-color: #57ff50;
+}
+
+.sidebar {
+	min-height: unset;
+}
+
+.freelancer-content {
+	margin-bottom: 5rem;
+}
+
+.card-data-job-profile p b {
+	color: #000;
+}
+
+.category-project {
+	color: #000;
+}
