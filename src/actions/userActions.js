@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { userCategory, listFreelancer } from '../services/api';
+import { userCategory, listFreelancer, freelancerDetail } from '../services/api';
 import {
     ERROR_USER_CATEGORY,
     RECEIVED_USER_CATEGORY,
@@ -8,6 +8,9 @@ import {
     REQUEST_LIST_FREELANCER,
     RECEIVED_LIST_FREELANCER,
     ERROR_LIST_FREELANCER,
+    REQUEST_FREELANCER_DETAIL,
+    RECEIVED_FREELANCER_DETAIL,
+    ERROR_FREELANCER_DETAIL,
 } from "../constants/userType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -72,7 +75,7 @@ function getUserCategory() {
                 dispatch(errorBadRequest(400));
             });
     };
-};
+}
 
 function requestListFreelancer(time = moment().format()) {
     return {
@@ -133,4 +136,65 @@ function getListFreelancer(page, categoryName) {
                 dispatch(errorBadRequest(400));
             });
     };
-};
+}
+
+function requestFreelancerDetail(time = moment().format()) {
+    return {
+        type:       REQUEST_FREELANCER_DETAIL,
+        isFetching: true,
+        time
+    };
+}
+function receivedFreelancerDetail(freelancer, time = moment().format()) {
+    return {
+        type:       RECEIVED_FREELANCER_DETAIL,
+        isFetching: false,
+        freelancer,
+        time
+    };
+}
+function errorFreelancerDetail(time = moment().format()) {
+    return {
+        type:       ERROR_FREELANCER_DETAIL,
+        isFetching: false,
+        time
+    };
+}
+
+export function getFreelancerDetailIfNeed(id): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetFreelancerDetail(getState())) {
+            return dispatch(getFreelancerDetail(id));
+        }
+        return Promise.resolve('already fetching freelancer detail...');
+    }
+}
+
+function shouldGetFreelancerDetail(
+    state: any
+): boolean {
+    const isFetching = state.user.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getFreelancerDetail(id) {
+    return dispatch => {
+        dispatch(requestFreelancerDetail());
+        freelancerDetail(id)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedFreelancerDetail(res.data));
+            })
+            .catch(error => {
+                dispatch(errorFreelancerDetail(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}

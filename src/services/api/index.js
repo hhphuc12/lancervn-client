@@ -39,6 +39,7 @@ import {
 }                                       from './job';
 import {
     listFreelancer,
+    freelancerDetail,
 }                                       from './user';
 import {
     postPackageApi,
@@ -88,4 +89,5 @@ export {
     jobFreelance,
     postPackageApi,
     listPackage,
+    freelancerDetail,
 }

@@ -43,7 +43,7 @@ class Home extends PureComponent<Props, State> {
                             <nav className="nav" id="nav">
                                 <ul style={{ marginTop: '0.3rem', marginBottom:0 }}>
                                     <li><a href="/dashboard/post-job">ĐĂNG VIỆC</a></li>
-                                    <li><Link to="/freelancer">TÌM FREELANCER</Link></li>
+                                    <li><Link to="/freelancers">TÌM FREELANCER</Link></li>
                                     <li><Link to="/job-freelance">TÌM VIỆC FREELANCE</Link></li>
                                     <li><Link to="/packages">GÓI CÔNG VIỆC</Link></li>
                                     { !isAuthenticated ? (<li style={{ marginRight: 0 }}><a href="/login">Đăng nhập</a></li>) : null }
