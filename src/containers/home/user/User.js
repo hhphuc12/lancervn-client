@@ -2,6 +2,7 @@
 
 // #region imports
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
@@ -87,16 +88,16 @@ class User extends PureComponent<Props, State> {
         const freelancerJSX = listFreelancer.map((f, index) => (
             <li className="media" key={index}>
                 <div className="media-left">
-                    <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html">
+                    <Link to={`/freelancer/${f._id}`}>
                         <img className="avatar" src={f.avatarUri} alt={f.name}/>
-                    </a>
+                    </Link>
                 </div>
                 <div className="media-body">
                     <div className="media-heading form-inline">
                         <h4 style={{ float: 'left' }}>
-                            <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" style={{ textDecoration: 'none' }}>
+                            <Link to={`/freelancer/${f._id}`} style={{ textDecoration: 'none' }}>
                                 {f.name}
-                            </a>
+                            </Link>
                         </h4>
                         <div className="location-wrapper">
                             <i className="mdi mdi-map-marker-radius"/>
@@ -125,14 +126,14 @@ class User extends PureComponent<Props, State> {
                         </div>
                     </div>
                     <div style={{ marginTop: '0.3rem' }}>
-                        <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" style={{ textDecoration: 'none' }}>
+                        <Link to={`/freelancer/${f._id}`} style={{ textDecoration: 'none' }}>
                             (1 nhận xét)
-                        </a>
+                        </Link>
                         <span style={{ margin: '1rem' }}>|</span>
-                        <a href="https://freelancerviet.vn/freelancer/165727-nguyen-thi-loan.html" className="text-warning"  style={{ textDecoration: 'none' }}>
+                        <Link to={`/freelancer/${f._id}`} className="text-warning"  style={{ textDecoration: 'none' }}>
                             <span>XEM HỒ SƠ</span>
                             <i className="mdi mdi-arrow-right text-warning"/>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </li>

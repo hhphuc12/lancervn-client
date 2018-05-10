@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { postJobApi, jobFreelance } from '../services/api';
+import { postJobApi, jobFreelance, jobFreelanceDetail } from '../services/api';
 import {
     REQUEST_POST_JOB,
     RECEIVED_POST_JOB,
@@ -8,6 +8,9 @@ import {
     REQUEST_JOB_FREELANCE,
     RECEIVED_JOB_FREELANCE,
     ERROR_JOB_FREELANCE,
+    REQUEST_JOB_FREELANCE_DETAIL,
+    RECEIVED_JOB_FREELANCE_DETAIL,
+    ERROR_JOB_FREELANCE_DETAIL,
 } from "../constants/jobType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -96,13 +99,13 @@ function errorJobFreelance(time = moment().format()) {
     };
 }
 
-export function getJobFreelanceIfNeed(page, categoryName): (...any) => Promise<any> {
+export function getJobFreelanceIfNeed(id): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
         getState: () => boolean,
     ): any => {
         if(shouldGetJobFreelance(getState())) {
-            return dispatch(getJobFreelance(page, categoryName));
+            return dispatch(getJobFreelance(id));
         }
         return Promise.resolve('already fetching job freelance...');
     }
@@ -118,10 +121,10 @@ function shouldGetJobFreelance(
     return true;
 }
 
-function getJobFreelance(page, categoryName) {
+function getJobFreelance(id) {
     return dispatch => {
         dispatch(requestJobFreelance());
-        jobFreelance(page, categoryName)
+        jobFreelance(id)
             .then(res => {
                 if (res.status !== 200)
                     throw res;
@@ -129,6 +132,78 @@ function getJobFreelance(page, categoryName) {
             })
             .catch(res => {
                 dispatch(errorJobFreelance(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestJobFreelanceDetail(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_FREELANCE_DETAIL,
+        isFetching: true,
+        time
+    };
+}
+function receivedJobFreelanceDetail(jobFreelanceDetail, userProvince, isExpiredOffer, userPost, skill, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_FREELANCE_DETAIL,
+        isFetching: false,
+        jobFreelanceDetail,
+        userProvince,
+        isExpiredOffer,
+        userPost,
+        skill,
+        time
+    };
+}
+function errorJobFreelanceDetail(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_FREELANCE_DETAIL,
+        isFetching: false,
+        time
+    };
+}
+
+export function getJobFreelanceDetailIfNeed(id): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetJobFreelanceDetail(getState())) {
+            return dispatch(getJobFreelanceDetail(id));
+        }
+        return Promise.resolve('already fetching job freelance detail...');
+    }
+}
+
+function shouldGetJobFreelanceDetail(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getJobFreelanceDetail(id) {
+    return dispatch => {
+        dispatch(requestJobFreelanceDetail());
+        jobFreelanceDetail(id)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                const {
+                    job,
+                    userProvince,
+                    isExpiredOffer,
+                    userPost,
+                    skill,
+                } = res.data;
+                dispatch(receivedJobFreelanceDetail(job, userProvince, isExpiredOffer, userPost, skill));
+            })
+            .catch(res => {
+                dispatch(errorJobFreelanceDetail(res.error.message));
                 dispatch(errorBadRequest(400));
             });
     };
