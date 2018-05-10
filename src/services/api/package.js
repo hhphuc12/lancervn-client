@@ -13,3 +13,8 @@ export const listPackage = (page, categoryName) => {
     const url = `${API_URI}list-package?page=${page}&categoryName=${categoryName}`;
     return request.get(url);
 };
+
+export const homePackageDetail = id => {
+    const url = `${API_URI}home-package-detail?id=${id}`;
+    return request.get(url);
+};

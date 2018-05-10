@@ -2,6 +2,7 @@
 
 // #region imports
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
@@ -92,9 +93,9 @@ class User extends PureComponent<Props, State> {
                     <div className="text-featured">Được tài trợ</div>
                     <div className="media-body">
                         <h4 className="media-heading item-title">
-                            <a href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html">
+                            <Link to={`/package/${p._id}`}>
                                 {p.name}
-                            </a>
+                            </Link>
                         </h4>
                         <div style={{ padding: '0.5rem 0' }}>
                             <ul className="media-stats list-unstyled horizontal item-stats">
@@ -104,23 +105,23 @@ class User extends PureComponent<Props, State> {
                         <p style={{ clear: 'left', color: '#000' }}>{`Đối tượng KH: ${p.target}`}</p>
                         <div className="media-text">
                             <p>{`KH nhận được: ${p.expectedResult}`}</p>
-                            <a
-                                href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
+                            <Link
+                                to={`/package/${p._id}`}
                                 className="text-warning"
                             >
                                 Xem thêm
-                            </a>
+                            </Link>
                         </div>
                         <div className="media" style={{ border: 'none', padding: 0 }}>
                             <div className="media-left ">
-                                <a href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html">
+                                <Link to={`/package/${p._id}`}>
                                     <img
                                         className="media-object avatar avatar-32"
                                         src={avatarUri}
                                         alt={name}
                                         style={{ width: '3rem', height: 'auto' }}
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <div className="media-body">
                                 <h4 className="media-heading">{name}</h4>
@@ -140,12 +141,12 @@ class User extends PureComponent<Props, State> {
                             </li>
                         </ul>
                         <div className="btn-quote-wrap">
-                            <a
-                                href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
+                            <Link
+                                to={`/package/${p._id}`}
                                 className="btn btn-primary btn-quote"
                             >
                                 ĐẶT HÀNG NGAY
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </li>
