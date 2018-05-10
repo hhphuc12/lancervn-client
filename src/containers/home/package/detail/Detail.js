@@ -8,10 +8,10 @@ class Detail extends PureComponent<Props, State> {
     componentDidMount() {
         const {
             enterHomeUserDetail,
-            getJobFreelanceDetailIfNeed,
+            getHomePackageDetailIfNeed,
         } = this.props.actions;
         enterHomeUserDetail();
-        getJobFreelanceDetailIfNeed(this.props.match.params.id);
+        getHomePackageDetailIfNeed(this.props.match.params.id);
     }
 
     componentWillUnmount() {
@@ -27,21 +27,19 @@ class Detail extends PureComponent<Props, State> {
 
     render() {
         const {
-            jobFreelanceDetail,
-            userProvince,
-            isExpiredOffer,
+            _package,
             userPost,
-            skill,
+            userProvince,
+            process,
+            dataNeed,
         } = this.props;
         const {
             name,
-            category,
-            content,
-            deadlineOffer,
-            province,
+            expectedResult,
+            target,
             priceExpected,
-            prioritize,
-        } = jobFreelanceDetail;
+            category,
+        } = _package;
         const {
             firstName,
             lastName,
@@ -65,30 +63,14 @@ class Detail extends PureComponent<Props, State> {
                                         <i className="mdi mdi-table-large"/>
                                         {category}
                                     </p>
-                                    <address className="row-job-detail-header">
-                                        <i className="mdi mdi-map-marker-radius"/>
-                                        {`${province}`}
-                                    </address>
-                                    <p className="row-job-detail-header">
-                                        <i className="mdi mdi-calendar-clock"/>
-                                        {`Hạn gửi báo giá: ${dateFormater(deadlineOffer)}`}
-                                    </p>
-                                </div>
-                            </div>
-                            <br/>
-                            <div style={{ display: 'inline-flex' }}>
-                                <div className="row">
                                     <p className="row-job-detail-header" style={{ color: '#000' }}>
                                         <i className="mdi mdi-cash-multiple"/>
                                         {`₫${moneyFormater(priceExpected)}`}
                                     </p>
-                                    <div>
-                                        {
-                                            isExpiredOffer ?
-                                                (<span className="offer expired-offer">Hết hạn báo giá</span>)
-                                                : (<span className="offer receiving-offer">Đang nhận báo giá</span>)
-                                        }
-                                    </div>
+                                    <p className="row-job-detail-header">
+                                        <i className="mdi mdi-calendar-clock"/>
+                                        {`Thời gian thực hiện ước tính: 15 ngày`}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +81,7 @@ class Detail extends PureComponent<Props, State> {
                         <div className="col-lg-3 col-md-4 d-xl-block d-md-block col-job-filter">
                             <div className="sidebar">
                                 <div className="box user-post-wrapper">
-                                    <p className="user-post-title">Người đăng:</p>
+                                    <p className="user-post-title">Người cung cấp:</p>
                                     <img
                                         src={avatarUri}
                                         alt={userPostName}
@@ -126,22 +108,47 @@ class Detail extends PureComponent<Props, State> {
                         <div className="col-md-8 col-lg-9">
                             <div className="freelancer-content">
                                 <div className="category">
-                                    <span className="media-cloud-title">Yêu cầu của khách hàng:</span>
-                                    <div dangerouslySetInnerHTML={{__html: formatDescription(content)}}/>
+                                    <span className="media-cloud-title">Đối tượng khách hàng:</span>
+                                    <div dangerouslySetInnerHTML={{__html: formatDescription(target)}}/>
                                 </div>
                                 <br/>
                                 <div className="category">
-                                    <span className="media-cloud-title">Ưu tiên:</span>
-                                    <div dangerouslySetInnerHTML={{__html: formatDescription(prioritize)}}/>
+                                    <span className="media-cloud-title">Khách hàng sẽ nhận được:</span>
+                                    <div dangerouslySetInnerHTML={{__html: formatDescription(expectedResult)}}/>
                                 </div>
                                 <br/>
                                 <div className="category">
-                                    <span className="media-cloud-title">Yêu cầu kỹ năng:</span>
-                                    {
-                                        skill.map((s, index) => (
-                                            <span className="cloud-tag" key={index}>{s}</span>
-                                        ))
-                                    }
+                                    <span className="media-cloud-title">Quy trình thực hiện:</span>
+                                    <div style={{ marginTop: '0.5rem' }}>
+                                        {
+                                            process.map((p, index) => (
+                                                <div className="step" key={index}>
+                                                    <div>
+                                                        <div className="circle">{index}</div>
+                                                        <div className="line"/>
+                                                    </div>
+                                                    <div className="step-item">
+                                                        <div className="title">{p}</div>
+                                                        <div className="body"/>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <br/>
+                                <div className="category">
+                                    <span className="media-cloud-title">Bạn cần cung cấp:</span>
+                                    <ul>
+                                        {
+                                            dataNeed.map((d, index) => (
+                                                <li key={index} style={{ fontSize: '1rem' }}>
+                                                    <i className="mdi mdi-checkbox-marked-outline text-primary" style={{ fontSize: '1.5rem', paddingRight: '0.5rem' }}/>
+                                                    <span>{d}</span>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,8 @@ import {
     LEAVE_HOME_USER_DETAIL,
     ENTER_HOME_JOB_DETAIL,
     LEAVE_HOME_JOB_DETAIL,
+    ENTER_HOME_PACKAGE_DETAIL,
+    LEAVE_HOME_PACKAGE_DETAIL,
     ENTER_HOME_PACKAGE,
     LEAVE_HOME_PACKAGE,
     ENTER_LOGIN_VIEW,
@@ -100,6 +102,24 @@ export function leaveHomeJobDetail(time: string = moment().format()) {
     return {
         type:         LEAVE_HOME_JOB_DETAIL,
         currentView:  'HomeJobDetail',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterHomePackageDetail(time: string = moment().format()) {
+    return {
+        type:         ENTER_HOME_PACKAGE_DETAIL,
+        currentView:  'HomePackageDetail',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveHomePackageDetail(time: string = moment().format()) {
+    return {
+        type:         LEAVE_HOME_PACKAGE_DETAIL,
+        currentView:  'HomePackageDetail',
         enterTime:    null,
         leaveTime:    time
     };

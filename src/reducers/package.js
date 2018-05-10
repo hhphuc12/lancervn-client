@@ -6,11 +6,19 @@ import {
     REQUEST_LIST_PACKAGE,
     RECEIVED_LIST_PACKAGE,
     ERROR_LIST_PACKAGE,
+    REQUEST_HOME_PACKAGE_DETAIL,
+    RECEIVED_HOME_PACKAGE_DETAIL,
+    ERROR_HOME_PACKAGE_DETAIL,
 } from "../constants/packageType";
 import moment from "moment/moment";
 
 const initialState = {
     packages: [],
+    _package: {},
+    userPost: {},
+    userProvince: '',
+    process: [],
+    dataNeed: [],
     isDataChanged: false,
     isFetching: false,
 };
@@ -61,6 +69,32 @@ export default function (
             };
 
         case ERROR_LIST_PACKAGE:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_HOME_PACKAGE_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_HOME_PACKAGE_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                _package: action && action._package ? action && action._package : initialState._package,
+                userPost: action && action.userPost ? action && action.userPost : initialState.userPost,
+                userProvince: action && action.userProvince ? action && action.userProvince : initialState.userProvince,
+                process: action && action.process ? action && action.process : initialState.process,
+                dataNeed: action && action.dataNeed ? action && action.dataNeed : initialState.dataNeed,
+            };
+
+        case ERROR_HOME_PACKAGE_DETAIL:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,

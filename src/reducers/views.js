@@ -8,6 +8,8 @@ import {
     LEAVE_HOME_USER_DETAIL,
     ENTER_HOME_JOB_DETAIL,
     LEAVE_HOME_JOB_DETAIL,
+    ENTER_HOME_PACKAGE_DETAIL,
+    LEAVE_HOME_PACKAGE_DETAIL,
     ENTER_HOME_PACKAGE,
     LEAVE_HOME_PACKAGE,
     ENTER_LOGIN_VIEW,
@@ -55,6 +57,7 @@ export default function views(state: Object = initialState, action: Object) {
         case ENTER_HOME_PACKAGE:
         case ENTER_HOME_USER_DETAIL:
         case ENTER_HOME_JOB_DETAIL:
+        case ENTER_HOME_PACKAGE_DETAIL:
             // can't enter if you are already inside
             if (state.currentView !== action.currentView) {
                 return {
@@ -80,6 +83,7 @@ export default function views(state: Object = initialState, action: Object) {
         case LEAVE_HOME_PACKAGE:
         case LEAVE_HOME_USER_DETAIL:
         case LEAVE_HOME_JOB_DETAIL:
+        case LEAVE_HOME_PACKAGE_DETAIL:
             // can't leave if you aren't already inside
             if (state.currentView === action.currentView) {
                 return {

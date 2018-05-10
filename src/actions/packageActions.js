@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { listPackage, postPackageApi, } from '../services/api';
+import { listPackage, postPackageApi, homePackageDetail } from '../services/api';
 import {
     REQUEST_POST_PACKAGE,
     RECEIVED_POST_PACKAGE,
@@ -8,10 +8,12 @@ import {
     REQUEST_LIST_PACKAGE,
     RECEIVED_LIST_PACKAGE,
     ERROR_LIST_PACKAGE,
+    REQUEST_HOME_PACKAGE_DETAIL,
+    RECEIVED_HOME_PACKAGE_DETAIL,
+    ERROR_HOME_PACKAGE_DETAIL,
 } from "../constants/packageType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
-import {ERROR_JOB_FREELANCE, RECEIVED_JOB_FREELANCE, REQUEST_JOB_FREELANCE} from "../constants/jobType";
 
 function requestPostPackage(time = moment().format()) {
     return {
@@ -130,6 +132,78 @@ function getListPackage(page, categoryName) {
             })
             .catch(res => {
                 dispatch(errorListPackages(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestHomePackageDetail(time = moment().format()) {
+    return {
+        type:       REQUEST_HOME_PACKAGE_DETAIL,
+        isFetching: true,
+        time
+    };
+}
+function receivedHomePackageDetail(_package, userPost, userProvince, process, dataNeed, time = moment().format()) {
+    return {
+        type:       RECEIVED_HOME_PACKAGE_DETAIL,
+        isFetching: false,
+        _package,
+        userPost,
+        userProvince,
+        process,
+        dataNeed,
+        time
+    };
+}
+function errorHomePackageDetail(time = moment().format()) {
+    return {
+        type:       ERROR_HOME_PACKAGE_DETAIL,
+        isFetching: false,
+        time
+    };
+}
+
+export function getHomePackageDetailIfNeed(id): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetHomePackageDetail(getState())) {
+            return dispatch(getHomePackageDetail(id));
+        }
+        return Promise.resolve('already fetching package detail...');
+    }
+}
+
+function shouldGetHomePackageDetail(
+    state: any
+): boolean {
+    const isFetching = state._package.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getHomePackageDetail(id) {
+    return dispatch => {
+        dispatch(requestHomePackageDetail());
+        homePackageDetail(id)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                const {
+                    _package,
+                    userPost,
+                    userProvince,
+                    process,
+                    dataNeed,
+                } = res.data;
+                dispatch(receivedHomePackageDetail(_package, userPost, userProvince, process, dataNeed));
+            })
+            .catch(res => {
+                dispatch(errorHomePackageDetail(res.error.message));
                 dispatch(errorBadRequest(400));
             });
     };

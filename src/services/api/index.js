@@ -45,6 +45,7 @@ import {
 import {
     postPackageApi,
     listPackage,
+    homePackageDetail,
 }                                       from './package';
 
 let API_URI = process.env.REACT_APP_API_URI;
@@ -92,4 +93,5 @@ export {
     listPackage,
     freelancerDetail,
     jobFreelanceDetail,
+    homePackageDetail,
 }
