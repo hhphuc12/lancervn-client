@@ -2,6 +2,7 @@
 
 // #region imports
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
@@ -91,9 +92,9 @@ class User extends PureComponent<Props, State> {
                     <div className="text-featured">Được tài trợ</div>
                     <div className="media-body">
                         <h4 className="media-heading item-title">
-                            <a href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html">
+                            <Link to={`/job-freelance/${j._id}`}>
                                 {j.name}
-                            </a>
+                            </Link>
                         </h4>
                         <div style={{ padding: '0.5rem 0' }}>
                             <ul className="media-stats list-unstyled horizontal item-stats">
@@ -111,23 +112,23 @@ class User extends PureComponent<Props, State> {
                         </div>
                         <div className="media-text" style={{ clear: 'left' }}>
                             <p>{j.content}</p>
-                            <a
-                                href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
+                            <Link
+                                to={`/job-freelance/${j._id}`}
                                 className="text-warning"
                             >
                                 Xem thêm
-                            </a>
+                            </Link>
                         </div>
                         <div className="media" style={{ border: 'none', padding: 0 }}>
                             <div className="media-left ">
-                                <a href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html">
+                                <Link to={`/job-freelance/${j._id}`}>
                                     <img
                                         className="media-object avatar avatar-32"
                                         src={avatarUri}
                                         alt={name}
                                         style={{ width: '3rem', height: 'auto' }}
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <div className="media-body">
                                 <h4 className="media-heading">{name}</h4>
@@ -153,12 +154,12 @@ class User extends PureComponent<Props, State> {
                         <div className="btn-quote-wrap">
                             {
                                 j.isExpiredOffer ? null : (
-                                    <a
-                                        href="https://freelancerviet.vn/viec-freelance/36438-1525664171-i-need-a-programmer.html"
+                                    <Link
+                                        to={`/job-freelance/${j._id}`}
                                         className="btn btn-primary btn-quote"
                                     >
                                         GỬI BÁO GIÁ
-                                    </a>
+                                    </Link>
                                 )
                             }
                         </div>
