@@ -47,7 +47,7 @@ class Detail extends PureComponent<Props, State> {
                         <div className="profile-box">
                             <img
                                 src={avatarUri}
-                                alt="Nguyen Linh"
+                                alt={name}
                                 className="avatar avatar-profile"
                             />
                             <h1 className="profile-name">
@@ -67,7 +67,7 @@ class Detail extends PureComponent<Props, State> {
                             <div className="sidebar">
                                 <div className="box">
                                     <h2 className="detail-title">GIỚI THIỆU</h2>
-                                    <div className="title-under-line" style={{ marginLeft: '3.5rem' }} />
+                                    <div className="title-under-line"/>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ class Detail extends PureComponent<Props, State> {
                             <div className="sidebar">
                                 <div className="box">
                                     <h2 className="detail-title">KINH NGHIỆM</h2>
-                                    <div className="title-under-line" style={{ marginLeft: '2.2rem' }} />
+                                    <div className="title-under-line"/>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@ class Detail extends PureComponent<Props, State> {
                             <div className="sidebar">
                                 <div className="box">
                                     <h2 className="detail-title">HỒ SƠ NĂNG LỰC</h2>
-                                    <div className="title-under-line" style={{ marginLeft: '0.7rem' }} />
+                                    <div className="title-under-line"/>
                                 </div>
                             </div>
                         </div>

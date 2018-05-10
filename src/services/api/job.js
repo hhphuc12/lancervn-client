@@ -13,3 +13,8 @@ export const jobFreelance = (page, categoryName) => {
     const url = `${API_URI}job-freelance?page=${page}&categoryName=${categoryName}`;
     return request.get(url);
 };
+
+export const jobFreelanceDetail = id => {
+    const url = `${API_URI}job-freelance-detail?id=${id}`;
+    return request.get(url);
+};

@@ -10,15 +10,17 @@ import User                     from '../containers/home/user';
 import Job                      from '../containers/home/job';
 import Package                  from '../containers/home/package';
 import UserDetail               from '../containers/home/user/detail';
+import JobDetail                from '../containers/home/job/detail';
 import PageNotFound             from '../containers/pageNotFound';
 
 const DashRoutes = () => (
     <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/freelancers' component={User} />
-        <Route path='/job-freelance' component={Job} />
+        <Route path='/jobs-freelance' component={Job} />
         <Route path='/packages' component={Package} />
         <Route path='/freelancer/:id' component={UserDetail} />
+        <Route path='/job-freelance/:id' component={JobDetail} />
         <Route component={PageNotFound} />
     </Switch>
 );
