@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../../actions/viewAction';
 import * as jobActions        from '../../../../actions/jobActions';
+import * as quotationActions  from '../../../../actions/quotationActions';
 import Detail                 from './Detail';
 import * as errorActions      from "../../../../actions/errorActions";
 
@@ -17,6 +18,9 @@ const mapStateToProps = (state) => {
         isExpiredOffer: state.job.isExpiredOffer,
         userPost: state.job.userPost,
         skill: state.job.skill,
+        isFetching: state.quotation.isFetching,
+        isQuotationMade: state.quotation.isQuotationMade,
+        isMadeByClick: state.quotation.isMadeByClick,
     };
 };
 
@@ -26,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
             {
                 ...viewsActions,
                 ...jobActions,
+                ...quotationActions,
                 ...errorActions,
             },
             dispatch

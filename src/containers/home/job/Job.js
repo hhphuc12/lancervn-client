@@ -144,7 +144,7 @@ class User extends PureComponent<Props, State> {
                             </li>
                             <li>
                                 <i className="mdi mdi-calendar-clock"/>
-                                {`Hạn nộp: ${j.deadlineOffer}`}
+                                {`Hạn nộp: ${dateFormatter(j.deadlineOffer)}`}
                             </li>
                             <li>
                                 <i className="mdi mdi-bullhorn"/>
