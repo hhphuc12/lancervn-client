@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { postJobApi, jobFreelance, jobFreelanceDetail } from '../services/api';
+import { postJobApi, jobFreelance, jobFreelanceDetail, checkJobBelongToApi } from '../services/api';
 import {
     REQUEST_POST_JOB,
     RECEIVED_POST_JOB,
@@ -11,6 +11,9 @@ import {
     REQUEST_JOB_FREELANCE_DETAIL,
     RECEIVED_JOB_FREELANCE_DETAIL,
     ERROR_JOB_FREELANCE_DETAIL,
+    REQUEST_JOB_BELONG_TO,
+    RECEIVED_JOB_BELONG_TO,
+    ERROR_JOB_BELONG_TO,
 } from "../constants/jobType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -204,6 +207,68 @@ function getJobFreelanceDetail(id) {
             })
             .catch(res => {
                 dispatch(errorJobFreelanceDetail(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestCheckJobBeLongTo(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_BELONG_TO,
+        isFetching: true,
+        time
+    };
+}
+function receivedCheckJobBeLongTo(isBelongTo, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_BELONG_TO,
+        isFetching: false,
+        isBelongTo,
+        time
+    };
+}
+function errorCheckJobBeLongTo(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_BELONG_TO,
+        isFetching: false,
+        time
+    };
+}
+
+export function checkJobBelongToIfNeed(jobId): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldCheckJobBelongTo(getState())) {
+            return dispatch(checkJobBelongTo(jobId));
+        }
+        return Promise.resolve('already check job belong to...');
+    }
+}
+
+function shouldCheckJobBelongTo(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function checkJobBelongTo(jobId) {
+    return dispatch => {
+        dispatch(requestCheckJobBeLongTo());
+        const userToken = auth.getToken();
+        checkJobBelongToApi(jobId, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedCheckJobBeLongTo(res.data.isBelongTo));
+            })
+            .catch(error => {
+                dispatch(errorCheckJobBeLongTo(error));
                 dispatch(errorBadRequest(400));
             });
     };

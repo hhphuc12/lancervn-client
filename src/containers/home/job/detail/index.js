@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
         isFetching: state.quotation.isFetching,
         isQuotationMade: state.quotation.isQuotationMade,
         isMadeByClick: state.quotation.isMadeByClick,
+        isBelongTo: state.job.isBelongTo,
     };
 };
 

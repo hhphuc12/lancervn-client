@@ -17,11 +17,13 @@ class Detail extends PureComponent<Props, State> {
             enterHomeUserDetail,
             getJobFreelanceDetailIfNeed,
             getQuotationStatusIfNeed,
+            checkJobBelongToIfNeed,
         } = this.props.actions;
         const { id } = this.props.match.params;
         enterHomeUserDetail();
         getJobFreelanceDetailIfNeed(id);
         getQuotationStatusIfNeed(id);
+        checkJobBelongToIfNeed(id);
     }
 
     componentWillUnmount() {
@@ -104,6 +106,7 @@ class Detail extends PureComponent<Props, State> {
             isFetching,
             isQuotationMade,
             isMadeByClick,
+            isBelongTo,
         } = this.props;
         const {
             name,
@@ -263,14 +266,22 @@ class Detail extends PureComponent<Props, State> {
                                 <br/>
                                 <br/>
                                 {
-                                    isMadeByClick || isQuotationMade ?
+                                    !isBelongTo ?
                                         (
-                                            <div className="text-center">
-                                                <span className="offer receiving-offer">Đã gửi báo giá</span>
+                                            <div>
+                                                {
+                                                    isMadeByClick || isQuotationMade ?
+                                                        (
+                                                            <div className="text-center">
+                                                                <span className="offer receiving-offer">Đã gửi báo giá</span>
+                                                            </div>
+                                                        )
+                                                        :
+                                                        quotationJSX
+                                                }
                                             </div>
                                         )
-                                        :
-                                        quotationJSX
+                                        : null
                                 }
                             </div>
                         </div>

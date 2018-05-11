@@ -37,6 +37,7 @@ import {
     postJobApi,
     jobFreelance,
     jobFreelanceDetail,
+    checkJobBelongToApi,
 }                                       from './job';
 import {
     listFreelancer,
@@ -100,4 +101,5 @@ export {
     homePackageDetail,
     makeQuotationApi,
     quotationStatus,
+    checkJobBelongToApi,
 }
