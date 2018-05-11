@@ -9,6 +9,9 @@ import {
     REQUEST_HOME_PACKAGE_DETAIL,
     RECEIVED_HOME_PACKAGE_DETAIL,
     ERROR_HOME_PACKAGE_DETAIL,
+    REQUEST_PACKAGE_BELONG_TO,
+    RECEIVED_PACKAGE_BELONG_TO,
+    ERROR_PACKAGE_BELONG_TO,
 } from "../constants/packageType";
 import moment from "moment/moment";
 
@@ -21,6 +24,7 @@ const initialState = {
     dataNeed: [],
     isDataChanged: false,
     isFetching: false,
+    isBelongTo: false,
 };
 
 const currentTime = moment().format();
@@ -79,7 +83,6 @@ export default function (
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
-                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
             };
 
         case RECEIVED_HOME_PACKAGE_DETAIL:
@@ -95,6 +98,28 @@ export default function (
             };
 
         case ERROR_HOME_PACKAGE_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_PACKAGE_BELONG_TO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_PACKAGE_BELONG_TO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isBelongTo: action && action.isBelongTo ? action && action.isBelongTo : initialState.isBelongTo,
+            };
+
+        case ERROR_PACKAGE_BELONG_TO:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,

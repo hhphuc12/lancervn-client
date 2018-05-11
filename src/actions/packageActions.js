@@ -1,6 +1,11 @@
 // @flow weak
 import moment from 'moment';
-import { listPackage, postPackageApi, homePackageDetail } from '../services/api';
+import {
+    listPackage,
+    postPackageApi,
+    homePackageDetail,
+    checkPackageBelongToApi
+} from '../services/api';
 import {
     REQUEST_POST_PACKAGE,
     RECEIVED_POST_PACKAGE,
@@ -11,6 +16,9 @@ import {
     REQUEST_HOME_PACKAGE_DETAIL,
     RECEIVED_HOME_PACKAGE_DETAIL,
     ERROR_HOME_PACKAGE_DETAIL,
+    REQUEST_PACKAGE_BELONG_TO,
+    RECEIVED_PACKAGE_BELONG_TO,
+    ERROR_PACKAGE_BELONG_TO,
 } from "../constants/packageType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -107,7 +115,7 @@ export function getListPackageIfNeed(page, categoryName): (...any) => Promise<an
         if(shouldGetListPackage(getState())) {
             return dispatch(getListPackage(page, categoryName));
         }
-        return Promise.resolve('already fetching job freelance...');
+        return Promise.resolve('already fetching package freelance...');
     }
 }
 
@@ -204,6 +212,68 @@ function getHomePackageDetail(id) {
             })
             .catch(res => {
                 dispatch(errorHomePackageDetail(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestCheckPackageBeLongTo(time = moment().format()) {
+    return {
+        type:       REQUEST_PACKAGE_BELONG_TO,
+        isFetching: true,
+        time
+    };
+}
+function receivedCheckPackageBeLongTo(isBelongTo, time = moment().format()) {
+    return {
+        type:       RECEIVED_PACKAGE_BELONG_TO,
+        isFetching: false,
+        isBelongTo,
+        time
+    };
+}
+function errorCheckPackageBeLongTo(time = moment().format()) {
+    return {
+        type:       ERROR_PACKAGE_BELONG_TO,
+        isFetching: false,
+        time
+    };
+}
+
+export function checkPackageBelongToIfNeed(packageId): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldCheckPackageBelongTo(getState())) {
+            return dispatch(checkPackageBelongTo(packageId));
+        }
+        return Promise.resolve('already check package belong to...');
+    }
+}
+
+function shouldCheckPackageBelongTo(
+    state: any
+): boolean {
+    const isFetching = state._package.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function checkPackageBelongTo(packageId) {
+    return dispatch => {
+        dispatch(requestCheckPackageBeLongTo());
+        const userToken = auth.getToken();
+        checkPackageBelongToApi(packageId, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedCheckPackageBeLongTo(res.data.isBelongTo));
+            })
+            .catch(error => {
+                dispatch(errorCheckPackageBeLongTo(error));
                 dispatch(errorBadRequest(400));
             });
     };

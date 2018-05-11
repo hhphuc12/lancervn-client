@@ -13,3 +13,6 @@ export const ERROR_LIST_PACKAGE:                     string = 'ERROR_LIST_PACKAG
 export const REQUEST_HOME_PACKAGE_DETAIL:            string = 'REQUEST_HOME_PACKAGE_DETAIL';
 export const RECEIVED_HOME_PACKAGE_DETAIL:           string = 'RECEIVED_HOME_PACKAGE_DETAIL';
 export const ERROR_HOME_PACKAGE_DETAIL:              string = 'ERROR_HOME_PACKAGE_DETAIL';
+export const REQUEST_PACKAGE_BELONG_TO:              string = 'REQUEST_PACKAGE_BELONG_TO';
+export const RECEIVED_PACKAGE_BELONG_TO:             string = 'RECEIVED_PACKAGE_BELONG_TO';
+export const ERROR_PACKAGE_BELONG_TO:                string = 'ERROR_PACKAGE_BELONG_TO';
