@@ -16,6 +16,7 @@ import user                              from './user';
 import language                          from './language';
 import _package                          from './package';
 import quotation                         from './quotation';
+import order                             from './order';
 import error                             from './error';
 
 export const reducers = {
@@ -33,6 +34,7 @@ export const reducers = {
     language,
     _package,
     quotation,
+    order,
     error,
 };
 

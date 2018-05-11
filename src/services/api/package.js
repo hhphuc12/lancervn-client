@@ -18,3 +18,8 @@ export const homePackageDetail = id => {
     const url = `${API_URI}home-package-detail?id=${id}`;
     return request.get(url);
 };
+
+export const checkPackageBelongToApi = (packageId, token) => {
+    const url = `${API_URI}check-package-belong-to?packageId=${packageId}`;
+    return request.get(url, token);
+};
