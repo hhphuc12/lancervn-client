@@ -13,3 +13,6 @@ export const ERROR_JOB_FREELANCE:                string = 'ERROR_JOB_FREELANCE';
 export const REQUEST_JOB_FREELANCE_DETAIL:       string = 'REQUEST_JOB_FREELANCE_DETAIL';
 export const RECEIVED_JOB_FREELANCE_DETAIL:      string = 'RECEIVED_JOB_FREELANCE_DETAIL';
 export const ERROR_JOB_FREELANCE_DETAIL:         string = 'ERROR_JOB_FREELANCE_DETAIL';
+export const REQUEST_JOB_BELONG_TO:              string = 'REQUEST_JOB_BELONG_TO';
+export const RECEIVED_JOB_BELONG_TO:             string = 'RECEIVED_JOB_BELONG_TO';
+export const ERROR_JOB_BELONG_TO:                string = 'ERROR_JOB_BELONG_TO';

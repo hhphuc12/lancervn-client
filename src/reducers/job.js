@@ -9,6 +9,9 @@ import {
     REQUEST_JOB_FREELANCE_DETAIL,
     RECEIVED_JOB_FREELANCE_DETAIL,
     ERROR_JOB_FREELANCE_DETAIL,
+    REQUEST_JOB_BELONG_TO,
+    RECEIVED_JOB_BELONG_TO,
+    ERROR_JOB_BELONG_TO,
 } from "../constants/jobType";
 import moment from "moment/moment";
 
@@ -22,6 +25,7 @@ const initialState = {
     userPost: {},
     jobFreelance: [],
     skill: [],
+    isBelongTo: false,
 };
 
 const currentTime = moment().format();
@@ -80,7 +84,6 @@ export default function (
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
-                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
             };
 
         case RECEIVED_JOB_FREELANCE_DETAIL:
@@ -96,6 +99,28 @@ export default function (
             };
 
         case ERROR_JOB_FREELANCE_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_JOB_BELONG_TO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_JOB_BELONG_TO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isBelongTo: action && action.isBelongTo ? action && action.isBelongTo : initialState.isBelongTo,
+            };
+
+        case ERROR_JOB_BELONG_TO:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,

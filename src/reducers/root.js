@@ -15,6 +15,7 @@ import job                               from './job';
 import user                              from './user';
 import language                          from './language';
 import _package                          from './package';
+import quotation                         from './quotation';
 import error                             from './error';
 
 export const reducers = {
@@ -31,6 +32,7 @@ export const reducers = {
     user,
     language,
     _package,
+    quotation,
     error,
 };
 

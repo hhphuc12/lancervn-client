@@ -37,6 +37,7 @@ import {
     postJobApi,
     jobFreelance,
     jobFreelanceDetail,
+    checkJobBelongToApi,
 }                                       from './job';
 import {
     listFreelancer,
@@ -47,6 +48,10 @@ import {
     listPackage,
     homePackageDetail,
 }                                       from './package';
+import {
+    makeQuotationApi,
+    quotationStatus,
+}                                       from './quotation';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -94,4 +99,7 @@ export {
     freelancerDetail,
     jobFreelanceDetail,
     homePackageDetail,
+    makeQuotationApi,
+    quotationStatus,
+    checkJobBelongToApi,
 }
