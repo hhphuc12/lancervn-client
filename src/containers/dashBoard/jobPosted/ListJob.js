@@ -1,15 +1,19 @@
 // @flow strong
 
 import React, {PureComponent} from 'react';
+import { str30Format } from '../../../helpers';
+
 
 class ListJob extends PureComponent<Props, State> {
     componentDidMount() {
         const {
             actions: {
                 enterJobPosted,
+                getJobPostedIfNeed,
             }
         } = this.props;
         enterJobPosted();
+        getJobPostedIfNeed();
     }
 
     componentWillUnmount() {
@@ -17,20 +21,21 @@ class ListJob extends PureComponent<Props, State> {
     }
 
     render() {
-        // const { skills } = this.props;
-        // const skillsJSX = skills.map((skill, index) => (
-        //     <tr key={index}>
-        //         <td>{index + 1}</td>
-        //         <td>{skill.name}</td>
-        //         <td>{skill.description}</td>
-        //         <td>{dateFormatter(skill.updatedAt)}</td>
-        //         <td className="text-right">
-        //             <a href="#" className="btn btn-outline-danger btn-sm">
-        //                 Xóa
-        //             </a>
-        //         </td>
-        //     </tr>
-        // ));
+        const { jobPosted, quotations } = this.props;
+        const jobsJSX = jobPosted.map((j, index) => (
+            <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{str30Format(j.name)}</td>
+                <td>{j.category}</td>
+                <td>{str30Format(j.content)}</td>
+                <td>{quotations[index].length}</td>
+                <td className="text-right">
+                    <a href="#" className="btn btn-outline-success btn-sm">
+                        Xem chi tiết
+                    </a>
+                </td>
+            </tr>
+        ));
 
         return (
             <div className="content-wrapper">
@@ -52,15 +57,16 @@ class ListJob extends PureComponent<Props, State> {
                                         <thead>
                                         <tr>
                                             <th className="border-bottom-0">No.</th>
-                                            <th className="border-bottom-0">Username</th>
-                                            <th className="border-bottom-0">Create at</th>
-                                            <th className="border-bottom-0">Updated at</th>
-                                            <th className="border-bottom-0 text-right">Actions</th>
+                                            <th className="border-bottom-0">Tên công việc</th>
+                                            <th className="border-bottom-0">Lĩnh vực</th>
+                                            <th className="border-bottom-0">Yêu cầu</th>
+                                            <th className="border-bottom-0">Số lượng báo giá</th>
+                                            <th className="border-bottom-0 text-right">Hành động</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {
-                                            // skillsJSX
+                                            jobsJSX
                                         }
                                         </tbody>
                                     </table>

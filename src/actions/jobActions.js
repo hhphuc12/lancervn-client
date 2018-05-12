@@ -1,6 +1,12 @@
 // @flow weak
 import moment from 'moment';
-import { postJobApi, jobFreelance, jobFreelanceDetail, checkJobBelongToApi } from '../services/api';
+import {
+    postJobApi,
+    jobFreelance,
+    jobFreelanceDetail,
+    checkJobBelongToApi,
+    jobPosted,
+} from '../services/api';
 import {
     REQUEST_POST_JOB,
     RECEIVED_POST_JOB,
@@ -14,6 +20,9 @@ import {
     REQUEST_JOB_BELONG_TO,
     RECEIVED_JOB_BELONG_TO,
     ERROR_JOB_BELONG_TO,
+    REQUEST_JOB_POSTED,
+    RECEIVED_JOB_POSTED,
+    ERROR_JOB_POSTED,
 } from "../constants/jobType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -269,6 +278,69 @@ function checkJobBelongTo(jobId) {
             })
             .catch(error => {
                 dispatch(errorCheckJobBeLongTo(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestJobPosted(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_POSTED,
+        isFetching: true,
+        time
+    };
+}
+function receivedJobPosted(jobPosted, quotations, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_POSTED,
+        isFetching: false,
+        jobPosted,
+        quotations,
+        time
+    };
+}
+function errorJobPosted(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_POSTED,
+        isFetching: false,
+        time
+    };
+}
+
+export function getJobPostedIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetJobPosted(getState())) {
+            return dispatch(getJobPosted());
+        }
+        return Promise.resolve('already fetching job freelance...');
+    }
+}
+
+function shouldGetJobPosted(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getJobPosted() {
+    return dispatch => {
+        dispatch(requestJobPosted());
+        const userToken = auth.getToken();
+        jobPosted(userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                dispatch(receivedJobPosted(res.data.jobs, res.data.quotations));
+            })
+            .catch(res => {
+                dispatch(errorJobPosted(res.error.message));
                 dispatch(errorBadRequest(400));
             });
     };
