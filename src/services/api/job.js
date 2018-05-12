@@ -28,3 +28,8 @@ export const jobPosted = token => {
     const url = `${API_URI}job-posted`;
     return request.get(url, token);
 };
+
+export const jobPostedDetail = (id, token) => {
+    const url = `${API_URI}job-posted-detail?id=${id}`;
+    return request.get(url, token);
+};

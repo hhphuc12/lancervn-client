@@ -6,6 +6,7 @@ import {
     jobFreelanceDetail,
     checkJobBelongToApi,
     jobPosted,
+    jobPostedDetail,
 } from '../services/api';
 import {
     REQUEST_POST_JOB,
@@ -23,6 +24,9 @@ import {
     REQUEST_JOB_POSTED,
     RECEIVED_JOB_POSTED,
     ERROR_JOB_POSTED,
+    REQUEST_JOB_POSTED_DETAIL,
+    RECEIVED_JOB_POSTED_DETAIL,
+    ERROR_JOB_POSTED_DETAIL,
 } from "../constants/jobType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -341,6 +345,69 @@ function getJobPosted() {
             })
             .catch(res => {
                 dispatch(errorJobPosted(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestJobPostedDetail(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_POSTED_DETAIL,
+        isFetching: true,
+        time
+    };
+}
+function receivedJobPostedDetail(jobPostedDetail, quotationsDetail, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_POSTED_DETAIL,
+        isFetching: false,
+        jobPostedDetail,
+        quotationsDetail,
+        time
+    };
+}
+function errorJobPostedDetail(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_POSTED_DETAIL,
+        isFetching: false,
+        time
+    };
+}
+
+export function getJobPostedDetailIfNeed(id): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetJobPostedDetail(getState())) {
+            return dispatch(getJobPostedDetail(id));
+        }
+        return Promise.resolve('already fetching job posted detail...');
+    }
+}
+
+function shouldGetJobPostedDetail(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getJobPostedDetail(id) {
+    return dispatch => {
+        dispatch(requestJobPostedDetail());
+        const userToken = auth.getToken();
+        jobPostedDetail(id, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                dispatch(receivedJobPostedDetail(res.data.job, res.data.quotations));
+            })
+            .catch(res => {
+                dispatch(errorJobPostedDetail(res.error.message));
                 dispatch(errorBadRequest(400));
             });
     };

@@ -19,3 +19,6 @@ export const ERROR_JOB_BELONG_TO:                string = 'ERROR_JOB_BELONG_TO';
 export const REQUEST_JOB_POSTED:                 string = 'REQUEST_JOB_POSTED';
 export const RECEIVED_JOB_POSTED:                string = 'RECEIVED_JOB_POSTED';
 export const ERROR_JOB_POSTED:                   string = 'ERROR_JOB_POSTED';
+export const REQUEST_JOB_POSTED_DETAIL:          string = 'REQUEST_JOB_POSTED_DETAIL';
+export const RECEIVED_JOB_POSTED_DETAIL:         string = 'RECEIVED_JOB_POSTED_DETAIL';
+export const ERROR_JOB_POSTED_DETAIL:            string = 'ERROR_JOB_POSTED_DETAIL';

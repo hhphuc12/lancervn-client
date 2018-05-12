@@ -2,7 +2,7 @@
 
 import React, {PureComponent} from 'react';
 import { str30Format } from '../../../helpers';
-
+import { Link } from 'react-router-dom';
 
 class ListJob extends PureComponent<Props, State> {
     componentDidMount() {
@@ -30,9 +30,9 @@ class ListJob extends PureComponent<Props, State> {
                 <td>{str30Format(j.content)}</td>
                 <td>{quotations[index].length}</td>
                 <td className="text-right">
-                    <a href="#" className="btn btn-outline-success btn-sm">
+                    <Link to={`/dashboard/job-posted-detail/${j._id}`} className="btn btn-outline-success btn-sm">
                         Xem chi tiết
-                    </a>
+                    </Link>
                 </td>
             </tr>
         ));
@@ -44,12 +44,12 @@ class ListJob extends PureComponent<Props, State> {
                         <div className="card">
                             <div className="card-body">
                                 <div className="card-list-header">
-                                    <h5 className="card-title mb-4" style={{ padding: 7 }}>Skills</h5>
+                                    <h5 className="card-title mb-4" style={{ padding: 7 }}>Việc đã đăng</h5>
                                     <div>
-                                        <a href="/dashboard/post-job" className="btn btn-primary">
+                                        <Link to="/dashboard/post-job" className="btn btn-primary">
                                             <i className="fa fa-plus"/>
                                             Đăng việc
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="table-responsive">

@@ -39,6 +39,7 @@ import {
     jobFreelanceDetail,
     checkJobBelongToApi,
     jobPosted,
+    jobPostedDetail,
 }                                       from './job';
 import {
     listFreelancer,
@@ -112,4 +113,5 @@ export {
     orderStatus,
     checkPackageBelongToApi,
     jobPosted,
+    jobPostedDetail,
 }

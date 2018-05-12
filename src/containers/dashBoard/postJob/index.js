@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
         isFetching: state.job.isFetching,
         isError: state.job.isError,
         errorMessage: state.job.errorMessage,
+        isDataChanged: state.job.isDataChanged,
     };
 };
 

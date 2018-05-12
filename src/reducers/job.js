@@ -15,6 +15,9 @@ import {
     REQUEST_JOB_POSTED,
     RECEIVED_JOB_POSTED,
     ERROR_JOB_POSTED,
+    REQUEST_JOB_POSTED_DETAIL,
+    RECEIVED_JOB_POSTED_DETAIL,
+    ERROR_JOB_POSTED_DETAIL,
 } from "../constants/jobType";
 import moment from "moment/moment";
 
@@ -31,6 +34,8 @@ const initialState = {
     isBelongTo: false,
     jobPosted: [],
     quotations: [],
+    jobPostedDetail: {},
+    quotationsDetail: [],
 };
 
 const currentTime = moment().format();
@@ -149,6 +154,29 @@ export default function (
             };
 
         case ERROR_JOB_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_JOB_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_JOB_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                jobPostedDetail: action && action.jobPostedDetail ? action && action.jobPostedDetail : initialState.jobPostedDetail,
+                quotationsDetail: action && action.quotationsDetail ? action && action.quotationsDetail : initialState.quotationsDetail,
+            };
+
+        case ERROR_JOB_POSTED_DETAIL:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
