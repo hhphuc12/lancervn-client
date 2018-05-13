@@ -5,6 +5,7 @@ import React, {PureComponent} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import { Link } from 'react-router-dom';
 import {dateFormater} from '../../../../helpers';
+import swal from "sweetalert";
 
 class Detail extends PureComponent<Props, State> {
     componentDidMount() {
@@ -18,6 +19,12 @@ class Detail extends PureComponent<Props, State> {
 
     componentWillUnmount() {
         this.props.actions.leaveInfoProfile();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isQuotationBrowsered)
+            swal("Chúc mừng!", "Bạn đã tìm được freelancer thích hợp cho công việc của mình!", "success");
+            nextProps.actions.getJobPostedDetailIfNeed(this.props.match.params.id);
     }
 
     renderField = ({input, label, id, type, fieldValue, disabled, meta: {touched, error, warning}}) => {
@@ -58,9 +65,24 @@ class Detail extends PureComponent<Props, State> {
         )
     };
 
+    onBrowse = (event, jobId, quotationId) => {
+        event.preventDefault();
+        const { browseQuotationIfNeed, errorBadRequest } = this.props.actions;
+        try {
+            browseQuotationIfNeed(jobId, quotationId);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('browse quotation went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+    };
+
     render() {
-        const { jobPostedDetail, quotationsDetail } = this.props;
+        const { jobPostedDetail, quotationsDetail, quotationBrowsered } = this.props;
+        console.log({ quotationBrowsered });
         const {
+            _id,
             name,
             category,
             content,
@@ -83,12 +105,34 @@ class Detail extends PureComponent<Props, State> {
                 <td style={{ maxWidth: '12rem' }}>{q.message}</td>
                 <td>{dateFormater(q.createdAt)}</td>
                 <td className="text-right">
-                    <a href="#" className="btn btn-outline-success btn-sm">
+                    <a href="#" className="btn btn-outline-success btn-sm" onClick={e => this.onBrowse(e, _id, q._id)}>
                         Duyệt
                     </a>
                 </td>
             </tr>
         ));
+
+        const userRentedJSX = quotationBrowsered.user ? (
+            <div>
+                <h4>Freelancer đang làm việc</h4>
+                <div className="profile-box">
+                    <Link to={`/freelancer/${quotationBrowsered.user._id}`} style={{ textDecoration: 'none' }}>
+                        <img
+                            src={quotationBrowsered.user.avatarUri}
+                            alt={`${quotationBrowsered.user.firstName} ${quotationBrowsered.user.lastName}`}
+                            className="avatar avatar-profile"
+                        />
+                        <h1 className="profile-name">
+                            {`${quotationBrowsered.user.firstName} ${quotationBrowsered.user.lastName}`}
+                        </h1>
+                    </Link>
+                    <p className="text-primary" style={{ fontSize: '1rem' }}>
+                        <i className="mdi mdi-worker"/>
+                        {quotationBrowsered.user.occupation}
+                    </p>
+                </div>
+            </div>
+        ) : null;
 
         return (
             <div className="content-wrapper">
@@ -96,6 +140,34 @@ class Detail extends PureComponent<Props, State> {
                     <div className="col-12 grid-margin">
                         <div className="card">
                             <div className="card-body">
+                                {userRentedJSX}
+                                {
+                                    !quotationBrowsered.user ? (
+                                        <div>
+                                            <h4>Duyệt báo giá</h4>
+                                            <div className="table-responsive">
+                                                <table className="table center-aligned-table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th className="border-bottom-0">No.</th>
+                                                        <th className="border-bottom-0">Người gửi</th>
+                                                        <th className="border-bottom-0">Mức giá đề xuất</th>
+                                                        <th className="border-bottom-0">Lời nhắn</th>
+                                                        <th className="border-bottom-0">Thời gian gửi</th>
+                                                        <th className="border-bottom-0 text-right">Hành động</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        quotationJSX
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    ) : null
+                                }
+                                <br/>
                                 <form>
                                     <h4>Thông tin công việc</h4>
                                     <br/>
@@ -184,27 +256,6 @@ class Detail extends PureComponent<Props, State> {
                                         disabled={true}
                                     />
                                 </form>
-                                <br/>
-                                <h4>Duyệt báo giá</h4>
-                                <div className="table-responsive">
-                                    <table className="table center-aligned-table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th className="border-bottom-0">No.</th>
-                                            <th className="border-bottom-0">Người gửi</th>
-                                            <th className="border-bottom-0">Mức giá đề xuất</th>
-                                            <th className="border-bottom-0">Lời nhắn</th>
-                                            <th className="border-bottom-0">Thời gian gửi</th>
-                                            <th className="border-bottom-0 text-right">Hành động</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            quotationJSX
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>

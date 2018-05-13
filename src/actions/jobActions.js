@@ -7,6 +7,7 @@ import {
     checkJobBelongToApi,
     jobPosted,
     jobPostedDetail,
+    browseQuotationApi,
 } from '../services/api';
 import {
     REQUEST_POST_JOB,
@@ -27,6 +28,9 @@ import {
     REQUEST_JOB_POSTED_DETAIL,
     RECEIVED_JOB_POSTED_DETAIL,
     ERROR_JOB_POSTED_DETAIL,
+    REQUEST_BROWSE_QUOTATION,
+    RECEIVED_BROWSE_QUOTATION,
+    ERROR_BROWSE_QUOTATION,
 } from "../constants/jobType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -357,12 +361,13 @@ function requestJobPostedDetail(time = moment().format()) {
         time
     };
 }
-function receivedJobPostedDetail(jobPostedDetail, quotationsDetail, time = moment().format()) {
+function receivedJobPostedDetail(jobPostedDetail, quotationsDetail, quotationBrowsered, time = moment().format()) {
     return {
         type:       RECEIVED_JOB_POSTED_DETAIL,
         isFetching: false,
         jobPostedDetail,
         quotationsDetail,
+        quotationBrowsered,
         time
     };
 }
@@ -404,10 +409,72 @@ function getJobPostedDetail(id) {
             .then(res => {
                 if (res.status !== 200)
                     throw res;
-                dispatch(receivedJobPostedDetail(res.data.job, res.data.quotations));
+                const { job, quotations, quotationBrowsered } = res.data;
+                dispatch(receivedJobPostedDetail(job, quotations, quotationBrowsered));
             })
             .catch(res => {
                 dispatch(errorJobPostedDetail(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestBrowseQuotation(time = moment().format()) {
+    return {
+        type:       REQUEST_BROWSE_QUOTATION,
+        isFetching: true,
+        time
+    };
+}
+function receivedBrowseQuotation(time = moment().format()) {
+    return {
+        type:       RECEIVED_BROWSE_QUOTATION,
+        isFetching: false,
+        time
+    };
+}
+function errorBrowseQuotation(time = moment().format()) {
+    return {
+        type:       ERROR_BROWSE_QUOTATION,
+        isFetching: false,
+        time
+    };
+}
+
+export function browseQuotationIfNeed(jobId, quotationId): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldBrowseQuotation(getState())) {
+            return dispatch(browseQuotation(jobId, quotationId));
+        }
+        return Promise.resolve('already fetching job posted detail...');
+    }
+}
+
+function shouldBrowseQuotation(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function browseQuotation(jobId, quotationId) {
+    return dispatch => {
+        dispatch(requestBrowseQuotation());
+        const userToken = auth.getToken();
+        browseQuotationApi(jobId, quotationId, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                dispatch(receivedBrowseQuotation());
+            })
+            .catch(res => {
+                dispatch(errorBrowseQuotation(res.error.message));
                 dispatch(errorBadRequest(400));
             });
     };

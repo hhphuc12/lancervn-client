@@ -14,6 +14,8 @@ const mapStateToProps = (state) => {
 
         jobPostedDetail: state.job.jobPostedDetail,
         quotationsDetail: state.job.quotationsDetail,
+        quotationBrowsered: state.job.quotationBrowsered,
+        isQuotationBrowsered: state.job.isQuotationBrowsered,
     };
 };
 

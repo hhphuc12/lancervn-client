@@ -22,3 +22,6 @@ export const ERROR_JOB_POSTED:                   string = 'ERROR_JOB_POSTED';
 export const REQUEST_JOB_POSTED_DETAIL:          string = 'REQUEST_JOB_POSTED_DETAIL';
 export const RECEIVED_JOB_POSTED_DETAIL:         string = 'RECEIVED_JOB_POSTED_DETAIL';
 export const ERROR_JOB_POSTED_DETAIL:            string = 'ERROR_JOB_POSTED_DETAIL';
+export const REQUEST_BROWSE_QUOTATION:           string = 'REQUEST_BROWSE_QUOTATION';
+export const RECEIVED_BROWSE_QUOTATION:          string = 'RECEIVED_BROWSE_QUOTATION';
+export const ERROR_BROWSE_QUOTATION:             string = 'ERROR_BROWSE_QUOTATION';

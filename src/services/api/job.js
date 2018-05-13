@@ -33,3 +33,8 @@ export const jobPostedDetail = (id, token) => {
     const url = `${API_URI}job-posted-detail?id=${id}`;
     return request.get(url, token);
 };
+
+export const browseQuotationApi = (jobId, quotationId, token) => {
+    const url = `${API_URI}browse-quotation`;
+    return request.post(url, {jobId, quotationId}, token);
+};

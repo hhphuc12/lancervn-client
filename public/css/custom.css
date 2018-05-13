@@ -115,6 +115,7 @@ input[type="file"] {
 .avatar-profile {
   border-radius: 50% !important;
   width: 12rem;
+  height: 12rem;
 }
 
 .avatar-wrapper {
@@ -169,4 +170,12 @@ input[type="file"] {
 .logo-home {
   width: 8rem;
   height: auto;
+}
+
+.profile-box {
+  text-align: center;
+}
+
+.profile-name {
+  margin-top: 2rem;
 }
