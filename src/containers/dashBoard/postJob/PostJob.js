@@ -28,7 +28,7 @@ class PostJob extends PureComponent<Props, State> {
 
     componentWillReceiveProps(nextProps) {
         const {history} = this.props;
-        if (nextProps.isJobPosted)
+        if (nextProps.isDataChanged)
             history.push('/dashboard/job-posted');
     }
 

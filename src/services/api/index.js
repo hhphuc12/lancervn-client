@@ -38,6 +38,9 @@ import {
     jobFreelance,
     jobFreelanceDetail,
     checkJobBelongToApi,
+    jobPosted,
+    jobPostedDetail,
+    browseQuotationApi,
 }                                       from './job';
 import {
     listFreelancer,
@@ -52,6 +55,7 @@ import {
 import {
     makeQuotationApi,
     quotationStatus,
+    jobSentQuotation,
 }                                       from './quotation';
 import {
     makeOrderApi,
@@ -110,4 +114,8 @@ export {
     makeOrderApi,
     orderStatus,
     checkPackageBelongToApi,
+    jobPosted,
+    jobPostedDetail,
+    browseQuotationApi,
+    jobSentQuotation,
 }

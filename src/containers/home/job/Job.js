@@ -17,11 +17,11 @@ class User extends PureComponent<Props, State> {
 
     componentDidMount() {
         const {
-            enterHomeUser,
+            enterHomeJob,
             getFullCategoryIfNeed,
             getJobFreelanceIfNeed,
         } = this.props.actions;
-        enterHomeUser();
+        enterHomeJob();
         getFullCategoryIfNeed();
         getJobFreelanceIfNeed();
     }

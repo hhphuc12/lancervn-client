@@ -3,8 +3,8 @@
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../actions/viewAction';
-import * as jobActions        from '../../../actions/jobActions';
-import ListJob                from './ListJob';
+import * as quotationActions  from '../../../actions/quotationActions';
+import JobSentQuotation       from './JobSentQuotation';
 import * as errorActions      from "../../../actions/errorActions";
 
 const mapStateToProps = (state) => {
@@ -12,8 +12,7 @@ const mapStateToProps = (state) => {
         // containers:
         currentView:  state.views.currentView,
 
-        jobPosted: state.job.jobPosted,
-        quotations: state.job.quotations,
+        jobSentQuotation: state.quotation.jobSentQuotation,
     };
 };
 
@@ -22,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
         actions : bindActionCreators(
             {
                 ...viewsActions,
-                ...jobActions,
+                ...quotationActions,
                 ...errorActions,
             },
             dispatch
@@ -33,4 +32,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ListJob);
+)(JobSentQuotation);

@@ -23,3 +23,18 @@ export const checkJobBelongToApi = (jobId, token) => {
     const url = `${API_URI}check-job-belong-to?jobId=${jobId}`;
     return request.get(url, token);
 };
+
+export const jobPosted = token => {
+    const url = `${API_URI}job-posted`;
+    return request.get(url, token);
+};
+
+export const jobPostedDetail = (id, token) => {
+    const url = `${API_URI}job-posted-detail?id=${id}`;
+    return request.get(url, token);
+};
+
+export const browseQuotationApi = (jobId, quotationId, token) => {
+    const url = `${API_URI}browse-quotation`;
+    return request.post(url, {jobId, quotationId}, token);
+};

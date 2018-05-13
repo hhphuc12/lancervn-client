@@ -1,38 +1,36 @@
 // @flow strong
 
 import React, {PureComponent} from 'react';
-import { str30Format } from '../../../helpers';
 import { Link } from 'react-router-dom';
 
-class ListJob extends PureComponent<Props, State> {
+class JobSentQuotation extends PureComponent<Props, State> {
     componentDidMount() {
         const {
             actions: {
-                enterJobPosted,
-                getJobPostedIfNeed,
+                enterJobSentQuotation,
+                getJobSentQuotationIfNeed,
             }
         } = this.props;
-        enterJobPosted();
-        getJobPostedIfNeed();
+        enterJobSentQuotation();
+        getJobSentQuotationIfNeed();
     }
 
     componentWillUnmount() {
-        this.props.actions.leaveJobPosted();
+        this.props.actions.leaveJobSentQuotation();
     }
 
     render() {
-        const { jobPosted, quotations } = this.props;
-        const jobsJSX = jobPosted.map((j, index) => (
+        const quotationsJSX = this.props.jobSentQuotation.map((q, index) => (
             <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{str30Format(j.name)}</td>
-                <td>{j.category}</td>
-                <td>{str30Format(j.content)}</td>
-                <td>{quotations[index].length}</td>
+                <td style={{ maxWidth: '8rem' }}>{q.job.name}</td>
+                <td>{q.priceExpected}</td>
+                <td style={{ maxWidth: '12rem' }}>{q.job.content}</td>
                 <td className="text-right">
-                    <Link to={`/dashboard/job-posted-detail/${j._id}`} className="btn btn-outline-success btn-sm">
-                        Xem chi tiết
-                    </Link>
+                    {
+                        q.isBrowsered ? (<label className="badge badge-teal">Được chấp nhận</label>) :
+                            (<label className="badge badge-warning">Đang chờ duyệt</label>)
+                    }
                 </td>
             </tr>
         ));
@@ -44,11 +42,11 @@ class ListJob extends PureComponent<Props, State> {
                         <div className="card">
                             <div className="card-body">
                                 <div className="card-list-header">
-                                    <h5 className="card-title mb-4" style={{ padding: 7 }}>Việc đã đăng</h5>
+                                    <h5 className="card-title mb-4" style={{ padding: 7 }}>Việc đã gửi báo giá</h5>
                                     <div>
-                                        <Link to="/dashboard/post-job" className="btn btn-primary">
+                                        <Link to="/jobs-freelance" className="btn btn-primary">
                                             <i className="fa fa-plus"/>
-                                            Đăng việc
+                                            Tìm thêm việc
                                         </Link>
                                     </div>
                                 </div>
@@ -58,15 +56,14 @@ class ListJob extends PureComponent<Props, State> {
                                         <tr>
                                             <th className="border-bottom-0">No.</th>
                                             <th className="border-bottom-0">Tên công việc</th>
-                                            <th className="border-bottom-0">Lĩnh vực</th>
+                                            <th className="border-bottom-0">Mức giá đề xuất</th>
                                             <th className="border-bottom-0">Yêu cầu</th>
-                                            <th className="border-bottom-0">Số lượng báo giá</th>
-                                            <th className="border-bottom-0 text-right">Hành động</th>
+                                            <th className="border-bottom-0 text-right">Tình trạng</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {
-                                            jobsJSX
+                                            quotationsJSX
                                         }
                                         </tbody>
                                     </table>
@@ -80,4 +77,4 @@ class ListJob extends PureComponent<Props, State> {
     }
 }
 
-export default ListJob;
+export default JobSentQuotation;

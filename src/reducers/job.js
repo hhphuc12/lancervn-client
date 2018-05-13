@@ -12,6 +12,15 @@ import {
     REQUEST_JOB_BELONG_TO,
     RECEIVED_JOB_BELONG_TO,
     ERROR_JOB_BELONG_TO,
+    REQUEST_JOB_POSTED,
+    RECEIVED_JOB_POSTED,
+    ERROR_JOB_POSTED,
+    REQUEST_JOB_POSTED_DETAIL,
+    RECEIVED_JOB_POSTED_DETAIL,
+    ERROR_JOB_POSTED_DETAIL,
+    REQUEST_BROWSE_QUOTATION,
+    RECEIVED_BROWSE_QUOTATION,
+    ERROR_BROWSE_QUOTATION,
 } from "../constants/jobType";
 import moment from "moment/moment";
 
@@ -26,6 +35,12 @@ const initialState = {
     jobFreelance: [],
     skill: [],
     isBelongTo: false,
+    jobPosted: [],
+    quotations: [],
+    jobPostedDetail: {},
+    quotationsDetail: [],
+    isQuotationBrowsered: false,
+    quotationBrowsered: {},
 };
 
 const currentTime = moment().format();
@@ -125,6 +140,76 @@ export default function (
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_JOB_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_JOB_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                jobPosted: action && action.jobPosted ? action && action.jobPosted : initialState.jobPosted,
+                quotations: action && action.quotations ? action && action.quotations : initialState.quotations,
+            };
+
+        case ERROR_JOB_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_JOB_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_JOB_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                jobPostedDetail: action && action.jobPostedDetail ? action && action.jobPostedDetail : initialState.jobPostedDetail,
+                quotationsDetail: action && action.quotationsDetail ? action && action.quotationsDetail : initialState.quotationsDetail,
+                quotationBrowsered: action && action.quotationBrowsered ? action && action.quotationBrowsered : initialState.quotationBrowsered,
+            };
+
+        case ERROR_JOB_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_BROWSE_QUOTATION:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_BROWSE_QUOTATION:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isQuotationBrowsered: true,
+            };
+
+        case ERROR_BROWSE_QUOTATION:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isQuotationBrowsered: false,
             };
 
         default:

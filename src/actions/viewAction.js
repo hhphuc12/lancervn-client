@@ -7,6 +7,8 @@ import {
     LEAVE_HOME_USER,
     ENTER_HOME_USER_DETAIL,
     LEAVE_HOME_USER_DETAIL,
+    ENTER_HOME_JOB,
+    LEAVE_HOME_JOB,
     ENTER_HOME_JOB_DETAIL,
     LEAVE_HOME_JOB_DETAIL,
     ENTER_HOME_PACKAGE_DETAIL,
@@ -25,6 +27,10 @@ import {
     LEAVE_JOB_PROFILE_VIEW,
     ENTER_JOB_POSTED_VIEW,
     LEAVE_JOB_POSTED_VIEW,
+    ENTER_JOB_POSTED_DETAIL_VIEW,
+    LEAVE_JOB_POSTED_DETAIL_VIEW,
+    ENTER_JOB_SENT_QUOTATION_VIEW,
+    LEAVE_JOB_SENT_QUOTATION_VIEW,
     ENTER_ADD_JOB_VIEW,
     LEAVE_ADD_JOB_VIEW,
     ENTER_ADD_PACKAGE_VIEW,
@@ -84,6 +90,24 @@ export function leaveHomeUserDetail(time: string = moment().format()) {
     return {
         type:         LEAVE_HOME_USER_DETAIL,
         currentView:  'HomeUserDetail',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterHomeJob(time: string = moment().format()) {
+    return {
+        type:         ENTER_HOME_JOB,
+        currentView:  'HomeJob',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveHomeJob(time: string = moment().format()) {
+    return {
+        type:         LEAVE_HOME_JOB,
+        currentView:  'HomeJob',
         enterTime:    null,
         leaveTime:    time
     };
@@ -264,6 +288,42 @@ export function leaveJobPosted(time: string = moment().format()) {
     return {
         type:         LEAVE_JOB_POSTED_VIEW,
         currentView:  'JobPosted',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterJobPostedDetail(time: string = moment().format()) {
+    return {
+        type:         ENTER_JOB_POSTED_DETAIL_VIEW,
+        currentView:  'JobPostedDetail',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveJobPostedDetail(time: string = moment().format()) {
+    return {
+        type:         LEAVE_JOB_POSTED_DETAIL_VIEW,
+        currentView:  'JobPostedDetail',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterJobSentQuotation(time: string = moment().format()) {
+    return {
+        type:         ENTER_JOB_SENT_QUOTATION_VIEW,
+        currentView:  'JobSentQuotation',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveJobSentQuotation(time: string = moment().format()) {
+    return {
+        type:         LEAVE_JOB_SENT_QUOTATION_VIEW,
+        currentView:  'JobSentQuotation',
         enterTime:    null,
         leaveTime:    time
     };

@@ -1,6 +1,14 @@
 // @flow weak
 import moment from 'moment';
-import { postJobApi, jobFreelance, jobFreelanceDetail, checkJobBelongToApi } from '../services/api';
+import {
+    postJobApi,
+    jobFreelance,
+    jobFreelanceDetail,
+    checkJobBelongToApi,
+    jobPosted,
+    jobPostedDetail,
+    browseQuotationApi,
+} from '../services/api';
 import {
     REQUEST_POST_JOB,
     RECEIVED_POST_JOB,
@@ -14,6 +22,15 @@ import {
     REQUEST_JOB_BELONG_TO,
     RECEIVED_JOB_BELONG_TO,
     ERROR_JOB_BELONG_TO,
+    REQUEST_JOB_POSTED,
+    RECEIVED_JOB_POSTED,
+    ERROR_JOB_POSTED,
+    REQUEST_JOB_POSTED_DETAIL,
+    RECEIVED_JOB_POSTED_DETAIL,
+    ERROR_JOB_POSTED_DETAIL,
+    REQUEST_BROWSE_QUOTATION,
+    RECEIVED_BROWSE_QUOTATION,
+    ERROR_BROWSE_QUOTATION,
 } from "../constants/jobType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -269,6 +286,195 @@ function checkJobBelongTo(jobId) {
             })
             .catch(error => {
                 dispatch(errorCheckJobBeLongTo(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestJobPosted(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_POSTED,
+        isFetching: true,
+        time
+    };
+}
+function receivedJobPosted(jobPosted, quotations, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_POSTED,
+        isFetching: false,
+        jobPosted,
+        quotations,
+        time
+    };
+}
+function errorJobPosted(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_POSTED,
+        isFetching: false,
+        time
+    };
+}
+
+export function getJobPostedIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetJobPosted(getState())) {
+            return dispatch(getJobPosted());
+        }
+        return Promise.resolve('already fetching job freelance...');
+    }
+}
+
+function shouldGetJobPosted(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getJobPosted() {
+    return dispatch => {
+        dispatch(requestJobPosted());
+        const userToken = auth.getToken();
+        jobPosted(userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                dispatch(receivedJobPosted(res.data.jobs, res.data.quotations));
+            })
+            .catch(res => {
+                dispatch(errorJobPosted(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestJobPostedDetail(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_POSTED_DETAIL,
+        isFetching: true,
+        time
+    };
+}
+function receivedJobPostedDetail(jobPostedDetail, quotationsDetail, quotationBrowsered, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_POSTED_DETAIL,
+        isFetching: false,
+        jobPostedDetail,
+        quotationsDetail,
+        quotationBrowsered,
+        time
+    };
+}
+function errorJobPostedDetail(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_POSTED_DETAIL,
+        isFetching: false,
+        time
+    };
+}
+
+export function getJobPostedDetailIfNeed(id): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetJobPostedDetail(getState())) {
+            return dispatch(getJobPostedDetail(id));
+        }
+        return Promise.resolve('already fetching job posted detail...');
+    }
+}
+
+function shouldGetJobPostedDetail(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getJobPostedDetail(id) {
+    return dispatch => {
+        dispatch(requestJobPostedDetail());
+        const userToken = auth.getToken();
+        jobPostedDetail(id, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                const { job, quotations, quotationBrowsered } = res.data;
+                dispatch(receivedJobPostedDetail(job, quotations, quotationBrowsered));
+            })
+            .catch(res => {
+                dispatch(errorJobPostedDetail(res.error.message));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestBrowseQuotation(time = moment().format()) {
+    return {
+        type:       REQUEST_BROWSE_QUOTATION,
+        isFetching: true,
+        time
+    };
+}
+function receivedBrowseQuotation(time = moment().format()) {
+    return {
+        type:       RECEIVED_BROWSE_QUOTATION,
+        isFetching: false,
+        time
+    };
+}
+function errorBrowseQuotation(time = moment().format()) {
+    return {
+        type:       ERROR_BROWSE_QUOTATION,
+        isFetching: false,
+        time
+    };
+}
+
+export function browseQuotationIfNeed(jobId, quotationId): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldBrowseQuotation(getState())) {
+            return dispatch(browseQuotation(jobId, quotationId));
+        }
+        return Promise.resolve('already fetching job posted detail...');
+    }
+}
+
+function shouldBrowseQuotation(
+    state: any
+): boolean {
+    const isFetching = state.job.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function browseQuotation(jobId, quotationId) {
+    return dispatch => {
+        dispatch(requestBrowseQuotation());
+        const userToken = auth.getToken();
+        browseQuotationApi(jobId, quotationId, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    throw res;
+                dispatch(receivedBrowseQuotation());
+            })
+            .catch(res => {
+                dispatch(errorBrowseQuotation(res.error.message));
                 dispatch(errorBadRequest(400));
             });
     };
