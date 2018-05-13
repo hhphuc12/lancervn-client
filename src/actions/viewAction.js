@@ -29,6 +29,8 @@ import {
     LEAVE_JOB_POSTED_VIEW,
     ENTER_JOB_POSTED_DETAIL_VIEW,
     LEAVE_JOB_POSTED_DETAIL_VIEW,
+    ENTER_JOB_SENT_QUOTATION_VIEW,
+    LEAVE_JOB_SENT_QUOTATION_VIEW,
     ENTER_ADD_JOB_VIEW,
     LEAVE_ADD_JOB_VIEW,
     ENTER_ADD_PACKAGE_VIEW,
@@ -304,6 +306,24 @@ export function leaveJobPostedDetail(time: string = moment().format()) {
     return {
         type:         LEAVE_JOB_POSTED_DETAIL_VIEW,
         currentView:  'JobPostedDetail',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterJobSentQuotation(time: string = moment().format()) {
+    return {
+        type:         ENTER_JOB_SENT_QUOTATION_VIEW,
+        currentView:  'JobSentQuotation',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveJobSentQuotation(time: string = moment().format()) {
+    return {
+        type:         LEAVE_JOB_SENT_QUOTATION_VIEW,
+        currentView:  'JobSentQuotation',
         enterTime:    null,
         leaveTime:    time
     };

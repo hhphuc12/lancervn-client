@@ -55,6 +55,7 @@ import {
 import {
     makeQuotationApi,
     quotationStatus,
+    jobSentQuotation,
 }                                       from './quotation';
 import {
     makeOrderApi,
@@ -116,4 +117,5 @@ export {
     jobPosted,
     jobPostedDetail,
     browseQuotationApi,
+    jobSentQuotation,
 }

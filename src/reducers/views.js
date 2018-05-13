@@ -28,6 +28,8 @@ import {
     LEAVE_JOB_POSTED_VIEW,
     ENTER_JOB_POSTED_DETAIL_VIEW,
     LEAVE_JOB_POSTED_DETAIL_VIEW,
+    ENTER_JOB_SENT_QUOTATION_VIEW,
+    LEAVE_JOB_SENT_QUOTATION_VIEW,
     ENTER_ADD_JOB_VIEW,
     LEAVE_ADD_JOB_VIEW,
     ENTER_ADD_PACKAGE_VIEW,
@@ -64,6 +66,7 @@ export default function views(state: Object = initialState, action: Object) {
         case ENTER_HOME_PACKAGE_DETAIL:
         case ENTER_JOB_POSTED_DETAIL_VIEW:
         case ENTER_HOME_JOB:
+        case ENTER_JOB_SENT_QUOTATION_VIEW:
             // can't enter if you are already inside
             if (state.currentView !== action.currentView) {
                 return {
@@ -92,6 +95,7 @@ export default function views(state: Object = initialState, action: Object) {
         case LEAVE_HOME_PACKAGE_DETAIL:
         case LEAVE_JOB_POSTED_DETAIL_VIEW:
         case LEAVE_HOME_JOB:
+        case LEAVE_JOB_SENT_QUOTATION_VIEW:
             // can't leave if you aren't already inside
             if (state.currentView === action.currentView) {
                 return {

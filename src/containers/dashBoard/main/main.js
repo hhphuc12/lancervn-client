@@ -6,6 +6,7 @@ import React, {
 import { Link }               from 'react-router-dom';
 import DashRoutes             from '../../../routes/DashRoutes';
 import auth from "../../../services/auth";
+import PostPackage from "../postPackage";
 
 class Main extends Component {
     constructor(props) {
@@ -228,15 +229,9 @@ class Main extends Component {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="pages/ui-features/buttons.html">
+                                <a className="nav-link" href="/dashboard/job-sent-quotation">
                                     <img className="menu-icon" src="/images/menu_icons/03.png" alt="menu icon"/>
                                     <span className="menu-title">Việc đã gửi báo giá</span>
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="pages/tables/basic-table.html">
-                                    <img className="menu-icon" src="/images/menu_icons/06.png" alt="menu icon"/>
-                                    <span className="menu-title">Việc đã nhận</span>
                                 </a>
                             </li>
                             <li className="nav-item">

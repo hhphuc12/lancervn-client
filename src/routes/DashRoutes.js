@@ -13,6 +13,7 @@ import JobPosted                from '../containers/dashBoard/jobPosted';
 import PostJob                  from '../containers/dashBoard/postJob';
 import PostPackage              from '../containers/dashBoard/postPackage';
 import JobPostedDetail          from '../containers/dashBoard/jobPosted/detail';
+import JobSentQuotation         from '../containers/dashBoard/jobSentQuotation';
 import PageNotFound             from '../containers/pageNotFound';
 
 const DashRoutes = () => (
@@ -25,6 +26,7 @@ const DashRoutes = () => (
         <Route path='/dashboard/post-job' component={PostJob} />
         <Route path='/dashboard/post-package' component={PostPackage} />
         <Route path='/dashboard/job-posted-detail/:id' component={JobPostedDetail} />
+        <Route path='/dashboard/job-sent-quotation' component={JobSentQuotation} />
         <Route component={PageNotFound} />
     </Switch>
 );

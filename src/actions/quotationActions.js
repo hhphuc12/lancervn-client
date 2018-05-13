@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { makeQuotationApi, quotationStatus } from '../services/api';
+import { makeQuotationApi, quotationStatus, jobSentQuotation } from '../services/api';
 import {
     REQUEST_MAKE_QUOTATION,
     RECEIVED_MAKE_QUOTATION,
@@ -8,6 +8,9 @@ import {
     REQUEST_QUOTATION_STATUS,
     RECEIVED_QUOTATION_STATUS,
     ERROR_QUOTATION_STATUS,
+    REQUEST_JOB_SENT_QUOTATION,
+    RECEIVED_JOB_SENT_QUOTATION,
+    ERROR_JOB_SENT_QUOTATION,
 } from "../constants/quotationType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -130,6 +133,68 @@ function getQuotationStatus(jobId) {
             })
             .catch(error => {
                 dispatch(errorQuotationStatus(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestJobSentQuotation(time = moment().format()) {
+    return {
+        type:       REQUEST_JOB_SENT_QUOTATION,
+        isFetching: true,
+        time
+    };
+}
+function receivedJobSentQuotation(jobSentQuotation, time = moment().format()) {
+    return {
+        type:       RECEIVED_JOB_SENT_QUOTATION,
+        isFetching: false,
+        jobSentQuotation,
+        time
+    };
+}
+function errorJobSentQuotation(time = moment().format()) {
+    return {
+        type:       ERROR_JOB_SENT_QUOTATION,
+        isFetching: false,
+        time
+    };
+}
+
+export function getJobSentQuotationIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetJobSentQuotation(getState())) {
+            return dispatch(getJobSentQuotation());
+        }
+        return Promise.resolve('already fetching quotation status...');
+    }
+}
+
+function shouldGetJobSentQuotation(
+    state: any
+): boolean {
+    const isFetching = state.quotation.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getJobSentQuotation() {
+    return dispatch => {
+        dispatch(requestJobSentQuotation());
+        const userToken = auth.getToken();
+        jobSentQuotation(userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedJobSentQuotation(res.data));
+            })
+            .catch(error => {
+                dispatch(errorJobSentQuotation(error));
                 dispatch(errorBadRequest(400));
             });
     };

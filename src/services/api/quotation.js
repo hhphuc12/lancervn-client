@@ -13,3 +13,8 @@ export const quotationStatus = (job, token) => {
     const url = `${API_URI}quotation-status?jobId=${job}`;
     return request.get(url, token);
 };
+
+export const jobSentQuotation = token => {
+    const url = `${API_URI}job-sent-quotation`;
+    return request.get(url, token);
+};
