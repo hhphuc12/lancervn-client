@@ -13,3 +13,6 @@ export const ERROR_ORDER_STATUS:                   string = 'ERROR_ORDER_STATUS'
 export const REQUEST_PACKAGE_ORDERED:              string = 'REQUEST_PACKAGE_ORDERED';
 export const RECEIVED_PACKAGE_ORDERED:             string = 'RECEIVED_PACKAGE_ORDERED';
 export const ERROR_PACKAGE_ORDERED:                string = 'ERROR_PACKAGE_ORDERED';
+export const REQUEST_PACKAGE_ORDERED_DETAIL:       string = 'REQUEST_PACKAGE_ORDERED_DETAIL';
+export const RECEIVED_PACKAGE_ORDERED_DETAIL:      string = 'RECEIVED_PACKAGE_ORDERED_DETAIL';
+export const ERROR_PACKAGE_ORDERED_DETAIL:         string = 'ERROR_PACKAGE_ORDERED_DETAIL';

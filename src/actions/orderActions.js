@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { makeOrderApi, orderStatus, packageOrdered } from '../services/api';
+import { makeOrderApi, orderStatus, packageOrdered, packageOrderedDetail } from '../services/api';
 import {
     REQUEST_MAKE_ORDER,
     RECEIVED_MAKE_ORDER,
@@ -11,6 +11,9 @@ import {
     REQUEST_PACKAGE_ORDERED,
     RECEIVED_PACKAGE_ORDERED,
     ERROR_PACKAGE_ORDERED,
+    REQUEST_PACKAGE_ORDERED_DETAIL,
+    RECEIVED_PACKAGE_ORDERED_DETAIL,
+    ERROR_PACKAGE_ORDERED_DETAIL,
 } from "../constants/orderType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -195,6 +198,68 @@ function getPackageOrdered() {
             })
             .catch(error => {
                 dispatch(errorPackageOrdered(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestPackageOrderedDetail(time = moment().format()) {
+    return {
+        type:       REQUEST_PACKAGE_ORDERED_DETAIL,
+        isFetching: true,
+        time
+    };
+}
+function receivedPackageOrderedDetail(packageOrderedDetail, time = moment().format()) {
+    return {
+        type:       RECEIVED_PACKAGE_ORDERED_DETAIL,
+        isFetching: false,
+        packageOrderedDetail,
+        time
+    };
+}
+function errorPackageOrderedDetail(time = moment().format()) {
+    return {
+        type:       ERROR_PACKAGE_ORDERED_DETAIL,
+        isFetching: false,
+        time
+    };
+}
+
+export function getPackageOrderedDetailIfNeed(orderId): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetPackageOrderedDetail(getState())) {
+            return dispatch(getPackageOrderedDetail(orderId));
+        }
+        return Promise.resolve('already fetching package ordered detail...');
+    }
+}
+
+function shouldGetPackageOrderedDetail(
+    state: any
+): boolean {
+    const isFetching = state.order.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getPackageOrderedDetail(orderId) {
+    return dispatch => {
+        dispatch(requestPackageOrderedDetail());
+        const userToken = auth.getToken();
+        packageOrderedDetail(orderId, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedPackageOrderedDetail(res.data));
+            })
+            .catch(error => {
+                dispatch(errorPackageOrderedDetail(error));
                 dispatch(errorBadRequest(400));
             });
     };

@@ -15,6 +15,9 @@ import {
     REQUEST_PACKAGE_POSTED,
     RECEIVED_PACKAGE_POSTED,
     ERROR_PACKAGE_POSTED,
+    REQUEST_PACKAGE_POSTED_DETAIL,
+    RECEIVED_PACKAGE_POSTED_DETAIL,
+    ERROR_PACKAGE_POSTED_DETAIL,
 } from "../constants/packageType";
 import moment from "moment/moment";
 
@@ -30,6 +33,8 @@ const initialState = {
     isBelongTo: false,
     packagePosted: [],
     orders: [],
+    packageDetail: {},
+    ordersDetail: [],
 };
 
 const currentTime = moment().format();
@@ -148,6 +153,29 @@ export default function (
             };
 
         case ERROR_PACKAGE_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_PACKAGE_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_PACKAGE_POSTED_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                packageDetail: action && action.packageDetail ? action && action.packageDetail : initialState.packageDetail,
+                ordersDetail: action && action.ordersDetail ? action && action.ordersDetail : initialState.ordersDetail,
+            };
+
+        case ERROR_PACKAGE_POSTED_DETAIL:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,

@@ -37,6 +37,10 @@ import {
     LEAVE_ADD_PACKAGE_VIEW,
     ENTER_LIST_PACKAGE_VIEW,
     LEAVE_LIST_PACKAGE_VIEW,
+    ENTER_PACKAGE_POSTED_DETAIL_VIEW,
+    LEAVE_PACKAGE_POSTED_DETAIL_VIEW,
+    ENTER_PACKAGE_ORDERED_DETAIL_VIEW,
+    LEAVE_PACKAGE_ORDERED_DETAIL_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
@@ -380,6 +384,42 @@ export function leaveListPackage(time: string = moment().format()) {
     return {
         type:         LEAVE_LIST_PACKAGE_VIEW,
         currentView:  'ListPackage',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterPackagePostedDetail(time: string = moment().format()) {
+    return {
+        type:         ENTER_PACKAGE_POSTED_DETAIL_VIEW,
+        currentView:  'PackagePostedDetail',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leavePackagePostedDetail(time: string = moment().format()) {
+    return {
+        type:         LEAVE_PACKAGE_POSTED_DETAIL_VIEW,
+        currentView:  'PackagePostedDetail',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterPackageOrderedDetail(time: string = moment().format()) {
+    return {
+        type:         ENTER_PACKAGE_ORDERED_DETAIL_VIEW,
+        currentView:  'PackageOrderedDetail',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leavePackageOrderedDetail(time: string = moment().format()) {
+    return {
+        type:         LEAVE_PACKAGE_ORDERED_DETAIL_VIEW,
+        currentView:  'PackageOrderedDetail',
         enterTime:    null,
         leaveTime:    time
     };

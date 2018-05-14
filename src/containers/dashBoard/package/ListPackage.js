@@ -27,9 +27,9 @@ class ListJob extends PureComponent<Props, State> {
         const packagePostedJSX = packagePosted.map((p, index) => (
             <tr key={index}>
                 <td>{index + 1}</td>
-                <td style={{ maxWidth: '8rem' }}>{str30Format(p.name)}</td>
+                <td style={{ maxWidth: '8rem' }}>{p.name}</td>
                 <td>{p.category}</td>
-                <td style={{ maxWidth: '12rem' }}>{str30Format(p.expectedResult)}</td>
+                <td style={{ maxWidth: '12rem' }}>{p.expectedResult}</td>
                 <td>{orders[index].length}</td>
                 <td className="text-right">
                     <Link to={`/dashboard/package-posted-detail/${p._id}`} className="btn btn-outline-success btn-sm">
@@ -43,12 +43,12 @@ class ListJob extends PureComponent<Props, State> {
             return (
                 <tr key={index}>
                     <td>{index + 1}</td>
-                    <td style={{ maxWidth: '8rem' }}>{str30Format(name)}</td>
+                    <td style={{ maxWidth: '8rem' }}>{name}</td>
                     <td>{category}</td>
-                    <td style={{ maxWidth: '12rem' }}>{str30Format(expectedResult)}</td>
+                    <td style={{ maxWidth: '12rem' }}>{expectedResult}</td>
                     <td>{moneyFormater(p.priceExpected)}</td>
                     <td className="text-right">
-                        <Link to={`/dashboard/package-posted-detail/${p._id}`} className="btn btn-outline-success btn-sm">
+                        <Link to={`/dashboard/package-ordered-detail/${p._id}`} className="btn btn-outline-success btn-sm">
                             Xem chi tiết
                         </Link>
                     </td>

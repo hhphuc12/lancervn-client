@@ -80,7 +80,6 @@ class Detail extends PureComponent<Props, State> {
 
     render() {
         const { jobPostedDetail, quotationsDetail, quotationBrowsered } = this.props;
-        console.log({ quotationBrowsered });
         const {
             _id,
             name,

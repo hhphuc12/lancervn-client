@@ -19,3 +19,6 @@ export const ERROR_PACKAGE_BELONG_TO:                string = 'ERROR_PACKAGE_BEL
 export const REQUEST_PACKAGE_POSTED:                 string = 'REQUEST_PACKAGE_POSTED';
 export const RECEIVED_PACKAGE_POSTED:                string = 'RECEIVED_PACKAGE_POSTED';
 export const ERROR_PACKAGE_POSTED:                   string = 'ERROR_PACKAGE_POSTED';
+export const REQUEST_PACKAGE_POSTED_DETAIL:          string = 'REQUEST_PACKAGE_POSTED_DETAIL';
+export const RECEIVED_PACKAGE_POSTED_DETAIL:         string = 'RECEIVED_PACKAGE_POSTED_DETAIL';
+export const ERROR_PACKAGE_POSTED_DETAIL:            string = 'ERROR_PACKAGE_POSTED_DETAIL';
