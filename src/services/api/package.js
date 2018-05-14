@@ -23,3 +23,13 @@ export const checkPackageBelongToApi = (packageId, token) => {
     const url = `${API_URI}check-package-belong-to?packageId=${packageId}`;
     return request.get(url, token);
 };
+
+export const listPackagePosted = token => {
+    const url = `${API_URI}package-posted`;
+    return request.get(url, token);
+};
+
+export const packagePostedDetail = (packageId, token) => {
+    const url = `${API_URI}package-posted-detail?packageId=${packageId}`;
+    return request.get(url, token);
+};
