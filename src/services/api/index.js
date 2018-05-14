@@ -51,6 +51,7 @@ import {
     listPackage,
     homePackageDetail,
     checkPackageBelongToApi,
+    listPackagePosted,
 }                                       from './package';
 import {
     makeQuotationApi,
@@ -60,6 +61,7 @@ import {
 import {
     makeOrderApi,
     orderStatus,
+    packageOrdered,
 }                                       from './order';
 
 let API_URI = process.env.REACT_APP_API_URI;
@@ -118,4 +120,6 @@ export {
     jobPostedDetail,
     browseQuotationApi,
     jobSentQuotation,
+    listPackagePosted,
+    packageOrdered,
 }

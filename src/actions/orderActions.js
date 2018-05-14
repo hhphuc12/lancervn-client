@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { makeOrderApi, orderStatus } from '../services/api';
+import { makeOrderApi, orderStatus, packageOrdered } from '../services/api';
 import {
     REQUEST_MAKE_ORDER,
     RECEIVED_MAKE_ORDER,
@@ -8,6 +8,9 @@ import {
     REQUEST_ORDER_STATUS,
     RECEIVED_ORDER_STATUS,
     ERROR_ORDER_STATUS,
+    REQUEST_PACKAGE_ORDERED,
+    RECEIVED_PACKAGE_ORDERED,
+    ERROR_PACKAGE_ORDERED,
 } from "../constants/orderType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -130,6 +133,68 @@ function getOrderStatus(packageId) {
             })
             .catch(error => {
                 dispatch(errorOrderStatus(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestPackageOrdered(time = moment().format()) {
+    return {
+        type:       REQUEST_PACKAGE_ORDERED,
+        isFetching: true,
+        time
+    };
+}
+function receivedPackageOrdered(packageOrdered, time = moment().format()) {
+    return {
+        type:       RECEIVED_PACKAGE_ORDERED,
+        isFetching: false,
+        packageOrdered,
+        time
+    };
+}
+function errorPackageOrdered(time = moment().format()) {
+    return {
+        type:       ERROR_PACKAGE_ORDERED,
+        isFetching: false,
+        time
+    };
+}
+
+export function getPackageOrderedIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetPackageOrdered(getState())) {
+            return dispatch(getPackageOrdered());
+        }
+        return Promise.resolve('already fetching package ordered...');
+    }
+}
+
+function shouldGetPackageOrdered(
+    state: any
+): boolean {
+    const isFetching = state.order.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getPackageOrdered() {
+    return dispatch => {
+        dispatch(requestPackageOrdered());
+        const userToken = auth.getToken();
+        packageOrdered(userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedPackageOrdered(res.data));
+            })
+            .catch(error => {
+                dispatch(errorPackageOrdered(error));
                 dispatch(errorBadRequest(400));
             });
     };

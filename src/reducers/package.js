@@ -12,6 +12,9 @@ import {
     REQUEST_PACKAGE_BELONG_TO,
     RECEIVED_PACKAGE_BELONG_TO,
     ERROR_PACKAGE_BELONG_TO,
+    REQUEST_PACKAGE_POSTED,
+    RECEIVED_PACKAGE_POSTED,
+    ERROR_PACKAGE_POSTED,
 } from "../constants/packageType";
 import moment from "moment/moment";
 
@@ -25,6 +28,8 @@ const initialState = {
     isDataChanged: false,
     isFetching: false,
     isBelongTo: false,
+    packagePosted: [],
+    orders: [],
 };
 
 const currentTime = moment().format();
@@ -120,6 +125,29 @@ export default function (
             };
 
         case ERROR_PACKAGE_BELONG_TO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_PACKAGE_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_PACKAGE_POSTED:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                packagePosted: action && action.packagePosted ? action && action.packagePosted : initialState.packagePosted,
+                orders: action && action.orders ? action && action.orders : initialState.orders,
+            };
+
+        case ERROR_PACKAGE_POSTED:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,

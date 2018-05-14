@@ -13,3 +13,8 @@ export const orderStatus = (packageId, token) => {
     const url = `${API_URI}order-status?packageId=${packageId}`;
     return request.get(url, token);
 };
+
+export const packageOrdered = token => {
+    const url = `${API_URI}package-ordered`;
+    return request.get(url, token);
+};

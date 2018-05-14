@@ -4,7 +4,8 @@ import {
     listPackage,
     postPackageApi,
     homePackageDetail,
-    checkPackageBelongToApi
+    checkPackageBelongToApi,
+    listPackagePosted,
 } from '../services/api';
 import {
     REQUEST_POST_PACKAGE,
@@ -19,6 +20,9 @@ import {
     REQUEST_PACKAGE_BELONG_TO,
     RECEIVED_PACKAGE_BELONG_TO,
     ERROR_PACKAGE_BELONG_TO,
+    REQUEST_PACKAGE_POSTED,
+    RECEIVED_PACKAGE_POSTED,
+    ERROR_PACKAGE_POSTED,
 } from "../constants/packageType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -274,6 +278,69 @@ function checkPackageBelongTo(packageId) {
             })
             .catch(error => {
                 dispatch(errorCheckPackageBeLongTo(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestListPackagePosted(time = moment().format()) {
+    return {
+        type:       REQUEST_PACKAGE_POSTED,
+        isFetching: true,
+        time
+    };
+}
+function receivedListPackagePosted(packagePosted, orders, time = moment().format()) {
+    return {
+        type:       RECEIVED_PACKAGE_POSTED,
+        isFetching: false,
+        packagePosted,
+        orders,
+        time
+    };
+}
+function errorListPackagePosted(time = moment().format()) {
+    return {
+        type:       ERROR_PACKAGE_POSTED,
+        isFetching: false,
+        time
+    };
+}
+
+export function getListPackagePostedIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetListPackagePosted(getState())) {
+            return dispatch(getListPackagePosted());
+        }
+        return Promise.resolve('already get list package posted...');
+    }
+}
+
+function shouldGetListPackagePosted(
+    state: any
+): boolean {
+    const isFetching = state._package.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getListPackagePosted() {
+    return dispatch => {
+        dispatch(requestListPackagePosted());
+        const userToken = auth.getToken();
+        listPackagePosted(userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedListPackagePosted(res.data.packages, res.data.orders));
+            })
+            .catch(error => {
+                dispatch(errorListPackagePosted(error));
                 dispatch(errorBadRequest(400));
             });
     };

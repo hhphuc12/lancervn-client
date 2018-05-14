@@ -35,6 +35,8 @@ import {
     LEAVE_ADD_JOB_VIEW,
     ENTER_ADD_PACKAGE_VIEW,
     LEAVE_ADD_PACKAGE_VIEW,
+    ENTER_LIST_PACKAGE_VIEW,
+    LEAVE_LIST_PACKAGE_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
@@ -360,6 +362,24 @@ export function leavePostPackage(time: string = moment().format()) {
     return {
         type:         LEAVE_ADD_PACKAGE_VIEW,
         currentView:  'AddPackage',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterListPackage(time: string = moment().format()) {
+    return {
+        type:         ENTER_LIST_PACKAGE_VIEW,
+        currentView:  'ListPackage',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveListPackage(time: string = moment().format()) {
+    return {
+        type:         LEAVE_LIST_PACKAGE_VIEW,
+        currentView:  'ListPackage',
         enterTime:    null,
         leaveTime:    time
     };
