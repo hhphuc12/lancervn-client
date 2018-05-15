@@ -207,3 +207,11 @@ input[type="file"] {
 .rating-wrap {
   margin-right: 0.5rem;
 }
+
+.m-active a span {
+  color: #1991EB !important;
+}
+
+.m-unactive a span {
+  color: #4A4949 !important;
+}

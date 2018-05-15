@@ -35,8 +35,14 @@ class Main extends Component {
         this.props.actions.onLogout();
     }
 
+    checkUrl = str => {
+        const url = window.location.href;
+        return url.endsWith(str);
+    }
+
     render() {
         const { avatarUri, firstName, lastName, occupation } = auth.getUserInfo();
+
 
         return (
             <div className="container-scroller">
@@ -210,57 +216,57 @@ class Main extends Component {
                                     </div>
                                 </div>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard') ? 'm-active' : 'm-unactive'}`}>
                                 <a className="nav-link" href="/dashboard">
                                     <img className="menu-icon" src="/images/menu_icons/01.png" alt="menu icon"/>
                                     <span className="menu-title">Dashboard</span>
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/post-job') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/post-job">
-                                    <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/10.png" alt="menu icon"/>
                                     <span className="menu-title">Đăng việc</span>
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/job-posted') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/job-posted">
-                                    <img className="menu-icon" src="/images/menu_icons/02.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/11.png" alt="menu icon"/>
                                     <span className="menu-title">Việc đã đăng</span>
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/job-sent-quotation') ? 'm-active' : 'm-unactive'}`}>
                                 <a className="nav-link" href="/dashboard/job-sent-quotation">
-                                    <img className="menu-icon" src="/images/menu_icons/03.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/02.png" alt="menu icon"/>
                                     <span className="menu-title">Việc đã gửi báo giá</span>
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/post-package') ? 'm-active' : 'm-unactive'}`}>
                                 <a className="nav-link" href="/dashboard/post-package">
-                                    <img className="menu-icon" src="/images/menu_icons/04.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/12.png" alt="menu icon"/>
                                     <span className="menu-title">Tạo gói công việc</span>
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/packages') ? 'm-active' : 'm-unactive'}`}>
                                 <a className="nav-link" href="/dashboard/packages">
-                                    <img className="menu-icon" src="/images/menu_icons/04.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
                                     <span className="menu-title">Gói công việc</span>
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/info-profile') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/info-profile">
-                                    <img className="menu-icon" src="/images/menu_icons/05.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/13.png" alt="menu icon"/>
                                     <span className="menu-title">Thông tin cá nhân</span>
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/job-profile') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/job-profile">
-                                    <img className="menu-icon" src="/images/menu_icons/06.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/14.png" alt="menu icon"/>
                                     <span className="menu-title">Hồ sơ công việc</span>
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={`nav-item ${this.checkUrl('/dashboard/profile') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/profile">
-                                    <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
+                                    <img className="menu-icon" src="/images/menu_icons/15.png" alt="menu icon"/>
                                     <span className="menu-title">Bảo mật tài khoản</span>
                                 </Link>
                             </li>

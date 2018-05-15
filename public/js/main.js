@@ -10,10 +10,6 @@ setTimeout(function(){
 },500);
 
 $(document).ready(function() {
-    $('.show-child-menu').click(function() {
-        $(this).children('.show-child-menu-btn').toggleClass('active');
-        $(this).parent().children('ul').toggleClass('active');
-    });
 
     // $(window).scroll(function() {
     //     if($(this).scrollTop() >= $('._content').offset().top - 100) {
@@ -30,10 +26,6 @@ $(document).ready(function() {
             }, 500);
             return false;
         });
-    });
-    $('.show-child-menu').click(function() {
-        $(this).children('.show-child-menu-btn').toggleClass('active');
-        $(this).parent().children('ul').toggleClass('active');
     });
 });
 
