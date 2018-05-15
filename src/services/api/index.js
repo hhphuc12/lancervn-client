@@ -65,6 +65,9 @@ import {
     packageOrdered,
     packageOrderedDetail,
 }                                       from './order';
+import {
+    postEvaluateApi
+}                                       from './evaluate';
 
 let API_URI = process.env.REACT_APP_API_URI;
 
@@ -126,4 +129,5 @@ export {
     packageOrdered,
     packagePostedDetail,
     packageOrderedDetail,
+    postEvaluateApi,
 }

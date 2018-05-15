@@ -6,8 +6,16 @@ import {Field, reduxForm} from 'redux-form';
 import { Link } from 'react-router-dom';
 import {dateFormater} from '../../../../helpers';
 import swal from "sweetalert";
+import Rating from 'react-rating';
 
 class Detail extends PureComponent<Props, State> {
+    state = {
+        enableEvaluate: false,
+        eTitle: '',
+        eComment: '',
+        eRate: 0,
+    };
+
     componentDidMount() {
         const {
             enterJobPostedDetail,
@@ -22,9 +30,15 @@ class Detail extends PureComponent<Props, State> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isQuotationBrowsered)
+        if (nextProps.isQuotationBrowsered) {
             swal("Chúc mừng!", "Bạn đã tìm được freelancer thích hợp cho công việc của mình!", "success");
             nextProps.actions.getJobPostedDetailIfNeed(this.props.match.params.id);
+        }
+        if (nextProps.isPostedEvaluate) {
+            swal("Chúc mừng!", "Đánh giá của bạn đã được gửi đi. Cảm ơn đóng góp của bạn!", "success");
+            nextProps.actions.getJobPostedDetailIfNeed(this.props.match.params.id);
+            nextProps.actions.resetPostEvaluateState();
+        }
     }
 
     renderField = ({input, label, id, type, fieldValue, disabled, meta: {touched, error, warning}}) => {
@@ -78,8 +92,35 @@ class Detail extends PureComponent<Props, State> {
         }
     };
 
+    onEnableEvaluate = () => {
+        this.setState({ enableEvaluate: !this.state.enableEvaluate });
+    };
+
+    onRate = value => this.setState({ eRate: value });
+
+    onPostEvaluate = (event, user, job) => {
+        event.preventDefault();
+        const { postEvaluateIfNeed, errorBadRequest } = this.props.actions;
+        const { eTitle, eComment, eRate } = this.state;
+        try {
+            postEvaluateIfNeed({
+                user,
+                job,
+                title: eTitle,
+                comment: eComment,
+                rate: eRate,
+            });
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('browse quotation went wrong..., error: ', error);
+            /* eslint-enable no-console */
+        }
+    };
+
     render() {
-        const { jobPostedDetail, quotationsDetail, quotationBrowsered } = this.props;
+        const { jobPostedDetail, quotationsDetail, quotationBrowsered, evaluate, isFetching } = this.props;
+        const { eTitle, eComment, eRate, enableEvaluate } = this.state;
         const {
             _id,
             name,
@@ -91,6 +132,8 @@ class Detail extends PureComponent<Props, State> {
             prioritize,
             skill,
         } = jobPostedDetail;
+        const isHasEvaluate = Object.keys(evaluate).length !== 0;
+        const { title, comment, rate } = evaluate;
 
         const quotationJSX = quotationsDetail.map((q, index) => (
             <tr key={index}>
@@ -129,7 +172,129 @@ class Detail extends PureComponent<Props, State> {
                         <i className="mdi mdi-worker"/>
                         {quotationBrowsered.user.occupation}
                     </p>
+                    {
+                        !isHasEvaluate ? (
+                            <button
+                                className="btn btn-success mr-2"
+                                type="button"
+                                onClick={this.onEnableEvaluate}
+                                disabled={isFetching}
+                            >
+                                {
+                                    isFetching ?
+                                        <span>
+                                        <i className="fa fa-spinner fa-pulse fa-fw"/>
+                                    </span>
+                                        :
+                                        <span>
+                                        Đánh giá freelancer
+                                    </span>
+                                }
+                            </button>
+                        ) : null
+                    }
                 </div>
+                <br/>
+                {
+                    isHasEvaluate ? (
+                        (
+                            <div>
+                                <h4>Bạn đã đánh giá freelancer này:</h4>
+                                <form style={{ marginTop: '1rem' }}>
+                                    <Field
+                                        id="eTitle"
+                                        type="text"
+                                        name="eTitle"
+                                        label="Tiêu đề đánh giá"
+                                        component={this.renderField}
+                                        fieldValue={title}
+                                        disabled={true}
+                                    />
+                                    <br/>
+                                    <div className="rating-wrap form-group">
+                                        <label className="rating-title">Đánh giá:</label>
+                                        <div className="rating-container">
+                                            <Rating
+                                                readonly={true}
+                                                initialRating={rate}
+                                                emptySymbol={<i className="mdi mdi-star-outline rating-item text-success"/>}
+                                                fullSymbol={<i className="mdi mdi-star rating-item text-success"/>}
+                                                onChange={value => this.onRate(value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div style={{ clear: 'right' }}>
+                                        <Field
+                                            id="eComment"
+                                            type="text"
+                                            name="eComment"
+                                            label="Bình luận"
+                                            component={this.renderTextArea}
+                                            fieldValue={comment}
+                                            disabled={true}
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                        )
+                    ) : null
+                }
+                {
+                    enableEvaluate ? (
+                        <div>
+                            <form style={{ marginTop: '1rem' }}>
+                                <Field
+                                    id="eTitle"
+                                    type="text"
+                                    name="eTitle"
+                                    label="Tiêu đề"
+                                    component={this.renderField}
+                                    fieldValue={eTitle}
+                                />
+                                <br/>
+                                <div className="rating-wrap form-group">
+                                    <label className="rating-title">Đánh giá:</label>
+                                    <div className="rating-container">
+                                        <Rating
+                                            readonly={false}
+                                            initialRating={eRate}
+                                            emptySymbol={<i className="mdi mdi-star-outline rating-item text-success"/>}
+                                            fullSymbol={<i className="mdi mdi-star rating-item text-success"/>}
+                                            onChange={value => this.onRate(value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div style={{ clear: 'right' }}>
+                                    <Field
+                                        id="eComment"
+                                        type="text"
+                                        name="eComment"
+                                        label="Bình luận"
+                                        component={this.renderTextArea}
+                                        fieldValue={eComment}
+                                    />
+                                </div>
+                                <button
+                                    className="btn btn-success mr-2"
+                                    type="button"
+                                    onClick={e => this.onPostEvaluate(e, quotationBrowsered.user._id, _id)}
+                                    disabled={isFetching}
+                                >
+                                    {
+                                        isFetching ?
+                                            <span>
+                                                <i className="fa fa-spinner fa-pulse fa-fw"/>
+                                            </span>
+                                            :
+                                            <span>
+                                                Gửi đánh giá
+                                            </span>
+                                    }
+                                </button>
+                            </form>
+                        </div>
+                    ) : null
+                }
             </div>
         ) : null;
 

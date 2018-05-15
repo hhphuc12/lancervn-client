@@ -17,6 +17,7 @@ import language                          from './language';
 import _package                          from './package';
 import quotation                         from './quotation';
 import order                             from './order';
+import evaluate                          from './evaluate';
 import error                             from './error';
 
 export const reducers = {
@@ -35,6 +36,7 @@ export const reducers = {
     _package,
     quotation,
     order,
+    evaluate,
     error,
 };
 

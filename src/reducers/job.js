@@ -41,6 +41,7 @@ const initialState = {
     quotationsDetail: [],
     isQuotationBrowsered: false,
     quotationBrowsered: {},
+    evaluate: {},
 };
 
 const currentTime = moment().format();
@@ -180,6 +181,7 @@ export default function (
                 jobPostedDetail: action && action.jobPostedDetail ? action && action.jobPostedDetail : initialState.jobPostedDetail,
                 quotationsDetail: action && action.quotationsDetail ? action && action.quotationsDetail : initialState.quotationsDetail,
                 quotationBrowsered: action && action.quotationBrowsered ? action && action.quotationBrowsered : initialState.quotationBrowsered,
+                evaluate: action && action.evaluate ? action && action.evaluate : initialState.evaluate,
             };
 
         case ERROR_JOB_POSTED_DETAIL:
