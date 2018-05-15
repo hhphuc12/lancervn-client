@@ -23,6 +23,7 @@ const mapStateToProps = (state) => {
         projectDone: state.user.projectDone,
         literacy: state.user.literacy,
         language: state.user.language,
+        evaluate: state.user.evaluate,
     };
 };
 

@@ -26,6 +26,7 @@ const initialState = {
     projectDone: [],
     literacy: [],
     language:[],
+    evaluate: [],
 };
 
 const currentTime = moment().format();
@@ -99,6 +100,7 @@ export default function (
                 projectDone,
                 literacy,
                 language,
+                evaluate,
             } = freelancer;
             return {
                 ...state,
@@ -114,6 +116,7 @@ export default function (
                 projectDone,
                 literacy,
                 language,
+                evaluate,
             };
 
         case ERROR_FREELANCER_DETAIL:
