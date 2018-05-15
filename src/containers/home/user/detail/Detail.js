@@ -3,7 +3,7 @@
 // #region imports
 import React, { PureComponent } from 'react';
 import Rating from 'react-rating';
-import {formatDescription, monthFormater} from "../../../../helpers";
+import {dateFormater, formatDescription, monthFormater} from "../../../../helpers";
 
 class Detail extends PureComponent<Props, State> {
     componentDidMount() {
@@ -38,6 +38,7 @@ class Detail extends PureComponent<Props, State> {
             projectDone,
             literacy,
             language,
+            evaluate,
         } = this.props;
         avatarUri = avatarUri || '/images/faces/male-avatar.png';
         return (
@@ -208,6 +209,53 @@ class Detail extends PureComponent<Props, State> {
                                     <span className="media-cloud-title" style={{ color: '#000' }}>Ngoại ngữ:</span>
                                     {
                                         language.map((l, index) => (<span className="cloud-tag" key={index}>{`${l.name} ${l.level}`}</span>))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-3 col-md-4 d-xl-block d-md-block col-job-filter">
+                            <div className="sidebar">
+                                <div className="box">
+                                    <h2 className="detail-title">PHẢN HỒI TỪ KHÁCH HÀNG</h2>
+                                    <div className="title-under-line"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-8 col-lg-9">
+                            <div className="freelancer-content">
+                                <div className="row">
+                                    {
+                                        evaluate.map((e, index) => (
+                                            <div className="col-6 grid-margin" key={index}>
+                                                <div className="card">
+                                                    <div className="card-body" style={{ paddingTop: 0 }}>
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                            <div className="card-data-job-profile" style={{ paddingTop: 0 }}>
+                                                                <p>Công việc: <b>{e.job.name}</b></p>
+                                                                <p><b>{e.title}</b></p>
+                                                                <p>{dateFormater(e.createdAt)}</p>
+                                                                <div className="rating-wrap">
+                                                                    <div className="rating-container">
+                                                                        <Rating
+                                                                            readonly={true}
+                                                                            initialRating={e.rate}
+                                                                            emptySymbol={<i className="mdi mdi-star-outline rating-item text-success"/>}
+                                                                            fullSymbol={<i className="mdi mdi-star rating-item text-success"/>}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            style={{ marginBottom: 0 }}
+                                                            dangerouslySetInnerHTML={{__html: formatDescription(e.comment)}}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
                                     }
                                 </div>
                             </div>

@@ -361,13 +361,14 @@ function requestJobPostedDetail(time = moment().format()) {
         time
     };
 }
-function receivedJobPostedDetail(jobPostedDetail, quotationsDetail, quotationBrowsered, time = moment().format()) {
+function receivedJobPostedDetail(jobPostedDetail, quotationsDetail, quotationBrowsered, evaluate, time = moment().format()) {
     return {
         type:       RECEIVED_JOB_POSTED_DETAIL,
         isFetching: false,
         jobPostedDetail,
         quotationsDetail,
         quotationBrowsered,
+        evaluate,
         time
     };
 }
@@ -409,8 +410,8 @@ function getJobPostedDetail(id) {
             .then(res => {
                 if (res.status !== 200)
                     throw res;
-                const { job, quotations, quotationBrowsered } = res.data;
-                dispatch(receivedJobPostedDetail(job, quotations, quotationBrowsered));
+                const { job, quotations, quotationBrowsered, evaluate } = res.data;
+                dispatch(receivedJobPostedDetail(job, quotations, quotationBrowsered, evaluate));
             })
             .catch(res => {
                 dispatch(errorJobPostedDetail(res.error.message));

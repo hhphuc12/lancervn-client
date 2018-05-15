@@ -195,3 +195,15 @@ input[type="file"] {
 .step-item .title {
   font-size: 1rem;
 }
+
+.rating-item {
+  font-size: 1.8rem;
+}
+
+.rating-title {
+  padding: 0.4rem 0.5rem 0 0;
+}
+
+.rating-wrap {
+  margin-right: 0.5rem;
+}
