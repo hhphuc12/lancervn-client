@@ -61,7 +61,7 @@ class Test extends PureComponent<Props, State> {
                                 <p className="card-description">
                                     Basic form elements
                                 </p>
-                                <form action={'http://localhost:1337/api/postImg'} className="forms-sample"
+                                <form action={'http://45.77.249.227:1337/api/postImg'} className="forms-sample"
                                       method="POST">
                                     <div className="form-group">
                                         <div className="input-group">
