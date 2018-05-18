@@ -9,7 +9,12 @@ export const listFreelancer = (page, categoryName) => {
     return request.get(url);
 };
 
-export const freelancerDetail = (id) => {
+export const freelancerDetail = id => {
     const url = `${API_URI}freelancer-detail?id=${id}`;
     return request.get(url);
+};
+
+export const dashboardInfo = token => {
+    const url = `${API_URI}dashboard-info`;
+    return request.get(url, token);
 };

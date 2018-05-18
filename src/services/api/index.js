@@ -45,6 +45,7 @@ import {
 import {
     listFreelancer,
     freelancerDetail,
+    dashboardInfo,
 }                                       from './user';
 import {
     postPackageApi,
@@ -130,4 +131,5 @@ export {
     packagePostedDetail,
     packageOrderedDetail,
     postEvaluateApi,
+    dashboardInfo,
 }
