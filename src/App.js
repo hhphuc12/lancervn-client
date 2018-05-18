@@ -12,7 +12,7 @@ import {
     ScrollTop,
     // PrivateRoute
 }                               from './components';
-import { Main }            from './containers/main';
+import Main                     from './containers/main';
 
 const store = configureStore();
 

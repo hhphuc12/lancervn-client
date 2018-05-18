@@ -4,7 +4,7 @@
 import React, {
     Component
 }                             from 'react';
-import RootRoutes             from '../../../routes/RootRoutes';
+import RootRoutes             from '../../routes/RootRoutes';
 // #endregion
 
 
