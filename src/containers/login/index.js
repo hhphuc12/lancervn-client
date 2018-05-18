@@ -8,37 +8,35 @@ import Login                  from './Login';
 import * as errorActions      from "../../actions/errorActions";
 
 const mapStateToProps = (state) => {
-  return {
-    // containers:
-    currentView:  state.views.currentView,
+    return {
+        // containers:
+        currentView:  state.views.currentView,
 
-    // useAuth:
-    isAuthenticated: state.userAuth.isAuthenticated,
-    isError:         state.userAuth.isError,
-    errorMessage:    state.userAuth.errorMessage,
-    isFetching:      state.userAuth.isFetching,
-    isLogging:       state.userAuth.isLogging,
+        // useAuth:
+        isAuthenticated: state.userAuth.isAuthenticated,
+        isError:         state.userAuth.isError,
+        errorMessage:    state.userAuth.errorMessage,
+        isLogging:       state.userAuth.isLogging,
 
-    // redux form
-    syncValidation: state.form.syncValidation
-  };
+        // redux form
+        syncValidation: state.form.syncValidation
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      // containers:
-      ...viewsActions,
-      // userAuth:
-      ...userAuthActions,
-      // error:
-      ...errorActions
-    },
-    dispatch
-  );
+    return {
+        actions : bindActionCreators(
+            {
+                ...viewsActions,
+                ...userAuthActions,
+                ...errorActions,
+            },
+            dispatch
+        )
+    };
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Login);

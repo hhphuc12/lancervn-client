@@ -1,110 +1,25 @@
 // @flow
 import auth                   from '../services/auth';
-import { postLoginPlatform, postRegister, postLoginServer, getUserInfo, changeNickname, changeAvatar } from '../services/api';
+import {
+    postLogin,
+    postRegister,
+}                             from "../services/api";
 
 import {
-    DISCONNECT_USER,
-    START_EDIT_PROFILE,
-    STOP_EDIT_PROFILE,
-    CHECK_IF_USER_IS_AUTHENTICATED,
+    LOG_OUT_USER,
     REQUEST_LOG_USER,
     RECEIVED_LOG_USER,
+    ERROR_LOG_USER,
     REQUEST_REG_USER,
     RECEIVED_REG_USER,
     ERROR_REG_USER,
-    ERROR_LOG_PLATFORM,
-    RECEIVED_USER_INFO,
-    REQUEST_USER_INFO,
-    ERROR_USER_INFO,
-    RESET_USER_STATES,
 } from '../constants/userAuthType'
 import moment from "moment";
 
-/**
- *
- * set user isAuthenticated to false and clear all app localstorage:
- *
- * @export
- * @returns {action} action
- */
-export function disconnectUser() {
+export function onLogout() {
     auth.clearAllAppStorage();
     return {
-        type: DISCONNECT_USER
-    };
-}
-
-export function startEditProfile() {
-    return {
-        type: START_EDIT_PROFILE,
-    }
-}
-
-export function updateProfile(newInfo: any, accessToken) {
-  return dispatch => {
-      dispatch(startEditProfile());
-      changeNickname(newInfo.nickname, accessToken)
-          .then(
-              res => {
-                  if(res.status !== 200)
-                      throw res;
-
-                  return newInfo.avatar.get('avatar') !== 'undefined' ? changeAvatar(newInfo.avatar, accessToken) : res;
-              }
-          )
-          .then(
-              res => {
-                  if(res.status !== 200)
-                      throw res;
-                  return getUserInfo(accessToken);
-              }
-          )
-          .then(
-              res => dispatch(receivedUserInfo(res.data, 'Change profile successfull!'))
-          )
-          .catch(
-              error => dispatch(stopEditProfile(error.message))
-          );
-  };
-}
-
-export function reloadUserData(dispatch, accessToken) {
-    getUserInfo(accessToken)
-        .then(
-            res => dispatch(receivedUserInfo(res.data))
-        )
-        .catch(
-            error => dispatch(errorLoginUser(error.message))
-        );
-}
-
-export function stopEditProfile(msg) {
-    return {
-        type: STOP_EDIT_PROFILE,
-        msg,
-    }
-}
-
-/**
- *
- * check if user is connected by looking at locally stored
- * - token
- * - user fonrmation
- *
- * @export
- * @returns {action} action
- */
-export function checkUserIsConnected() {
-    const token: any   = auth.getToken();
-    const user: any    = auth.getUserInfo();
-    const checkUserHasId  = (obj: any) => obj && obj._id;
-    const isAuthenticated = (token && checkUserHasId(user)) ? true : false;
-
-    return {
-        type: CHECK_IF_USER_IS_AUTHENTICATED,
-        token,
-        ...user,
-        isAuthenticated
+        type: LOG_OUT_USER
     };
 }
 
@@ -126,79 +41,33 @@ function receivedLoginUser(data, time = moment().format()) {
 
 function errorLoginUser(msg, time = moment().format()) {
     return {
-        type:       ERROR_LOG_PLATFORM,
+        type:       ERROR_LOG_USER,
         isFetching: false,
         msg,
         time
     }
 }
 
-function requestUserInfo(time = moment().format()) {
-    return {
-        type:       REQUEST_USER_INFO,
-        isFetching: true,
-        time
-    };
-}
-
-function receivedUserInfo(data, msg, time = moment().format()) {
-    return {
-        type:       RECEIVED_USER_INFO,
-        isFetching: false,
-        isEditting: false,
-        errorMessage: msg,
-        data,
-        time
-    }
-}
-
-function errorUserInfo(time = moment().format()) {
-    return {
-        type:       ERROR_USER_INFO,
-        isFetching: false,
-        time
-    }
-}
-
-/**
- *
- *  user login
- *
- * @param {string} login user login
- * @param {string} password usepasswordr
- * @returns {Promise<any>} promised action
- */
-function logUser(username, password) {
+function logUser(email, password) {
     return dispatch => {
         dispatch(requestLoginUser());
-        postLoginPlatform(username, password)
+        postLogin(email, password)
             .then(
                 res => {
                     if(res.status !== 200)
                         throw res;
 
-                    return postLoginServer(res.data.access_token);
+                    dispatch(receivedLoginUser(res.data))
                 }
-            )
-            .then(
-                res => {
-                    if(res.status !== 200)
-                        throw res;
-                    dispatch(receivedLoginUser(res.data));
-                    return getUserInfo(res.data);
-                }
-            )
-            .then(
-                res => dispatch(receivedUserInfo(res.data))
             )
             .catch(
-                error => dispatch(errorLoginUser(error.message))
+                res => dispatch(errorLoginUser(res.error.message))
             );
     };
 };
 
-export function logUserIfNeeded(
-    username: string,
+export function logUserIfNeed(
+    email: string,
     password: string
 ): (...any) => Promise<any> {
     return (
@@ -206,9 +75,9 @@ export function logUserIfNeeded(
         getState: () => boolean
     ): any => {
         if (shouldLogUser(getState())) {
-            return dispatch(logUser(username, password));
+            return dispatch(logUser(email, password));
         }
-        return Promise.resolve('already logged in...');
+        return Promise.resolve('Already logged in!');
     };
 }
 
@@ -229,42 +98,55 @@ function requestRegisterUser(time = moment().format()) {
         time
     };
 }
-function receivedRegisterUser(data, time = moment().format()) {
+function receivedRegisterUser(time = moment().format()) {
     return {
         type:       RECEIVED_REG_USER,
         isFetching: false,
-        data,
         time
     };
 }
-function errorRegisterUser(time = moment().format()) {
+function errorRegisterUser(msg, time = moment().format()) {
     return {
         type:       ERROR_REG_USER,
         isFetching: false,
+        msg,
         time
-    };
+    }
 }
 
-export function registerUser(
-    username: string,
+function regUser(firstName, lastName, email, password) {
+    return dispatch => {
+        dispatch(requestRegisterUser());
+        postRegister(firstName, lastName, email, password)
+            .then(
+                res => {
+                    if(res.status !== 201)
+                        throw res;
+
+                    dispatch(receivedRegisterUser())
+                }
+            )
+            .catch(
+                res => dispatch(errorRegisterUser(res.error.message))
+            );
+    };
+};
+
+export function regUserIfNeed(
+    firstName: string,
+    lastName: string,
     email: string,
-    password: string,
-    confirm_password: string,
+    password: string
 ): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
-        getState: () => boolean,
+        getState: () => boolean
     ): any => {
-        if(shouldRegUser(getState())) {
-            return dispatch(regUser(
-                username,
-                email,
-                password,
-                confirm_password,
-            ));
+        if (shouldRegUser(getState())) {
+            return dispatch(regUser(firstName, lastName, email, password));
         }
-        return Promise.resolve('already logged in...');
-    }
+        return Promise.resolve('Already registered!');
+    };
 }
 
 function shouldRegUser(
@@ -277,77 +159,9 @@ function shouldRegUser(
     return true;
 }
 
-function regUser(
-    username,
-    email,
-    password,
-    confirm_password,
-) {
-    return dispatch => {
-        dispatch(requestRegisterUser());
-        postRegister(
-            username,
-            email,
-            password,
-            confirm_password,
-        )
-            .then(
-                data => dispatch(receivedRegisterUser(data)))
-            .catch(
-                error => dispatch(errorRegisterUser(error))
-            );
-    };
-};
-
-// get user info
-function getUserInfoData(accessToken) {
-    return dispatch => {
-        dispatch(requestUserInfo());
-        getUserInfo(accessToken)
-            .then(
-                res => {
-                    if (res.status !== 200)
-                        return dispatch(errorUserInfo());
-                    return dispatch(receivedUserInfo(res.data));
-                }
-            )
-            .catch(
-                error => dispatch(errorUserInfo())
-            );
-    };
-};
-
-export function fetchUserInfoDataIfNeeded(): (...any) => Promise<any> {
-    return (
-        dispatch: (any) => any,
-        getState: () => boolean
-    ): any => {
-        if (shouldGetUserInfo(getState())) {
-            const accessToken = auth.getToken();
-            if (accessToken) {
-                const isTokenExpired =  auth.isExpiredToken(auth.getToken());
-                if (!isTokenExpired)
-                    return dispatch(getUserInfoData(accessToken));
-            }
-            return dispatch(errorUserInfo());
-        }
-        return Promise.resolve('already logged in...');
-    };
-}
-
-export function resetUserStates(time = moment().format()) {
-    return {
-        type: RESET_USER_STATES,
-        time
-    };
-}
-
-function shouldGetUserInfo(
-    state: any
-): boolean {
-    const isLogging = state.userAuth.isFetching;
-    if (isLogging) {
-        return false;
-    }
-    return true;
-}
+// export function resetUserStates(time = moment().format()) {
+//     return {
+//         type: RESET_USER_STATES,
+//         time
+//     };
+// }

@@ -1,17 +1,18 @@
 // @flow weak
+
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
-import * as viewActions       from '../../actions/viewAction';
-import * as campaignActions   from '../../actions/campaignActions';
-import PageHome               from './home';
+import * as viewsActions      from '../../actions/viewAction';
+import * as userAuthActions     from '../../actions/userAuthAction';
+import Home                   from './Home';
+import * as errorActions      from "../../actions/errorActions";
 
 const mapStateToProps = (state) => {
     return {
-        // view
+        // containers:
         currentView:  state.views.currentView,
 
-        // error
-        errorStatus: state.error.errorStatus,
+        isAuthenticated: state.userAuth.isAuthenticated,
     };
 };
 
@@ -19,16 +20,16 @@ const mapDispatchToProps = (dispatch) => {
     return {
         actions : bindActionCreators(
             {
-                //  containers
-                ...viewActions,
-                // campaign
-                ...campaignActions,
+                ...viewsActions,
+                ...userAuthActions,
+                ...errorActions,
             },
-            dispatch)
+            dispatch
+        )
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PageHome);
+)(Home);

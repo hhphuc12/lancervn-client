@@ -82,3 +82,128 @@
   color: #1ba849;
   text-align: center;
 }
+
+.my-text-inline {
+  display: inline-block;
+}
+
+.profile-dropdown-icon {
+  width: 18px;
+  height: auto;
+  margin-right: 5px;
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.avatar-preview {
+  width: 200px;
+  height: 200px;
+}
+
+.profile-dropdown-item {
+  border-bottom: none !important;
+}
+
+.avatar-profile {
+  border-radius: 50% !important;
+  width: 12rem;
+  height: 12rem;
+}
+
+.avatar-wrapper {
+  text-align: center;
+}
+
+.form-control:disabled {
+  background-color: #f6f8fa !important;
+}
+
+.card-list-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.job-profile-header-text {
+  margin-top: 0.35rem;
+}
+
+.form-control[readonly] {
+  background-color: #ffffff !important;
+}
+
+.card-job-profile {
+  border: 1px solid #5bd3ff !important;
+  border-radius: 0.2rem !important;
+}
+
+.card-body-job-profile {
+  padding: 1.5rem !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+}
+
+.card-data-job-profile {
+  padding-top: 1.5rem;
+}
+
+.category-project-wrapper {
+  padding-top: 0.2rem;
+}
+
+.category-project {
+  background-color: #5bd3ff;
+  padding: 0.3rem;
+  margin-right: 0.2rem;
+  margin-bottom: 0.2rem;
+  border-radius: 5%;
+  display: inline-block;
+}
+
+.logo-home {
+  width: 8rem;
+  height: auto;
+}
+
+.profile-box {
+  text-align: center;
+}
+
+.profile-name {
+  margin-top: 2rem;
+}
+
+.step { position: relative; min-height: 32px /* circle-size */ ; }
+.step > div:first-child { position: static; height: 0; }
+.step > div:last-child { margin-left: 32px ; padding-left: 16px; }
+.circle { background: #4285f4; width: 32px; height: 32px; line-height: 32px; border-radius: 16px; position: relative; color: white; text-align: center; }
+.line { position: absolute; border-left: 1px solid gainsboro; left: 16px; bottom: 10px; top: 42px; }
+.step:last-child .line { display: none; }
+.step-content { line-height: 32px; }
+
+.step-item .body {
+  height: 3rem;
+}
+
+.step-item .title {
+  font-size: 1rem;
+}
+
+.rating-item {
+  font-size: 1.8rem;
+}
+
+.rating-title {
+  padding: 0.4rem 0.5rem 0 0;
+}
+
+.rating-wrap {
+  margin-right: 0.5rem;
+}

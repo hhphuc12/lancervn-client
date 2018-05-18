@@ -45,7 +45,7 @@ export const getNewRequestHasBody = (url: string, method: string, data: any, tok
     };
 
     if(data instanceof FormData) {
-      delete originHeaders['Content-Type'];
+        delete originHeaders['Content-Type'];
     }
 
     let customHeaders = Object.assign(headers, originHeaders);
@@ -67,21 +67,46 @@ export const dateFormatter = (date: string) => {
     return date.substring(0, 10);
 };
 
-export const imagesPreview = (image, placeToInsertImagePreview) => {
+export const formatDescription = (des: string) => {
+    if (!des) return '';
+    return `<p>${des.split('\n').join('</p><p>')}</p>`;
+};
+
+export const dateFormater = (date: string) => {
+    if (date === null || date === undefined) return '---';
+    const d = new Date(date);
+    return d.toLocaleString('vi', { year: 'numeric', month: 'numeric', day: 'numeric', });
+};
+
+export const monthFormater = (date: string) => {
+    if (date === null || date === undefined) return '---';
+    const d = new Date(date);
+    return d.toLocaleString('vi', { month: 'numeric', year: 'numeric' });
+};
+
+export const moneyFormater = money => money ? money.replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '---';
+
+export const str30Format = str => {
+    if (!str.length) return '---';
+    if (str.length < 30) return str;
+    return `${str.substring(0, 30)}...`;
+};
+
+export const changePreview = (image, placeToInsertImagePreview) => {
     $(placeToInsertImagePreview + ' img').remove();
     if (image) {
-      let reader = new FileReader();
+        let reader = new FileReader();
 
-      reader.onload = function(event) {
-          $($.parseHTML('<img class="img-responsive img-thumbnail" width="250px" height="250px">'))
-              .attr('src', event.target.result)
-              .prependTo(placeToInsertImagePreview);
-      }
+        reader.onload = function(event) {
+            $($.parseHTML('<img class="img-responsive img-thumbnail avatar-preview avatar-profile" alt="">'))
+                .attr('src', event.target.result)
+                .prependTo(placeToInsertImagePreview);
+        }
 
-      reader.readAsDataURL(image);
+        reader.readAsDataURL(image);
     }
     else {
-      //TODO
+        //TODO
     }
 }
 

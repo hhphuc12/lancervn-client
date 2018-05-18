@@ -1,109 +1,125 @@
 // @flow weak
 import {
+    ENTER_HOME_PAGE,
+    LEAVE_HOME_PAGE,
+    ENTER_HOME_USER,
+    LEAVE_HOME_USER,
+    ENTER_HOME_USER_DETAIL,
+    LEAVE_HOME_USER_DETAIL,
+    ENTER_HOME_JOB,
+    LEAVE_HOME_JOB,
+    ENTER_HOME_JOB_DETAIL,
+    LEAVE_HOME_JOB_DETAIL,
+    ENTER_HOME_PACKAGE_DETAIL,
+    LEAVE_HOME_PACKAGE_DETAIL,
+    ENTER_HOME_PACKAGE,
+    LEAVE_HOME_PACKAGE,
     ENTER_LOGIN_VIEW,
-    LEAVE_HOME_VIEW,
-    ENTER_HOME_VIEW,
     LEAVE_LOGIN_VIEW,
+    ENTER_REGISTER_VIEW,
+    LEAVE_REGISTER_VIEW,
+    ENTER_DASHBOARD_VIEW,
+    LEAVE_DASHBOARD_VIEW,
+    ENTER_INFO_PROFILE_VIEW,
+    LEAVE_INFO_PROFILE_VIEW,
+    ENTER_JOB_PROFILE_VIEW,
+    LEAVE_JOB_PROFILE_VIEW,
+    ENTER_JOB_POSTED_VIEW,
+    LEAVE_JOB_POSTED_VIEW,
+    ENTER_JOB_POSTED_DETAIL_VIEW,
+    LEAVE_JOB_POSTED_DETAIL_VIEW,
+    ENTER_JOB_SENT_QUOTATION_VIEW,
+    LEAVE_JOB_SENT_QUOTATION_VIEW,
+    ENTER_ADD_JOB_VIEW,
+    LEAVE_ADD_JOB_VIEW,
+    ENTER_LIST_PACKAGE_VIEW,
+    LEAVE_LIST_PACKAGE_VIEW,
+    ENTER_PACKAGE_POSTED_DETAIL_VIEW,
+    LEAVE_PACKAGE_POSTED_DETAIL_VIEW,
+    ENTER_PACKAGE_ORDERED_DETAIL_VIEW,
+    LEAVE_PACKAGE_ORDERED_DETAIL_VIEW,
+    ENTER_ADD_PACKAGE_VIEW,
+    LEAVE_ADD_PACKAGE_VIEW,
     ENTER_PAGE_NOT_FOUND_VIEW,
     LEAVE_PAGE_NOT_FOUND_VIEW,
-    ENTER_PROTECTED_VIEW,
-    LEAVE_PROTECTED_VIEW,
     ENTER_PAGE_BAD_REQUEST_VIEW,
     LEAVE_PAGE_BAD_REQUEST_VIEW,
-    ENTER_HELP_VIEW,
-    LEAVE_HELP_VIEW,
-    ENTER_POLICY_VIEW,
-    LEAVE_POLICY_VIEW,
-    ENTER_TERMS_VIEW,
-    LEAVE_TERMS_VIEW,
-    ENTER_ADD_NEW_ADDRESS_VIEW,
-    LEAVE_ADD_NEW_ADDRESS_VIEW,
-    ENTER_ADDRESS_VIEW,
-    LEAVE_ADDRESS_VIEW,
-    ENTER_COIN_VIEW,
-    LEAVE_COIN_VIEW,
-    ENTER_CONTACT_VIEW,
-    LEAVE_CONTACT_VIEW,
-    ENTER_FRIEND_VIEW,
-    LEAVE_FRIEND_VIEW,
-    ENTER_POINT_EXCHANGE_HISTORY_VIEW,
-    LEAVE_POINT_EXCHANGE_HISTORY_VIEW,
-    ENTER_POINT_VIEW,
-    LEAVE_POINT_VIEW,
-    ENTER_WIN_HISTORY_VIEW,
-    LEAVE_WIN_HISTORY_VIEW,
-    ENTER_CHANCE_BUY_HISTORY_VIEW,
-    LEAVE_CHANCE_BUY_HISTORY_VIEW,
-    ENTER_EDIT_PROFILE_VIEW,
-    LEAVE_EDIT_PROFILE_VIEW
 } from '../constants/viewTypes';
 
 const initialState = {
-  currentView:  'home',
-  enterTime:    null,
-  leaveTime:    null
+    currentView:  'home',
+    enterTime:    null,
+    leaveTime:    null
 };
 
 export default function views(state: Object = initialState, action: Object) {
-  switch (action.type) {
-    case ENTER_CHANCE_BUY_HISTORY_VIEW:
-    case ENTER_PAGE_BAD_REQUEST_VIEW:
-    case ENTER_PAGE_NOT_FOUND_VIEW:
-    case ENTER_PROTECTED_VIEW:
-    case ENTER_HOME_VIEW:
-    case ENTER_HELP_VIEW:
-    case ENTER_POLICY_VIEW:
-    case ENTER_TERMS_VIEW:
-    case ENTER_ADD_NEW_ADDRESS_VIEW:
-    case ENTER_ADDRESS_VIEW:
-    case ENTER_COIN_VIEW:
-    case ENTER_CONTACT_VIEW:
-    case ENTER_FRIEND_VIEW:
-    case ENTER_POINT_EXCHANGE_HISTORY_VIEW:
-    case ENTER_POINT_VIEW:
-    case ENTER_WIN_HISTORY_VIEW:
-    case ENTER_EDIT_PROFILE_VIEW:
-    case ENTER_LOGIN_VIEW:
-      // can't enter if you are already inside
-      if (state.currentView !== action.currentView) {
-        return {
-          ...state,
-          currentView:  action.currentView,
-          enterTime:    action.enterTime,
-          leaveTime:    action.leaveTime
-        };
-      }
-      return state;
-    case LEAVE_CHANCE_BUY_HISTORY_VIEW:
-    case LEAVE_PAGE_BAD_REQUEST_VIEW:
-    case LEAVE_PROTECTED_VIEW:
-    case LEAVE_PAGE_NOT_FOUND_VIEW:
-    case LEAVE_HOME_VIEW:
-    case LEAVE_HELP_VIEW:
-    case LEAVE_POLICY_VIEW:
-    case LEAVE_TERMS_VIEW:
-    case LEAVE_ADD_NEW_ADDRESS_VIEW:
-    case LEAVE_ADDRESS_VIEW:
-    case LEAVE_COIN_VIEW:
-    case LEAVE_CONTACT_VIEW:
-    case LEAVE_FRIEND_VIEW:
-    case LEAVE_POINT_EXCHANGE_HISTORY_VIEW:
-    case LEAVE_POINT_VIEW:
-    case LEAVE_WIN_HISTORY_VIEW:
-    case LEAVE_EDIT_PROFILE_VIEW:
-    case LEAVE_LOGIN_VIEW:
-      // can't leave if you aren't already inside
-      if (state.currentView === action.currentView) {
-        return {
-          ...state,
-          currentView:  action.currentView,
-          enterTime:    action.enterTime,
-          leaveTime:    action.leaveTime
-        };
-      }
-      return state;
+    switch (action.type) {
+        case ENTER_PAGE_BAD_REQUEST_VIEW:
+        case ENTER_PAGE_NOT_FOUND_VIEW:
+        case ENTER_LOGIN_VIEW:
+        case ENTER_REGISTER_VIEW:
+        case ENTER_DASHBOARD_VIEW:
+        case ENTER_INFO_PROFILE_VIEW:
+        case ENTER_JOB_PROFILE_VIEW:
+        case ENTER_JOB_POSTED_VIEW:
+        case ENTER_ADD_JOB_VIEW:
+        case ENTER_HOME_PAGE:
+        case ENTER_HOME_USER:
+        case ENTER_ADD_PACKAGE_VIEW:
+        case ENTER_HOME_PACKAGE:
+        case ENTER_HOME_USER_DETAIL:
+        case ENTER_HOME_JOB_DETAIL:
+        case ENTER_HOME_PACKAGE_DETAIL:
+        case ENTER_JOB_POSTED_DETAIL_VIEW:
+        case ENTER_HOME_JOB:
+        case ENTER_JOB_SENT_QUOTATION_VIEW:
+        case ENTER_LIST_PACKAGE_VIEW:
+        case ENTER_PACKAGE_POSTED_DETAIL_VIEW:
+        case ENTER_PACKAGE_ORDERED_DETAIL_VIEW:
+            // can't enter if you are already inside
+            if (state.currentView !== action.currentView) {
+                return {
+                    ...state,
+                    currentView:  action.currentView,
+                    enterTime:    action.enterTime,
+                    leaveTime:    action.leaveTime
+                };
+            }
+            return state;
+        case LEAVE_PAGE_BAD_REQUEST_VIEW:
+        case LEAVE_PAGE_NOT_FOUND_VIEW:
+        case LEAVE_DASHBOARD_VIEW:
+        case LEAVE_REGISTER_VIEW:
+        case LEAVE_LOGIN_VIEW:
+        case LEAVE_INFO_PROFILE_VIEW:
+        case LEAVE_JOB_PROFILE_VIEW:
+        case LEAVE_JOB_POSTED_VIEW:
+        case LEAVE_ADD_JOB_VIEW:
+        case LEAVE_HOME_PAGE:
+        case LEAVE_HOME_USER:
+        case LEAVE_ADD_PACKAGE_VIEW:
+        case LEAVE_HOME_PACKAGE:
+        case LEAVE_HOME_USER_DETAIL:
+        case LEAVE_HOME_JOB_DETAIL:
+        case LEAVE_HOME_PACKAGE_DETAIL:
+        case LEAVE_JOB_POSTED_DETAIL_VIEW:
+        case LEAVE_HOME_JOB:
+        case LEAVE_JOB_SENT_QUOTATION_VIEW:
+        case LEAVE_LIST_PACKAGE_VIEW:
+        case LEAVE_PACKAGE_POSTED_DETAIL_VIEW:
+        case LEAVE_PACKAGE_ORDERED_DETAIL_VIEW:
+            // can't leave if you aren't already inside
+            if (state.currentView === action.currentView) {
+                return {
+                    ...state,
+                    currentView:  action.currentView,
+                    enterTime:    action.enterTime,
+                    leaveTime:    action.leaveTime
+                };
+            }
+            return state;
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 }
