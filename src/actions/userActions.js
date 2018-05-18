@@ -1,6 +1,6 @@
 // @flow weak
 import moment from 'moment';
-import { userCategory, listFreelancer, freelancerDetail } from '../services/api';
+import { userCategory, listFreelancer, freelancerDetail, dashboardInfo } from '../services/api';
 import {
     ERROR_USER_CATEGORY,
     RECEIVED_USER_CATEGORY,
@@ -11,6 +11,9 @@ import {
     REQUEST_FREELANCER_DETAIL,
     RECEIVED_FREELANCER_DETAIL,
     ERROR_FREELANCER_DETAIL,
+    REQUEST_DASHBOARD_INFO,
+    RECEIVED_DASHBOARD_INFO,
+    ERROR_DASHBOARD_INFO,
 } from "../constants/userType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -194,6 +197,68 @@ function getFreelancerDetail(id) {
             })
             .catch(error => {
                 dispatch(errorFreelancerDetail(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestDashboardInfo(time = moment().format()) {
+    return {
+        type:       REQUEST_DASHBOARD_INFO,
+        isFetching: true,
+        time
+    };
+}
+function receivedDashboardInfo(dashboardInfo, time = moment().format()) {
+    return {
+        type:       RECEIVED_DASHBOARD_INFO,
+        isFetching: false,
+        dashboardInfo,
+        time
+    };
+}
+function errorDashboardInfo(time = moment().format()) {
+    return {
+        type:       ERROR_DASHBOARD_INFO,
+        isFetching: false,
+        time
+    };
+}
+
+export function getDashboardInfoIfNeed(): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldGetDashboardInfo(getState())) {
+            return dispatch(getDashboardInfo());
+        }
+        return Promise.resolve('already fetching dashboard info...');
+    }
+}
+
+function shouldGetDashboardInfo(
+    state: any
+): boolean {
+    const isFetching = state.user.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function getDashboardInfo() {
+    return dispatch => {
+        dispatch(requestDashboardInfo());
+        const userToken = auth.getToken();
+        dashboardInfo(userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedDashboardInfo(res.data));
+            })
+            .catch(error => {
+                dispatch(errorDashboardInfo(error));
                 dispatch(errorBadRequest(400));
             });
     };

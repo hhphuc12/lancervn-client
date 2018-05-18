@@ -1,10 +1,18 @@
 // @flow strong
 
 import React, {PureComponent} from 'react';
+import {Doughnut} from 'react-chartjs-2';
 
 class DashBoard extends PureComponent<Props, State> {
     componentDidMount() {
-        this.props.actions.enterDashboard();
+        const {
+            actions: {
+                enterDashboard,
+                getDashboardInfoIfNeed,
+            }
+        } = this.props;
+        enterDashboard();
+        getDashboardInfoIfNeed();
     }
 
     componentWillUnmount() {
@@ -12,6 +20,49 @@ class DashBoard extends PureComponent<Props, State> {
     }
 
     render() {
+        const {
+            job,
+            quotation,
+            _package,
+            order,
+        } = this.props.dashboardInfo;
+
+        const dataJob = {
+            labels: [
+                'Việc đã đăng',
+                'Việc đã báo giá',
+            ],
+            datasets: [{
+                data: [job, quotation],
+                backgroundColor: [
+                    '#9966FF',
+                    '#FF9F40',
+                ],
+                hoverBackgroundColor: [
+                    '#8142FF',
+                    '#FF9124',
+                ]
+            }]
+        };
+
+        const dataPackage = {
+            labels: [
+                'Gói đã đăng',
+                'Gói đã đặt hàng',
+            ],
+            datasets: [{
+                data: [_package, order],
+                backgroundColor: [
+                    '#FF9F40',
+                    '#FF6384',
+                ],
+                hoverBackgroundColor: [
+                    '#FF9124',
+                    '#FF3D67',
+                ]
+            }]
+        };
+
         return (
             <div className="content-wrapper">
                 <div className="row">
@@ -23,15 +74,15 @@ class DashBoard extends PureComponent<Props, State> {
                                         <i className="mdi mdi-cube text-danger icon-lg"/>
                                     </div>
                                     <div className="float-right">
-                                        <p className="card-text text-right">Total Revenue</p>
+                                        <p className="card-text text-right">Việc đã đăng</p>
                                         <div className="fluid-container">
-                                            <h3 className="card-title font-weight-bold text-right mb-0">$65,650</h3>
+                                            <h3 className="card-title font-weight-bold text-right mb-0">{job}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <p className="text-muted mt-3">
-                                    <i className="mdi mdi-alert-octagon mr-1" aria-hidden="true"/> 65%
-                                    lower growth
+                                    <i className="mdi mdi-alert-octagon mr-1" aria-hidden="true"/>
+                                    Việc freelance đã đăng
                                 </p>
                             </div>
                         </div>
@@ -44,15 +95,15 @@ class DashBoard extends PureComponent<Props, State> {
                                         <i className="mdi mdi-receipt text-warning icon-lg"/>
                                     </div>
                                     <div className="float-right">
-                                        <p className="card-text text-right">Orders</p>
+                                        <p className="card-text text-right">Báo giá</p>
                                         <div className="fluid-container">
-                                            <h3 className="card-title font-weight-bold text-right mb-0">3455</h3>
+                                            <h3 className="card-title font-weight-bold text-right mb-0">{quotation}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <p className="text-muted mt-3">
-                                    <i className="mdi mdi-bookmark-outline mr-1"
-                                       aria-hidden="true"/> Product-wise sales
+                                    <i className="mdi mdi-bookmark-outline mr-1" aria-hidden="true"/>
+                                    Việc đã gửi báo giá
                                 </p>
                             </div>
                         </div>
@@ -65,15 +116,15 @@ class DashBoard extends PureComponent<Props, State> {
                                         <i className="mdi mdi-poll-box text-teal icon-lg"/>
                                     </div>
                                     <div className="float-right">
-                                        <p className="card-text text-right">Sales</p>
+                                        <p className="card-text text-right">Gói công việc</p>
                                         <div className="fluid-container">
-                                            <h3 className="card-title font-weight-bold text-right mb-0">5693</h3>
+                                            <h3 className="card-title font-weight-bold text-right mb-0">{_package}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <p className="text-muted mt-3">
-                                    <i className="mdi mdi-calendar mr-1" aria-hidden="true"/> Weekly
-                                    Sales
+                                    <i className="mdi mdi-calendar mr-1" aria-hidden="true"/>
+                                    Gói công việc đã đăng
                                 </p>
                             </div>
                         </div>
@@ -86,104 +137,34 @@ class DashBoard extends PureComponent<Props, State> {
                                         <i className="mdi mdi-account-location text-info icon-lg"/>
                                     </div>
                                     <div className="float-right">
-                                        <p className="card-text text-right">Employees</p>
+                                        <p className="card-text text-right">Đặt hàng</p>
                                         <div className="fluid-container">
-                                            <h3 className="card-title font-weight-bold text-right mb-0">246</h3>
+                                            <h3 className="card-title font-weight-bold text-right mb-0">{order}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <p className="text-muted mt-3">
-                                    <i className="mdi mdi-reload mr-1" aria-hidden="true"/> Product-wise
-                                    sales
+                                    <i className="mdi mdi-reload mr-1" aria-hidden="true"/>
+                                    Gói công việc đã đặt hàng
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 grid-margin">
+                    <div className="col-lg-6 grid-margin stretch-card">
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title mb-4">Orders</h5>
-                                <div className="table-responsive">
-                                    <table className="table center-aligned-table">
-                                        <thead>
-                                        <tr>
-                                            <th className="border-bottom-0">Order No</th>
-                                            <th className="border-bottom-0">Product Name</th>
-                                            <th className="border-bottom-0">Purchased On</th>
-                                            <th className="border-bottom-0">Shipping Status</th>
-                                            <th className="border-bottom-0">Payment Method</th>
-                                            <th className="border-bottom-0">Payment Status</th>
-                                            <th className="border-bottom-0"></th>
-                                            <th className="border-bottom-0"></th>
-                                            <th className="border-bottom-0"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>034</td>
-                                            <td>Iphone 7</td>
-                                            <td>12 May 2017</td>
-                                            <td>Dispatched</td>
-                                            <td>Credit card</td>
-                                            <td><label className="badge badge-teal">Approved</label></td>
-                                            <td><a href="#" className="btn btn-outline-success btn-sm">View
-                                                Order</a></td>
-                                            <td><a href="#"
-                                                   className="btn btn-outline-danger btn-sm">Cancel</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>035</td>
-                                            <td>Galaxy S8</td>
-                                            <td>15 May 2017</td>
-                                            <td>Dispatched</td>
-                                            <td>Internet banking</td>
-                                            <td><label className="badge badge-warning">Pending</label></td>
-                                            <td><a href="#" className="btn btn-outline-success btn-sm">View
-                                                Order</a></td>
-                                            <td><a href="#"
-                                                   className="btn btn-outline-danger btn-sm">Cancel</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>036</td>
-                                            <td>Amazon Echo</td>
-                                            <td>17 May 2017</td>
-                                            <td>Dispatched</td>
-                                            <td>Credit card</td>
-                                            <td><label className="badge badge-teal">Approved</label></td>
-                                            <td><a href="#" className="btn btn-outline-success btn-sm">View
-                                                Order</a></td>
-                                            <td><a href="#"
-                                                   className="btn btn-outline-danger btn-sm">Cancel</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>037</td>
-                                            <td>Google Pixel</td>
-                                            <td>17 May 2017</td>
-                                            <td>Dispatched</td>
-                                            <td>Cash on delivery</td>
-                                            <td><label className="badge badge-danger">Rejected</label></td>
-                                            <td><a href="#" className="btn btn-outline-success btn-sm">View
-                                                Order</a></td>
-                                            <td><a href="#"
-                                                   className="btn btn-outline-danger btn-sm">Cancel</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>038</td>
-                                            <td>Mac Mini</td>
-                                            <td>19 May 2017</td>
-                                            <td>Dispatched</td>
-                                            <td>Debit card</td>
-                                            <td><label className="badge badge-teal">Approved</label></td>
-                                            <td><a href="#" className="btn btn-outline-success btn-sm">View
-                                                Order</a></td>
-                                            <td><a href="#"
-                                                   className="btn btn-outline-danger btn-sm">Cancel</a></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <h4 className="card-title">Việc freelance</h4>
+                                <Doughnut data={dataJob} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 grid-margin stretch-card">
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title">Gói công việc</h4>
+                                <Doughnut data={dataPackage} />
                             </div>
                         </div>
                     </div>

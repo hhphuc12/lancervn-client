@@ -14,3 +14,6 @@ export const ERROR_LIST_FREELANCER:               string = 'ERROR_LIST_FREELANCE
 export const REQUEST_FREELANCER_DETAIL:           string = 'REQUEST_FREELANCER_DETAIL';
 export const RECEIVED_FREELANCER_DETAIL:          string = 'RECEIVED_FREELANCER_DETAIL';
 export const ERROR_FREELANCER_DETAIL:             string = 'ERROR_FREELANCER_DETAIL';
+export const REQUEST_DASHBOARD_INFO:              string = 'REQUEST_DASHBOARD_INFO';
+export const RECEIVED_DASHBOARD_INFO:             string = 'RECEIVED_DASHBOARD_INFO';
+export const ERROR_DASHBOARD_INFO:                string = 'ERROR_DASHBOARD_INFO';

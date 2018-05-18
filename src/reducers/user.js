@@ -9,6 +9,9 @@ import {
     REQUEST_FREELANCER_DETAIL,
     RECEIVED_FREELANCER_DETAIL,
     ERROR_FREELANCER_DETAIL,
+    REQUEST_DASHBOARD_INFO,
+    RECEIVED_DASHBOARD_INFO,
+    ERROR_DASHBOARD_INFO,
 } from "../constants/userType";
 import moment from "moment/moment";
 
@@ -27,6 +30,7 @@ const initialState = {
     literacy: [],
     language:[],
     evaluate: [],
+    dashboardInfo: {},
 };
 
 const currentTime = moment().format();
@@ -120,6 +124,28 @@ export default function (
             };
 
         case ERROR_FREELANCER_DETAIL:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_DASHBOARD_INFO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_DASHBOARD_INFO:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                dashboardInfo: action && action.dashboardInfo ? action && action.dashboardInfo : initialState.dashboardInfo,
+            };
+
+        case ERROR_DASHBOARD_INFO:
             return {
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
