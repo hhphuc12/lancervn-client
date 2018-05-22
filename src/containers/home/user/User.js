@@ -89,7 +89,7 @@ class User extends PureComponent<Props, State> {
             <li className="media" key={index}>
                 <div className="media-left">
                     <Link to={`/freelancer/${f._id}`}>
-                        <img className="avatar" src={f.avatarUri} alt={f.name}/>
+                        <img className="avatar" src={f.avatarUri || '/images/faces/male-avatar.png'} alt={f.name}/>
                     </Link>
                 </div>
                 <div className="media-body">

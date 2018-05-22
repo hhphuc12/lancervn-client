@@ -30,19 +30,20 @@ class Main extends Component {
             history.push('/login');
     }
 
-    onLogout(e) {
+    onLogout = e => {
         e.preventDefault();
         this.props.actions.onLogout();
-    }
+        this.props.history.push('/login');
+    };
 
     checkUrl = str => {
         const url = window.location.href;
         return url.endsWith(str);
-    }
+    };
 
     render() {
-        const { avatarUri, firstName, lastName, occupation } = auth.getUserInfo();
-
+        let { avatarUri, firstName, lastName, occupation } = auth.getUserInfo();
+        avatarUri = avatarUri || '/images/faces/male-avatar.png';
 
         return (
             <div className="container-scroller">
