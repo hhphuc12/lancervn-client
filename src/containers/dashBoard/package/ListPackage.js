@@ -29,7 +29,7 @@ class ListJob extends PureComponent<Props, State> {
                 <td>{index + 1}</td>
                 <td style={{ maxWidth: '8rem' }}>{p.name}</td>
                 <td>{p.category}</td>
-                <td style={{ maxWidth: '12rem' }}>{p.expectedResult}</td>
+                <td style={{ maxWidth: '12rem' }}>{str30Format(p.expectedResult)}</td>
                 <td>{orders[index].length}</td>
                 <td className="text-right">
                     <Link to={`/dashboard/package-posted-detail/${p._id}`} className="btn btn-outline-success btn-sm">
