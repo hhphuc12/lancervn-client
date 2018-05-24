@@ -119,13 +119,13 @@ function errorJobFreelance(time = moment().format()) {
     };
 }
 
-export function getJobFreelanceIfNeed(id): (...any) => Promise<any> {
+export function getJobFreelanceIfNeed(): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
         getState: () => boolean,
     ): any => {
         if(shouldGetJobFreelance(getState())) {
-            return dispatch(getJobFreelance(id));
+            return dispatch(getJobFreelance());
         }
         return Promise.resolve('already fetching job freelance...');
     }
@@ -141,10 +141,10 @@ function shouldGetJobFreelance(
     return true;
 }
 
-function getJobFreelance(id) {
+function getJobFreelance() {
     return dispatch => {
         dispatch(requestJobFreelance());
-        jobFreelance(id)
+        jobFreelance()
             .then(res => {
                 if (res.status !== 200)
                     throw res;

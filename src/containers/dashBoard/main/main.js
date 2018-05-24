@@ -197,7 +197,7 @@ class Main extends Component {
                         </ul>
                         <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
                                 type="button" data-toggle="offcanvas">
-                            <span className="icon-menu"></span>
+                            <span className="icon-menu"/>
                         </button>
                     </div>
                 </nav>
@@ -218,10 +218,10 @@ class Main extends Component {
                                 </div>
                             </li>
                             <li className={`nav-item ${this.checkUrl('/dashboard') ? 'm-active' : 'm-unactive'}`}>
-                                <a className="nav-link" href="/dashboard">
+                                <Link className="nav-link" to="/dashboard">
                                     <img className="menu-icon" src="/images/menu_icons/01.png" alt="menu icon"/>
                                     <span className="menu-title">Dashboard</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className={`nav-item ${this.checkUrl('/dashboard/post-job') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/post-job">
@@ -236,22 +236,22 @@ class Main extends Component {
                                 </Link>
                             </li>
                             <li className={`nav-item ${this.checkUrl('/dashboard/job-sent-quotation') ? 'm-active' : 'm-unactive'}`}>
-                                <a className="nav-link" href="/dashboard/job-sent-quotation">
+                                <Link className="nav-link" to="/dashboard/job-sent-quotation">
                                     <img className="menu-icon" src="/images/menu_icons/02.png" alt="menu icon"/>
                                     <span className="menu-title">Việc đã gửi báo giá</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className={`nav-item ${this.checkUrl('/dashboard/post-package') ? 'm-active' : 'm-unactive'}`}>
-                                <a className="nav-link" href="/dashboard/post-package">
+                                <Link className="nav-link" to="/dashboard/post-package">
                                     <img className="menu-icon" src="/images/menu_icons/12.png" alt="menu icon"/>
                                     <span className="menu-title">Tạo gói công việc</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className={`nav-item ${this.checkUrl('/dashboard/packages') ? 'm-active' : 'm-unactive'}`}>
-                                <a className="nav-link" href="/dashboard/packages">
+                                <Link className="nav-link" to="/dashboard/packages">
                                     <img className="menu-icon" src="/images/menu_icons/07.png" alt="menu icon"/>
                                     <span className="menu-title">Gói công việc</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className={`nav-item ${this.checkUrl('/dashboard/info-profile') ? 'm-active' : 'm-unactive'}`}>
                                 <Link className="nav-link" to="/dashboard/info-profile">
