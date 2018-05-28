@@ -13,6 +13,9 @@ class User extends PureComponent<Props, State> {
         activeKey: ['0'],
         categorySelected: '',
         listFreelancer: [],
+        page: 1,
+        search: '',
+        category: '',
     };
 
     componentDidMount() {
@@ -21,9 +24,10 @@ class User extends PureComponent<Props, State> {
             getFullCategoryIfNeed,
             getListFreelancerIfNeed,
         } = this.props.actions;
+        const { page, search, category } = this.state;
         enterHomeUser();
         getFullCategoryIfNeed();
-        getListFreelancerIfNeed();
+        getListFreelancerIfNeed(page, search, category);
     }
 
     componentWillUnmount() {
@@ -43,21 +47,44 @@ class User extends PureComponent<Props, State> {
         });
     };
 
-    onCategoryChange = (id, name) => {
-        const { getListFreelancerIfNeed } = this.props.actions;
+    onSearch = async (
+        event: SyntheticEvent<>
+    ) => {
+        const search = event.target.value;
+        this.setState({ search });
+        if (event.key === 'Enter') {
+            this.fetchListFreelancer(null, null, search);
+        }
+    };
+
+    onCategoryChange =  async (id, name) => {
         if (id !== this.state.categorySelected) {
-            this.setState({ categorySelected: id });
-            getListFreelancerIfNeed(1, name);
+            await this.setState({ categorySelected: id, category: name });
+            this.fetchListFreelancer(null, name, null);
         }
         else {
             this.setState({ categorySelected: '' });
-            getListFreelancerIfNeed(1);
+        }
+    };
+
+    fetchListFreelancer = (_page, _category, _search) => {
+        const {getListFreelancerIfNeed, errorBadRequest} = this.props.actions;
+        try {
+            const page = _page || this.state.page;
+            const category = _category || this.state.category;
+            const search = _search || this.state.search;
+            getListFreelancerIfNeed(page, category, search);
+        } catch (error) {
+            errorBadRequest();
+            /* eslint-disable no-console */
+            console.log('get list freelancer went wrong..., error: ', error);
+            /* eslint-enable no-console */
         }
     };
 
     componentWillReceiveProps (nextProps) {
         if (nextProps.listFreelancer) {
-            this.setState({ listFreelancer: nextProps.listFreelancer });
+            this.setState({listFreelancer: nextProps.listFreelancer});
         }
     }
 
@@ -111,7 +138,7 @@ class User extends PureComponent<Props, State> {
                     <div className="media-cloud">
                         <span className="media-cloud-title">Dịch vụ cung cấp:</span>
                         {
-                            f.category.map((c, index) => (<span className="cloud-tag">{c}</span>))
+                            f.category.map((c, index) => (<span className="cloud-tag" key={index}>{c}</span>))
                         }
                     </div>
                     <div className="rating-wrap">
@@ -171,6 +198,23 @@ class User extends PureComponent<Props, State> {
                         </div>
                         <div className="col-md-8 col-lg-9">
                             <h3 className="home-content-title">Tất cả freelancer</h3>
+                            <div className="form-group">
+                                <div className="input-group">
+                                    <div className="input-group-prepend bg-primary border-primary">
+                                        <span className="input-group-text bg-transparent">
+                                            <i className="fa fa-search text-white"/>
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Nhập thông tin tìm kiếm"
+                                        aria-label="Tìm kiếm"
+                                        aria-describedby="colored-addon2"
+                                        onKeyPress={e => this.onSearch(e)}
+                                    />
+                                </div>
+                            </div>
                             <div className="media-list-wrap style-2">
                                 <ul className="media-list ">
                                     { freelancerJSX }
