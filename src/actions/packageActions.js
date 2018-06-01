@@ -115,13 +115,13 @@ function errorListPackages(time = moment().format()) {
     };
 }
 
-export function getListPackageIfNeed(page, categoryName): (...any) => Promise<any> {
+export function getListPackageIfNeed(page, price, category): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
         getState: () => boolean,
     ): any => {
         if(shouldGetListPackage(getState())) {
-            return dispatch(getListPackage(page, categoryName));
+            return dispatch(getListPackage(page, price, category));
         }
         return Promise.resolve('already fetching package freelance...');
     }
@@ -137,10 +137,10 @@ function shouldGetListPackage(
     return true;
 }
 
-function getListPackage(page, categoryName) {
+function getListPackage(page, price, category) {
     return dispatch => {
         dispatch(requestListPackages());
-        listPackage(page, categoryName)
+        listPackage(page, price, category)
             .then(res => {
                 if (res.status !== 200)
                     throw res;

@@ -9,8 +9,8 @@ export const postJobApi = (job, token) => {
     return request.post(url, { job }, token);
 };
 
-export const jobFreelance = (page, categoryName) => {
-    const url = `${API_URI}job-freelance?page=${page}&categoryName=${categoryName}`;
+export const jobFreelance = (page, price, category) => {
+    const url = `${API_URI}job-freelance?page=${page}&categoryName=${category}&price=${price}`;
     return request.get(url);
 };
 
