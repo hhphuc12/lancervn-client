@@ -2,6 +2,7 @@
 
 // #region imports
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 class Home extends PureComponent<Props, State> {
     componentDidMount() {
@@ -28,7 +29,8 @@ class Home extends PureComponent<Props, State> {
                                                 Sự thoải mái và hài lòng của khách hàng là tiêu chí hàng đầu của chúng tôi.<br/>
                                                 Mọi nhu cầu công việc của bạn đều được đáp ứng nhanh chóng, thao tác dễ dàng.
                                             </p>
-                                            <a href="#service" className="learn_more2">Tìm hiểu ngay</a></div>
+                                            <Link to="/dashboard/post-job" className="learn_more2" style={{ textDecoration:'none' }}>Đăng việc ngay</Link>
+                                        </div>
                                     </div>
                                     <div className="col-lg-7 col-sm-5"/>
                                 </div>

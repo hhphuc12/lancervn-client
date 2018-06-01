@@ -7,12 +7,15 @@ import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
 import { moneyFormater, dateFormatter } from '../../../helpers';
+import 'react-select/dist/react-select.css';
+import Select from 'react-select';
 
 class User extends PureComponent<Props, State> {
     state = {
         activeKey: ['0'],
         categorySelected: '',
         packages: [],
+        priceSelected: { label: 'Tất cả mức giá', value: '0-100000000' },
     };
 
     componentDidMount() {
@@ -23,7 +26,7 @@ class User extends PureComponent<Props, State> {
         } = this.props.actions;
         enterHomePackage();
         getFullCategoryIfNeed();
-        getListPackageIfNeed();
+        getListPackageIfNeed(1, this.state.priceSelected.value);
     }
 
     componentWillUnmount() {
@@ -47,11 +50,11 @@ class User extends PureComponent<Props, State> {
         const { getListPackageIfNeed } = this.props.actions;
         if (id !== this.state.categorySelected) {
             this.setState({ categorySelected: id });
-            getListPackageIfNeed(1, name);
+            getListPackageIfNeed(1, this.state.priceSelected.value, name);
         }
         else {
             this.setState({ categorySelected: '' });
-            getListPackageIfNeed(1);
+            getListPackageIfNeed(1, this.state.priceSelected.value);
         }
     };
 
@@ -61,10 +64,24 @@ class User extends PureComponent<Props, State> {
         }
     }
 
+    onSelectPrice = async value => {
+        await this.setState({ priceSelected: value});
+        this.props.actions.getListPackageIfNeed(1, this.state.priceSelected.value, this.state.categorySelected);
+    };
+
     render() {
         const { fullCategories } = this.props;
-        const { packages } = this.state;
-        console.log({ packages });
+        const { packages, priceSelected } = this.state;
+        const prices = [
+            { label: 'Tất cả mức giá', value: '0-100000000' },
+            { label: 'Dưới 500.000₫', value: '0-500000' },
+            { label: 'Từ 500.000₫ đến 1.000.000₫', value: '500000-1000000' },
+            { label: 'Từ 1.000.000₫ đến 2.000.000₫', value: '1000000-2000000' },
+            { label: 'Từ 1.000.000₫ đến 2.000.000₫', value: '1000000-2000000' },
+            { label: 'Từ 2.000.000₫ đến 3.000.000₫', value: '2000000-3000000' },
+            { label: 'Trên 3.000.000₫', value: '3000000-100000000' },
+        ];
+
         const categoriesJSX = fullCategories.map((cate, index) => {
             const childJSX = cate.child.map((child, i) => (
                 <div className="form-group" key={i}>
@@ -185,6 +202,18 @@ class User extends PureComponent<Props, State> {
                         </div>
                         <div className="col-md-8 col-lg-9">
                             <h3 className="home-content-title">Tất cả gói công việc</h3>
+                            <div className="form-group">
+                                <Select
+                                    id="price"
+                                    placeholder="Chọn mức giá"
+                                    closeOnSelect={true}
+                                    multi={false}
+                                    name="price"
+                                    value={priceSelected}
+                                    options={prices}
+                                    onChange={value => this.onSelectPrice(value)}
+                                />
+                            </div>
                             <div className="media-list-wrap style-2">
                                 <ul className="media-list">
                                     {packagesJSX}

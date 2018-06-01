@@ -103,13 +103,13 @@ function errorListFreelancer(time = moment().format()) {
     };
 }
 
-export function getListFreelancerIfNeed(page, categoryName): (...any) => Promise<any> {
+export function getListFreelancerIfNeed(page, categoryName, search): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
         getState: () => boolean,
     ): any => {
         if(shouldGetListFreelancer(getState())) {
-            return dispatch(getListFreelancer(page, categoryName));
+            return dispatch(getListFreelancer(page, categoryName, search));
         }
         return Promise.resolve('already fetching list freelancer...');
     }
@@ -125,10 +125,10 @@ function shouldGetListFreelancer(
     return true;
 }
 
-function getListFreelancer(page, categoryName) {
+function getListFreelancer(page, categoryName, search) {
     return dispatch => {
         dispatch(requestListFreelancer());
-        listFreelancer(page, categoryName)
+        listFreelancer(page, categoryName, search)
             .then(res => {
                 if (res.status !== 200)
                     return dispatch(errorBadRequest(res.status));

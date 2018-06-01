@@ -9,8 +9,8 @@ export const postPackageApi = (_package, token) => {
     return request.post(url, { _package }, token);
 };
 
-export const listPackage = (page, categoryName) => {
-    const url = `${API_URI}list-package?page=${page}&categoryName=${categoryName}`;
+export const listPackage = (page, price, category) => {
+    const url = `${API_URI}list-package?page=${page}&categoryName=${category}&price=${price}`;
     return request.get(url);
 };
 
