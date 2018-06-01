@@ -215,3 +215,12 @@ input[type="file"] {
 .m-unactive a span {
   color: #4A4949 !important;
 }
+
+.loading-wrapper {
+  text-align: center;
+}
+
+.home-loading {
+  height: 500px;
+  margin-top: 5rem;
+}

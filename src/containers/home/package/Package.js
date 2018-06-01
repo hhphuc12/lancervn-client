@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
-import { moneyFormater, dateFormatter } from '../../../helpers';
+import { moneyFormater } from '../../../helpers';
 import 'react-select/dist/react-select.css';
 import Select from 'react-select';
+import { MaterialProgress } from "../../../components";
 
 class User extends PureComponent<Props, State> {
     state = {
@@ -72,6 +73,13 @@ class User extends PureComponent<Props, State> {
     render() {
         const { fullCategories } = this.props;
         const { packages, priceSelected } = this.state;
+        if (fullCategories.length === 0 || packages.length === 0)
+            return (
+                <div className="container loading-wrapper home-loading">
+                    <MaterialProgress/>
+                </div>
+            );
+
         const prices = [
             { label: 'Tất cả mức giá', value: '0-100000000' },
             { label: 'Dưới 500.000₫', value: '0-500000' },
