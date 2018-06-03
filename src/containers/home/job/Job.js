@@ -157,7 +157,7 @@ class User extends PureComponent<Props, State> {
                             </div>
                             <div className="media-body">
                                 <h4 className="media-heading">{name}</h4>
-                                <p style={{ fontSize: '0.8rem' }}>{`${province}, VN | Đã đăng 1 việc`}</p>
+                                <p style={{ fontSize: '0.8rem' }}>{`${province}, VN`}</p>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@ class User extends PureComponent<Props, State> {
                             </li>
                             <li>
                                 <i className="mdi mdi-bullhorn"/>
-                                Số lượng báo giá: 2/20
+                                {`Số lượng báo giá: ${Math.floor((Math.random() * 4) + 1)}`}
                             </li>
                         </ul>
                         <div className="btn-quote-wrap">
