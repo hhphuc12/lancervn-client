@@ -35,6 +35,7 @@ const initialState = {
     orders: [],
     packageDetail: {},
     ordersDetail: [],
+    pages: 1,
 };
 
 const currentTime = moment().format();
@@ -80,6 +81,7 @@ export default function (
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
                 packages: action && action.packages ? action && action.packages : initialState.packages,
+                pages: action && action.pages ? action && action.pages : initialState.pages,
             };
 
         case ERROR_LIST_PACKAGE:

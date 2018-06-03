@@ -1,6 +1,12 @@
 // @flow weak
 import moment from 'moment';
-import { userCategory, listFreelancer, freelancerDetail, dashboardInfo } from '../services/api';
+import {
+    userCategory,
+    listFreelancer,
+    freelancerDetail,
+    dashboardInfo,
+    changePassword
+} from '../services/api';
 import {
     ERROR_USER_CATEGORY,
     RECEIVED_USER_CATEGORY,
@@ -14,6 +20,9 @@ import {
     REQUEST_DASHBOARD_INFO,
     RECEIVED_DASHBOARD_INFO,
     ERROR_DASHBOARD_INFO,
+    REQUEST_CHANGE_PASSWORD,
+    RECEIVED_CHANGE_PASSWORD,
+    ERROR_CHANGE_PASSWORD,
 } from "../constants/userType";
 import { errorBadRequest } from './errorActions';
 import auth from "../services/auth";
@@ -103,13 +112,13 @@ function errorListFreelancer(time = moment().format()) {
     };
 }
 
-export function getListFreelancerIfNeed(page, categoryName): (...any) => Promise<any> {
+export function getListFreelancerIfNeed(page, categoryName, search): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
         getState: () => boolean,
     ): any => {
         if(shouldGetListFreelancer(getState())) {
-            return dispatch(getListFreelancer(page, categoryName));
+            return dispatch(getListFreelancer(page, categoryName, search));
         }
         return Promise.resolve('already fetching list freelancer...');
     }
@@ -125,10 +134,10 @@ function shouldGetListFreelancer(
     return true;
 }
 
-function getListFreelancer(page, categoryName) {
+function getListFreelancer(page, categoryName, search) {
     return dispatch => {
         dispatch(requestListFreelancer());
-        listFreelancer(page, categoryName)
+        listFreelancer(page, categoryName, search)
             .then(res => {
                 if (res.status !== 200)
                     return dispatch(errorBadRequest(res.status));
@@ -259,6 +268,67 @@ function getDashboardInfo() {
             })
             .catch(error => {
                 dispatch(errorDashboardInfo(error));
+                dispatch(errorBadRequest(400));
+            });
+    };
+}
+
+function requestChangePass(time = moment().format()) {
+    return {
+        type:       REQUEST_CHANGE_PASSWORD,
+        isFetching: true,
+        time
+    };
+}
+function receivedChangePass(time = moment().format()) {
+    return {
+        type:       RECEIVED_CHANGE_PASSWORD,
+        isFetching: false,
+        time
+    };
+}
+function errorChangePass(time = moment().format()) {
+    return {
+        type:       ERROR_CHANGE_PASSWORD,
+        isFetching: false,
+        time
+    };
+}
+
+export function changePassIfNeed(passObj): (...any) => Promise<any> {
+    return (
+        dispatch: (any) => any,
+        getState: () => boolean,
+    ): any => {
+        if(shouldChangePassInfo(getState())) {
+            return dispatch(changePass(passObj));
+        }
+        return Promise.resolve('already changing password...');
+    }
+}
+
+function shouldChangePassInfo(
+    state: any
+): boolean {
+    const isFetching = state.user.isFetching;
+    if (isFetching) {
+        return false;
+    }
+    return true;
+}
+
+function changePass(passObj) {
+    return dispatch => {
+        dispatch(requestChangePass());
+        const userToken = auth.getToken();
+        changePassword(passObj, userToken)
+            .then(res => {
+                if (res.status !== 200)
+                    return dispatch(errorBadRequest(res.status));
+                dispatch(receivedChangePass(res.data));
+            })
+            .catch(error => {
+                dispatch(errorChangePass(error));
                 dispatch(errorBadRequest(400));
             });
     };

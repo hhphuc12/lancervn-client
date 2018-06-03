@@ -17,6 +17,8 @@ import {
     LEAVE_HOME_PACKAGE,
     ENTER_LOGIN_VIEW,
     LEAVE_LOGIN_VIEW,
+    ENTER_CHANGE_PASSWORD_VIEW,
+    LEAVE_CHANGE_PASSWORD_VIEW,
     ENTER_REGISTER_VIEW,
     LEAVE_REGISTER_VIEW,
     ENTER_DASHBOARD_VIEW,
@@ -222,6 +224,24 @@ export function leaveLogin(time: string = moment().format()) {
     return {
         type:         LEAVE_LOGIN_VIEW,
         currentView:  'Login',
+        enterTime:    null,
+        leaveTime:    time
+    };
+}
+
+export function enterChangePassword(time: string = moment().format()) {
+    return {
+        type:         ENTER_CHANGE_PASSWORD_VIEW,
+        currentView:  'ChangePassword',
+        enterTime:    time,
+        leaveTime:    null
+    };
+}
+
+export function leaveChangePassword(time: string = moment().format()) {
+    return {
+        type:         LEAVE_CHANGE_PASSWORD_VIEW,
+        currentView:  'ChangePassword',
         enterTime:    null,
         leaveTime:    time
     };

@@ -103,11 +103,12 @@ function requestJobFreelance(time = moment().format()) {
         time
     };
 }
-function receivedJobFreelance(jobFreelance, time = moment().format()) {
+function receivedJobFreelance(jobFreelance, pages, time = moment().format()) {
     return {
         type:       RECEIVED_JOB_FREELANCE,
         isFetching: false,
         jobFreelance,
+        pages,
         time
     };
 }
@@ -119,13 +120,13 @@ function errorJobFreelance(time = moment().format()) {
     };
 }
 
-export function getJobFreelanceIfNeed(id): (...any) => Promise<any> {
+export function getJobFreelanceIfNeed(page, price, category): (...any) => Promise<any> {
     return (
         dispatch: (any) => any,
         getState: () => boolean,
     ): any => {
         if(shouldGetJobFreelance(getState())) {
-            return dispatch(getJobFreelance(id));
+            return dispatch(getJobFreelance(page, price, category));
         }
         return Promise.resolve('already fetching job freelance...');
     }
@@ -141,14 +142,14 @@ function shouldGetJobFreelance(
     return true;
 }
 
-function getJobFreelance(id) {
+function getJobFreelance(page, price, category) {
     return dispatch => {
         dispatch(requestJobFreelance());
-        jobFreelance(id)
+        jobFreelance(page, price, category)
             .then(res => {
                 if (res.status !== 200)
                     throw res;
-                dispatch(receivedJobFreelance(res.data.docs));
+                dispatch(receivedJobFreelance(res.data.docs, res.data.pages));
             })
             .catch(res => {
                 dispatch(errorJobFreelance(res.error.message));

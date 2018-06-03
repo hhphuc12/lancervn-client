@@ -2,6 +2,7 @@
 
 import React, {PureComponent} from 'react';
 import { Link } from 'react-router-dom';
+import { MaterialProgress } from "../../../components";
 
 class JobSentQuotation extends PureComponent<Props, State> {
     componentDidMount() {
@@ -20,7 +21,15 @@ class JobSentQuotation extends PureComponent<Props, State> {
     }
 
     render() {
-        const quotationsJSX = this.props.jobSentQuotation.map((q, index) => (
+        const { jobSentQuotation } = this.props;
+        if (jobSentQuotation.length === 0)
+            return (
+                <div className="content-wrapper loading-wrapper">
+                    <MaterialProgress/>
+                </div>
+            );
+
+        const quotationsJSX = jobSentQuotation.map((q, index) => (
             <tr key={index}>
                 <td>{index + 1}</td>
                 <td style={{ maxWidth: '8rem' }}>{q.job.name}</td>

@@ -2,6 +2,7 @@
 
 // #region imports
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 class Home extends PureComponent<Props, State> {
     componentDidMount() {
@@ -28,7 +29,8 @@ class Home extends PureComponent<Props, State> {
                                                 Sự thoải mái và hài lòng của khách hàng là tiêu chí hàng đầu của chúng tôi.<br/>
                                                 Mọi nhu cầu công việc của bạn đều được đáp ứng nhanh chóng, thao tác dễ dàng.
                                             </p>
-                                            <a href="#service" className="learn_more2">Tìm hiểu ngay</a></div>
+                                            <Link to="/dashboard/post-job" className="learn_more2" style={{ textDecoration:'none' }}>Đăng việc ngay</Link>
+                                        </div>
                                     </div>
                                     <div className="col-lg-7 col-sm-5"/>
                                 </div>
@@ -101,14 +103,16 @@ class Home extends PureComponent<Props, State> {
                                             </div>
                                         </div>
                                         <div className="service-list">
-                                            <div className="service-list-col1"><i className="mdi mdi-image-filter-vintage"/></div>
+                                            <div className="service-list-col1">
+                                                <i className="mdi mdi-image-filter-vintage"/>
+                                            </div>
                                             <div className="service-list-col2">
                                                 <h3>Nâng cấp VIP</h3>
                                                 <p>Hưởng những dịch vụ và ưu đãi cực tốt với các gói VIP.</p>
                                             </div>
                                         </div>
                                         <div className="work_bottom"><span>Bạn đã sẵn sàng?</span>
-                                            <a href="#contact" className="contact_btn">Đăng ký ngay</a>
+                                            <a href="/register" className="contact_btn">Đăng ký ngay</a>
                                         </div>
                                     </div>
                                     <figure className="col-lg-6 col-sm-6  text-right wow fadeInUp delay-02s"/>
@@ -408,65 +412,65 @@ class Home extends PureComponent<Props, State> {
                         </ul>
                     </div>
                 </div>
-                <section className="main-section team" id="team">
-                    <div className="container">
-                        <h2>Amazing Team</h2>
-                        <h6>Take a closer look into our amazing team. We won’t bite.</h6>
-                        <div className="team-leader-block clearfix">
-                            <div className="team-leader-box">
-                                <div className="team-leader wow fadeInDown delay-03s">
-                                    <div className="team-leader-shadow"><a href="javascript:void(0)"/></div>
-                                    <img src="/img/team-leader-pic1.jpg" alt=""/>
-                                        <ul>
-                                            <li><a href="javascript:void(0)" className="fa-twitter"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-facebook"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-pinterest"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-google-plus"/></li>
-                                        </ul>
-                                </div>
-                                <h3 className="wow fadeInDown delay-03s">Walter White</h3>
-                                <span className="wow fadeInDown delay-03s">Chief Executive Officer</span>
-                                <p className="wow fadeInDown delay-03s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin
-                                    consequat.</p>
-                            </div>
-                            <div className="team-leader-box">
-                                <div className="team-leader  wow fadeInDown delay-06s">
-                                    <div className="team-leader-shadow"><a href="javascript:void(0)"/></div>
-                                    <img src="/img/team-leader-pic2.jpg" alt=""/>
-                                        <ul>
-                                            <li><a href="javascript:void(0)" className="fa-twitter"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-facebook"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-pinterest"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-google-plus"/></li>
-                                        </ul>
-                                </div>
-                                <h3 className="wow fadeInDown delay-06s">Jesse Pinkman</h3>
-                                <span className="wow fadeInDown delay-06s">Product Manager</span>
-                                <p className="wow fadeInDown delay-06s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin
-                                    consequat.</p>
-                            </div>
-                            <div className="team-leader-box">
-                                <div className="team-leader wow fadeInDown delay-09s">
-                                    <div className="team-leader-shadow"><a href="javascript:void(0)"/></div>
-                                    <img src="/img/team-leader-pic3.jpg" alt=""/>
-                                        <ul>
-                                            <li><a href="javascript:void(0)" className="fa-twitter"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-facebook"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-pinterest"/></li>
-                                            <li><a href="javascript:void(0)" className="fa-google-plus"/></li>
-                                        </ul>
-                                </div>
-                                <h3 className="wow fadeInDown delay-09s">Skyler white</h3>
-                                <span className="wow fadeInDown delay-09s">Accountant</span>
-                                <p className="wow fadeInDown delay-09s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin
-                                    consequat.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {/*<section className="main-section team" id="team">*/}
+                    {/*<div className="container">*/}
+                        {/*<h2>Amazing Team</h2>*/}
+                        {/*<h6>Take a closer look into our amazing team. We won’t bite.</h6>*/}
+                        {/*<div className="team-leader-block clearfix">*/}
+                            {/*<div className="team-leader-box">*/}
+                                {/*<div className="team-leader wow fadeInDown delay-03s">*/}
+                                    {/*<div className="team-leader-shadow"><a href="javascript:void(0)"/></div>*/}
+                                    {/*<img src="/img/team-leader-pic1.jpg" alt=""/>*/}
+                                        {/*<ul>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-twitter"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-facebook"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-pinterest"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-google-plus"/></li>*/}
+                                        {/*</ul>*/}
+                                {/*</div>*/}
+                                {/*<h3 className="wow fadeInDown delay-03s">Walter White</h3>*/}
+                                {/*<span className="wow fadeInDown delay-03s">Chief Executive Officer</span>*/}
+                                {/*<p className="wow fadeInDown delay-03s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.*/}
+                                    {/*Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin*/}
+                                    {/*consequat.</p>*/}
+                            {/*</div>*/}
+                            {/*<div className="team-leader-box">*/}
+                                {/*<div className="team-leader  wow fadeInDown delay-06s">*/}
+                                    {/*<div className="team-leader-shadow"><a href="javascript:void(0)"/></div>*/}
+                                    {/*<img src="/img/team-leader-pic2.jpg" alt=""/>*/}
+                                        {/*<ul>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-twitter"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-facebook"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-pinterest"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-google-plus"/></li>*/}
+                                        {/*</ul>*/}
+                                {/*</div>*/}
+                                {/*<h3 className="wow fadeInDown delay-06s">Jesse Pinkman</h3>*/}
+                                {/*<span className="wow fadeInDown delay-06s">Product Manager</span>*/}
+                                {/*<p className="wow fadeInDown delay-06s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.*/}
+                                    {/*Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin*/}
+                                    {/*consequat.</p>*/}
+                            {/*</div>*/}
+                            {/*<div className="team-leader-box">*/}
+                                {/*<div className="team-leader wow fadeInDown delay-09s">*/}
+                                    {/*<div className="team-leader-shadow"><a href="javascript:void(0)"/></div>*/}
+                                    {/*<img src="/img/team-leader-pic3.jpg" alt=""/>*/}
+                                        {/*<ul>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-twitter"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-facebook"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-pinterest"/></li>*/}
+                                            {/*<li><a href="javascript:void(0)" className="fa-google-plus"/></li>*/}
+                                        {/*</ul>*/}
+                                {/*</div>*/}
+                                {/*<h3 className="wow fadeInDown delay-09s">Skyler white</h3>*/}
+                                {/*<span className="wow fadeInDown delay-09s">Accountant</span>*/}
+                                {/*<p className="wow fadeInDown delay-09s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.*/}
+                                    {/*Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin*/}
+                                    {/*consequat.</p>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                {/*</section>*/}
             </div>
         );
     }

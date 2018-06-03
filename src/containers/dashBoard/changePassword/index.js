@@ -3,19 +3,14 @@
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
 import * as viewsActions      from '../../../actions/viewAction';
-import * as categoryActions   from '../../../actions/categoryActions';
-import * as packageActions    from '../../../actions/packageActions';
-import Package                from './Package';
+import * as userActions       from '../../../actions/userActions';
+import ChangePassword         from './ChangePassword';
 import * as errorActions      from "../../../actions/errorActions";
 
 const mapStateToProps = (state) => {
     return {
         // containers:
         currentView:  state.views.currentView,
-
-        fullCategories: state.category.fullCategories,
-        packages: state._package.packages,
-        pages: state._package.pages,
     };
 };
 
@@ -24,8 +19,7 @@ const mapDispatchToProps = (dispatch) => {
         actions : bindActionCreators(
             {
                 ...viewsActions,
-                ...categoryActions,
-                ...packageActions,
+                ...userActions,
                 ...errorActions,
             },
             dispatch
@@ -36,4 +30,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Package);
+)(ChangePassword);

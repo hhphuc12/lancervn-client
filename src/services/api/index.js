@@ -46,6 +46,7 @@ import {
     listFreelancer,
     freelancerDetail,
     dashboardInfo,
+    changePassword,
 }                                       from './user';
 import {
     postPackageApi,
@@ -132,4 +133,5 @@ export {
     packageOrderedDetail,
     postEvaluateApi,
     dashboardInfo,
+    changePassword,
 }

@@ -185,7 +185,7 @@ class Detail extends PureComponent<Props, State> {
                                                 process.map((p, index) => (
                                                     <div className="step" key={index}>
                                                         <div>
-                                                            <div className="circle">{index}</div>
+                                                            <div className="circle">{index + 1}</div>
                                                             <div className="line"/>
                                                         </div>
                                                         <div className="step-item">

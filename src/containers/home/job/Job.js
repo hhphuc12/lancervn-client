@@ -7,12 +7,17 @@ import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
 import { moneyFormater, dateFormatter } from '../../../helpers';
+import 'react-select/dist/react-select.css';
+import Select from 'react-select';
+import { MaterialProgress } from "../../../components";
+import ReactPaginate from 'react-paginate';
 
 class User extends PureComponent<Props, State> {
     state = {
         activeKey: ['0'],
         categorySelected: '',
         jobFreelance: [],
+        priceSelected: { label: 'Tất cả mức giá', value: '0-100000000' },
     };
 
     componentDidMount() {
@@ -23,7 +28,7 @@ class User extends PureComponent<Props, State> {
         } = this.props.actions;
         enterHomeJob();
         getFullCategoryIfNeed();
-        getJobFreelanceIfNeed();
+        getJobFreelanceIfNeed(1, this.state.priceSelected.value);
     }
 
     componentWillUnmount() {
@@ -47,11 +52,11 @@ class User extends PureComponent<Props, State> {
         const { getJobFreelanceIfNeed } = this.props.actions;
         if (id !== this.state.categorySelected) {
             this.setState({ categorySelected: id });
-            getJobFreelanceIfNeed(1, name);
+            getJobFreelanceIfNeed(1, this.state.priceSelected.value, name);
         }
         else {
             this.setState({ categorySelected: '' });
-            getJobFreelanceIfNeed(1);
+            getJobFreelanceIfNeed(1, this.state.priceSelected.value);
         }
     };
 
@@ -61,9 +66,36 @@ class User extends PureComponent<Props, State> {
         }
     }
 
+    onSelectPrice = async value => {
+        await this.setState({ priceSelected: value});
+        this.props.actions.getJobFreelanceIfNeed(1, this.state.priceSelected.value, this.state.categorySelected);
+    };
+
+    handlePageClick = data => {
+        const page = data.selected + 1;
+        this.props.actions.getJobFreelanceIfNeed(page, this.state.priceSelected.value);
+        window.scrollTo(0, 300);
+    };
+
     render() {
-        const { fullCategories } = this.props;
-        const { jobFreelance } = this.state;
+        const { fullCategories, pages } = this.props;
+        const { jobFreelance, priceSelected } = this.state;
+        if (fullCategories.length === 0 || jobFreelance.length === 0)
+            return (
+                <div className="container loading-wrapper home-loading">
+                    <MaterialProgress/>
+                </div>
+            );
+
+        const prices = [
+            { label: 'Tất cả mức giá', value: '0-100000000' },
+            { label: 'Dưới 500.000₫', value: '0-500000' },
+            { label: 'Từ 500.000₫ đến 1.000.000₫', value: '500000-1000000' },
+            { label: 'Từ 1.000.000₫ đến 2.000.000₫', value: '1000000-2000000' },
+            { label: 'Từ 1.000.000₫ đến 2.000.000₫', value: '1000000-2000000' },
+            { label: 'Từ 2.000.000₫ đến 3.000.000₫', value: '2000000-3000000' },
+            { label: 'Trên 3.000.000₫', value: '3000000-100000000' },
+        ];
         const categoriesJSX = fullCategories.map((cate, index) => {
             const childJSX = cate.child.map((child, i) => (
                 <div className="form-group" key={i}>
@@ -89,7 +121,7 @@ class User extends PureComponent<Props, State> {
             const { avatarUri, name, province } = j.userPost;
             return (
                 <li className="media media-featured" key={index}>
-                    <div className="text-featured">Được tài trợ</div>
+                    {/*<div className="text-featured">Được tài trợ</div>*/}
                     <div className="media-body">
                         <h4 className="media-heading item-title">
                             <Link to={`/job-freelance/${j._id}`}>
@@ -200,10 +232,35 @@ class User extends PureComponent<Props, State> {
                         </div>
                         <div className="col-md-8 col-lg-9">
                             <h3 className="home-content-title">Tất cả việc freelance</h3>
+                            <div className="form-group">
+                                <Select
+                                    id="price"
+                                    placeholder="Chọn mức giá"
+                                    closeOnSelect={true}
+                                    multi={false}
+                                    name="price"
+                                    value={priceSelected}
+                                    options={prices}
+                                    onChange={value => this.onSelectPrice(value)}
+                                />
+                            </div>
                             <div className="media-list-wrap style-2">
                                 <ul className="media-list">
                                     {jobFreelanceJSX}
                                 </ul>
+                                <ReactPaginate
+                                    previousLabel={"<"}
+                                    nextLabel={">"}
+                                    breakLabel={<a href="">...</a>}
+                                    breakClassName={"break-me"}
+                                    pageCount={pages}
+                                    marginPagesDisplayed={1}
+                                    pageRangeDisplayed={2}
+                                    onPageChange={this.handlePageClick}
+                                    containerClassName={"pagination"}
+                                    subContainerClassName={"pages pagination"}
+                                    activeClassName={"active"}
+                                />
                             </div>
                         </div>
                     </div>

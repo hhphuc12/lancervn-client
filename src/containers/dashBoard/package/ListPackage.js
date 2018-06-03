@@ -3,6 +3,7 @@
 import React, {PureComponent} from 'react';
 import { Link } from 'react-router-dom';
 import { str30Format, moneyFormater } from "../../../helpers";
+import { MaterialProgress } from "../../../components";
 
 class ListJob extends PureComponent<Props, State> {
     componentDidMount() {
@@ -24,6 +25,13 @@ class ListJob extends PureComponent<Props, State> {
 
     render() {
         const { packageOrdered, orders, packagePosted } = this.props;
+        if (packageOrdered.length === 0 || orders.length === 0 || packagePosted.length === 0)
+            return (
+                <div className="content-wrapper loading-wrapper">
+                    <MaterialProgress/>
+                </div>
+            );
+
         const packagePostedJSX = packagePosted.map((p, index) => (
             <tr key={index}>
                 <td>{index + 1}</td>
