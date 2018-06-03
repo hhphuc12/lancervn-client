@@ -46,9 +46,9 @@ class Home extends PureComponent<Props, State> {
                                     <li><Link to="/freelancers">TÌM FREELANCER</Link></li>
                                     <li><Link to="/jobs-freelance">TÌM VIỆC FREELANCE</Link></li>
                                     <li><Link to="/packages">GÓI CÔNG VIỆC</Link></li>
-                                    { !isAuthenticated ? (<li style={{ marginRight: 0 }}><a href="/login">Đăng nhập</a></li>) : null }
+                                    { !isAuthenticated ? (<li style={{ marginRight: 0 }}><Link to="/login">Đăng nhập</Link></li>) : null }
                                     { !isAuthenticated ? (<span> | </span>) : null }
-                                    { !isAuthenticated ? (<li style={{ marginLeft: 0 }}><a href="/register">Đăng ký</a></li>) : null }
+                                    { !isAuthenticated ? (<li style={{ marginLeft: 0 }}><Link to="/register">Đăng ký</Link></li>) : null }
                                 </ul>
                                 { isAuthenticated ? (
                                     <div className="dropdown">

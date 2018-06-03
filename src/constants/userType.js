@@ -17,3 +17,6 @@ export const ERROR_FREELANCER_DETAIL:             string = 'ERROR_FREELANCER_DET
 export const REQUEST_DASHBOARD_INFO:              string = 'REQUEST_DASHBOARD_INFO';
 export const RECEIVED_DASHBOARD_INFO:             string = 'RECEIVED_DASHBOARD_INFO';
 export const ERROR_DASHBOARD_INFO:                string = 'ERROR_DASHBOARD_INFO';
+export const REQUEST_CHANGE_PASSWORD:             string = 'REQUEST_CHANGE_PASSWORD';
+export const RECEIVED_CHANGE_PASSWORD:            string = 'RECEIVED_CHANGE_PASSWORD';
+export const ERROR_CHANGE_PASSWORD:               string = 'ERROR_CHANGE_PASSWORD';

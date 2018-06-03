@@ -42,6 +42,7 @@ const initialState = {
     isQuotationBrowsered: false,
     quotationBrowsered: {},
     evaluate: {},
+    pages: 1,
 };
 
 const currentTime = moment().format();
@@ -87,6 +88,7 @@ export default function (
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
                 jobFreelance: action && action.jobFreelance ? action && action.jobFreelance : initialState.jobFreelance,
+                pages: action && action.pages ? action && action.pages : initialState.pages,
             };
 
         case ERROR_JOB_FREELANCE:

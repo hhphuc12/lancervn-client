@@ -103,14 +103,16 @@ class Home extends PureComponent<Props, State> {
                                             </div>
                                         </div>
                                         <div className="service-list">
-                                            <div className="service-list-col1"><i className="mdi mdi-image-filter-vintage"/></div>
+                                            <div className="service-list-col1">
+                                                <i className="mdi mdi-image-filter-vintage"/>
+                                            </div>
                                             <div className="service-list-col2">
                                                 <h3>Nâng cấp VIP</h3>
                                                 <p>Hưởng những dịch vụ và ưu đãi cực tốt với các gói VIP.</p>
                                             </div>
                                         </div>
                                         <div className="work_bottom"><span>Bạn đã sẵn sàng?</span>
-                                            <a href="#contact" className="contact_btn">Đăng ký ngay</a>
+                                            <a href="/register" className="contact_btn">Đăng ký ngay</a>
                                         </div>
                                     </div>
                                     <figure className="col-lg-6 col-sm-6  text-right wow fadeInUp delay-02s"/>
