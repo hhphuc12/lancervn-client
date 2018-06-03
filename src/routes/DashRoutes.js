@@ -17,6 +17,7 @@ import JobSentQuotation         from '../containers/dashBoard/jobSentQuotation';
 import Package                  from '../containers/dashBoard/package';
 import PackagePostedDetail      from '../containers/dashBoard/package/postedDetail';
 import PackageOrderedDetail     from '../containers/dashBoard/package/orderedDetail';
+import ChangePassword           from '../containers/dashBoard/changePassword';
 import PageNotFound             from '../containers/pageNotFound';
 
 const DashRoutes = () => (
@@ -33,6 +34,7 @@ const DashRoutes = () => (
         <Route path='/dashboard/job-sent-quotation' component={JobSentQuotation} />
         <Route path='/dashboard/package-posted-detail/:id' component={PackagePostedDetail} />
         <Route path='/dashboard/package-ordered-detail/:id' component={PackageOrderedDetail} />
+        <Route path='/dashboard/change-password' component={ChangePassword} />
         <Route component={PageNotFound} />
     </Switch>
 );

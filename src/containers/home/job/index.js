@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
 
         fullCategories: state.category.fullCategories,
         jobFreelance: state.job.jobFreelance,
+        pages: state.job.pages,
     };
 };
 

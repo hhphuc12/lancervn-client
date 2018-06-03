@@ -99,11 +99,12 @@ function requestListPackages(time = moment().format()) {
         time
     };
 }
-function receivedListPackages(packages, time = moment().format()) {
+function receivedListPackages(packages, pages, time = moment().format()) {
     return {
         type:       RECEIVED_LIST_PACKAGE,
         isFetching: false,
         packages,
+        pages,
         time
     };
 }
@@ -144,7 +145,7 @@ function getListPackage(page, price, category) {
             .then(res => {
                 if (res.status !== 200)
                     throw res;
-                dispatch(receivedListPackages(res.data.docs));
+                dispatch(receivedListPackages(res.data.docs, res.data.pages));
             })
             .catch(res => {
                 dispatch(errorListPackages(res.error.message));

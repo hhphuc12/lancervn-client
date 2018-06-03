@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'pretty-checkbox/dist/pretty-checkbox.css';
-import { moneyFormater, dateFormatter } from '../../../helpers';
+import { moneyFormater } from '../../../helpers';
 import 'react-select/dist/react-select.css';
 import Select from 'react-select';
+import { MaterialProgress } from "../../../components";
+import ReactPaginate from 'react-paginate';
 
 class User extends PureComponent<Props, State> {
     state = {
@@ -69,9 +71,22 @@ class User extends PureComponent<Props, State> {
         this.props.actions.getListPackageIfNeed(1, this.state.priceSelected.value, this.state.categorySelected);
     };
 
+    handlePageClick = data => {
+        const page = data.selected + 1;
+        this.props.actions.getListPackageIfNeed(page, this.state.priceSelected.value);
+        window.scrollTo(0, 300);
+    };
+
     render() {
-        const { fullCategories } = this.props;
+        const { fullCategories, pages } = this.props;
         const { packages, priceSelected } = this.state;
+        if (fullCategories.length === 0 || packages.length === 0)
+            return (
+                <div className="container loading-wrapper home-loading">
+                    <MaterialProgress/>
+                </div>
+            );
+
         const prices = [
             { label: 'Tất cả mức giá', value: '0-100000000' },
             { label: 'Dưới 500.000₫', value: '0-500000' },
@@ -107,7 +122,7 @@ class User extends PureComponent<Props, State> {
             const { avatarUri, name, province } = p.userPost;
             return (
                 <li className="media media-featured" key={index}>
-                    <div className="text-featured">Được tài trợ</div>
+                    {/*<div className="text-featured">Được tài trợ</div>*/}
                     <div className="media-body">
                         <h4 className="media-heading item-title">
                             <Link to={`/package/${p._id}`}>
@@ -218,6 +233,19 @@ class User extends PureComponent<Props, State> {
                                 <ul className="media-list">
                                     {packagesJSX}
                                 </ul>
+                                <ReactPaginate
+                                    previousLabel={"<"}
+                                    nextLabel={">"}
+                                    breakLabel={<a href="">...</a>}
+                                    breakClassName={"break-me"}
+                                    pageCount={pages}
+                                    marginPagesDisplayed={1}
+                                    pageRangeDisplayed={2}
+                                    onPageChange={this.handlePageClick}
+                                    containerClassName={"pagination"}
+                                    subContainerClassName={"pages pagination"}
+                                    activeClassName={"active"}
+                                />
                             </div>
                         </div>
                     </div>

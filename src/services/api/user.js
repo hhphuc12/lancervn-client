@@ -18,3 +18,8 @@ export const dashboardInfo = token => {
     const url = `${API_URI}dashboard-info`;
     return request.get(url, token);
 };
+
+export const changePassword = (passObj, token) => {
+    const url = `${API_URI}change-password`;
+    return request.post(url, { passObj }, token);
+};

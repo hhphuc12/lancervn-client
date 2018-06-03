@@ -12,6 +12,9 @@ import {
     REQUEST_DASHBOARD_INFO,
     RECEIVED_DASHBOARD_INFO,
     ERROR_DASHBOARD_INFO,
+    REQUEST_CHANGE_PASSWORD,
+    RECEIVED_CHANGE_PASSWORD,
+    ERROR_CHANGE_PASSWORD,
 } from "../constants/userType";
 import moment from "moment/moment";
 
@@ -31,6 +34,7 @@ const initialState = {
     language:[],
     evaluate: [],
     dashboardInfo: {},
+    isPasswordChanged: false,
 };
 
 const currentTime = moment().format();
@@ -150,6 +154,29 @@ export default function (
                 ...state,
                 actionTime: action && action.time ?  action && action.time : currentTime,
                 isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+            };
+
+        case REQUEST_CHANGE_PASSWORD:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching
+            };
+
+        case RECEIVED_CHANGE_PASSWORD:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching: action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isPasswordChanged: true,
+            };
+
+        case ERROR_CHANGE_PASSWORD:
+            return {
+                ...state,
+                actionTime: action && action.time ?  action && action.time : currentTime,
+                isFetching:  action && action.isFetching ?  action && action.isFetching : initialState.isFetching,
+                isPasswordChanged: false,
             };
 
         default:

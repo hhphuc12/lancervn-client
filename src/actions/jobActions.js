@@ -103,11 +103,12 @@ function requestJobFreelance(time = moment().format()) {
         time
     };
 }
-function receivedJobFreelance(jobFreelance, time = moment().format()) {
+function receivedJobFreelance(jobFreelance, pages, time = moment().format()) {
     return {
         type:       RECEIVED_JOB_FREELANCE,
         isFetching: false,
         jobFreelance,
+        pages,
         time
     };
 }
@@ -148,7 +149,7 @@ function getJobFreelance(page, price, category) {
             .then(res => {
                 if (res.status !== 200)
                     throw res;
-                dispatch(receivedJobFreelance(res.data.docs));
+                dispatch(receivedJobFreelance(res.data.docs, res.data.pages));
             })
             .catch(res => {
                 dispatch(errorJobFreelance(res.error.message));
