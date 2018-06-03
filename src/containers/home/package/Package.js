@@ -80,13 +80,6 @@ class User extends PureComponent<Props, State> {
     render() {
         const { fullCategories, pages } = this.props;
         const { packages, priceSelected } = this.state;
-        if (fullCategories.length === 0 || packages.length === 0)
-            return (
-                <div className="container loading-wrapper home-loading">
-                    <MaterialProgress/>
-                </div>
-            );
-
         const prices = [
             { label: 'Tất cả mức giá', value: '0-100000000' },
             { label: 'Dưới 500.000₫', value: '0-500000' },

@@ -92,13 +92,6 @@ class User extends PureComponent<Props, State> {
     render() {
         const { fullCategories } = this.props;
         const { listFreelancer } = this.state;
-        if (fullCategories.length === 0 || listFreelancer.length === 0)
-            return (
-                <div className="container loading-wrapper home-loading">
-                    <MaterialProgress/>
-                </div>
-            );
-
         const categoriesJSX = fullCategories.map((cate, index) => {
             const childJSX = cate.child.map((child, i) => (
                 <div className="form-group" key={i}>
